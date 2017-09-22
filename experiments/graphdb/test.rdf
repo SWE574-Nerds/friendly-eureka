@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:oa="http://www.w3.org/ns/oa#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+
+
+
+
+  <rdf:Description rdf:about="http://example.org/anno9">
+    <oa:hasTarget rdf:resource="http://example.org/image1"/>
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/Annotation"/>
+    <oa:hasBody rdf:resource="http://example.org/description1"/>
+    <oa:hasBody rdf:nodeID="N5de26382776e466abcf20f9daf2263bc"/>
+    <oa:hasTarget rdf:resource="http://example.org/image2"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5de26382776e466abcf20f9daf2263bc">
+    <rdf:value>tag1</rdf:value>
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/TextualBody"/>
+  </rdf:Description>
+
+
+  <rdf:Description rdf:about="http://example.org/anno3">
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/Annotation"/>
+    <oa:hasTarget rdf:resource="http://example.org/website1"/>
+    <oa:hasBody rdf:resource="http://example.org/video1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/video1">
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/Video"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/website1">
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/Text"/>
+  </rdf:Description>
+
+
+</rdf:RDF>
