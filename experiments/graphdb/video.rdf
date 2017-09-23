@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:oa="http://www.w3.org/ns/oa#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:schema="http://schema.org/"
+>
+  <rdf:Description rdf:about="http://example.com/video1">
+    <schema:accessibilityFeature>captions</schema:accessibilityFeature>
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/Video"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/anno14">
+    <oa:hasTarget rdf:resource="http://example.com/video1"/>
+    <rdf:type rdf:resource="file:///base/data/home/apps/s%7Erdf-translator/1.380697414950152317/Annotation"/>
+    <oa:hasBody rdf:resource="http://example.net/comment1"/>
+    <oa:motivatedBy rdf:resource="http://www.w3.org/ns/oa#commenting"/>
+  </rdf:Description>
+</rdf:RDF>
