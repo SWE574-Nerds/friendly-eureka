@@ -1,0 +1,19 @@
+version: '2'
+services:
+  pyapp:
+    build:
+      context: ./backend/eureka
+    ports:
+     - "8000:8000"
+    volumes:
+     - ./backend/eureka:/code
+
+
+  postgres:
+    image: "postgres"
+    ports:
+     - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
