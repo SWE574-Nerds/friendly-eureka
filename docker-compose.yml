@@ -7,7 +7,14 @@ services:
      - "8000:8000"
     volumes:
      - ./backend/eureka:/code
-
+    environment:
+      POSTGRES_PASS: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_NAME: postgres
+    depends_on:
+    - "postgres"
 
   postgres:
     image: "postgres"
