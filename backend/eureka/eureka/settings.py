@@ -73,17 +73,26 @@ WSGI_APPLICATION = 'eureka.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_NAME', 'postgres'),
-        'HOST': os.getenv('POSTGRES_HOST', 'postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASS', 'postgres'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432')
-    }
-}
+dbObject = {}
+if os.getenv('DOCKER_CONTAINER', 'false') == 'false': # Running locally
+  dbObject = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+  }
+else:
+  dbObject = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': os.getenv('POSTGRES_NAME', 'postgres'),
+    'HOST': os.getenv('POSTGRES_HOST', 'postgres'),
+    'PASSWORD': os.getenv('POSTGRES_PASS', 'postgres'),
+    'USER': os.getenv('POSTGRES_USER', 'postgres'),
+    'PORT': os.getenv('POSTGRES_PORT', '5432')
+  }
 
+
+DATABASES = {
+  'default': dbObject
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
