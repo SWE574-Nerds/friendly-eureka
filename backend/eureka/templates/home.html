@@ -1,0 +1,30 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %} Anasayfa - {{ block.super }} {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <!-- <div class="row" style="margin-bottom:30px">
+            <div class="col-md-3 col-sm-6" style="background-color:red; height:100px">1.product </div>
+            <div class="col-md-3 col-sm-6" style="background-color:grey; height:100px">2.product </div>
+            <div class="col-md-3 col-sm-6" style="background-color:green; height:100px">3.product </div>
+            <div class="col-md-3 col-sm-6" style="background-color:blue; height:100px">4.product </div>
+        </div> -->
+
+        <div class="row">
+            <div class="col-md-4" style="background-color:yellow; height:100px;">  </div>
+            <div class="col-md-8" style="background-color:blue; height:100px;">
+                <div class="row">
+                    <div class="col-md-2" style="background-color:green; height:100px;">  </div>
+                    <div class="col-md-6" style="background-color:grey; height:100px;">  </div>
+                    <div class="col-md-4" style="background-color:brown; height:100px;">  </div>
+                </div>
+            </div>
+        </div>
+        Welcome, {{ request.user.username }}
+    </div>
+
+{% endblock %}
