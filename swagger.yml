@@ -10,9 +10,46 @@ info:
     name: "MIT"
     url: "https://github.com/SWE574-Nerds/friendly-eureka/blob/master/LICENSE.md"
 basePath: "/api/v1/"
-tags:
-- name: "Eureka"
-- name: "Living"
-- name: "History"
 schemes:
 - "http"
+paths:
+  /register:
+    post:
+      tags:
+      - "register"
+      summary: "Create a new user"
+      description: ""
+      operationId: "register"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "User name for the new user"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterForm"
+      responses:
+        200:
+          description: "User created"
+        204:
+          description: "Requirements unmet"
+        400:
+          description: "Bad request"
+        405:
+          description: "Invalid input"
+definitions:
+  RegisterForm:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: User name of the new user
+      password:
+        type: "string"
+        description: The password in plain text
+      amil:
+        type: "string"
+        description: Contact email for the user
