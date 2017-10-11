@@ -197,8 +197,84 @@ paths:
           description: OK
         405: 
           description: "Invalid"
+          
+  /upload/{type}:
+    post:
+      tags:
+        - content
+      security: 
+        - Bearer: []
+      parameters: 
+      - in: "path"
+        name: "type"
+        description: "The type of the resource"
+        required: true
+        type: "string"
+      - in: "formData"
+        name: "file"
+        type: "file"
+        description: "The file to be uploaded"
+        required: true
+        
+      consumes: 
+        - "multipart/form-data"
+      produces: 
+        - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/ContentResponse'
+          description: OK
+        405:
+          description: "Missing information"
+  /content/{id}:
+    get:
+      summary: "Get the content"
+      tags:
+        - content
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "The id of the resource"
+        required: true
+        type: "string"
+      produces: 
+        - "application/octet-stream"
+      responses:
+        200:
+          description: "Returns the resource that was provided"
+        405:
+          description: "Missing information"
+    delete:
+      summary: "Delete content"
+      tags:
+        - content
+      security: 
+        - Bearer: []
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "The id of the resource"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "OK - Resource deleted"
+        400:
+          description: "Bad Request - Resource occupied by listory"
+        405:
+          description: "Missing information"
+      
     
 definitions:
+  ContentResponse:
+    properties:
+      id:
+        type: "string"
+        description: "id of the resource"
+      type:
+        type: "string"
+        description: "Type of the resource"
   RegisterResponse:
     type: "object"
     properties:
