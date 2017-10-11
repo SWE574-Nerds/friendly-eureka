@@ -161,6 +161,43 @@ paths:
           description: "Deleted listory"
         405:
           description: "Incorrect id"  
+  /listory/{id}/follow:
+    get:
+      summary: "Follow a listory item"
+      tags: 
+        - follow
+      security: 
+        - Bearer: []
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id user wants to follow"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: OK
+        405: 
+          description: "Invalid"
+  /listory/{id}/unfollow:
+    get:
+      summary: "Unfollow a listory item"
+      tags: 
+        - follow
+      security: 
+        - Bearer: []
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id user wants to unfollow"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: OK
+        405: 
+          description: "Invalid"
+    
 definitions:
   RegisterResponse:
     type: "object"
