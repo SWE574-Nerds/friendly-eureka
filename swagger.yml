@@ -13,10 +13,10 @@ basePath: "/api/v1/"
 schemes:
 - "http"
 paths:
-  /register:
+  /user/register:
     post:
       tags:
-      - "register"
+      - "user"
       summary: "Create a new user"
       description: ""
       operationId: "register"
@@ -33,6 +33,8 @@ paths:
           $ref: "#/definitions/RegisterForm"
       responses:
         200:
+          schema:
+            $ref: "#/definitions/RegisterResponse"
           description: "User created"
         204:
           description: "Requirements unmet"
@@ -40,7 +42,142 @@ paths:
           description: "Bad request"
         405:
           description: "Invalid input"
+  /user/login:
+    post:
+      tags:
+      - "user"
+      summary: "Get an auth token from the app"
+      operationId: "login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "User name"
+        required: true
+        schema:
+          $ref: "#/definitions/LoginForm"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/LoginResponse"
+          description: "Logged in"
+        405:
+          description: "Invalid input"
+  /listory/create:
+    post:
+      tags:
+      - "listory"
+      summary: "Create a living history item (listory)"
+      security:
+        - Bearer: []
+      operationId: "listoryCreate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "listory"
+        description: "The listory definition"
+        required: true
+        schema:
+          $ref: '#/definitions/Listory'
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/ListoryDetails"
+          description: "Created successfully"
+        405:
+          description: "Invalid input / Validation error"      
+  /listory/{id}:
+    get:
+      tags:
+      - "listory"
+      summary: "Get details of a listory item"
+      operationId: "listoryGet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/ListoryDetails"
+          description: "Retrieved listory details"
+        405:
+          description: "Incorrect id"  
+    post:
+      tags:
+      - "listory"
+      summary: "Update a listory item"
+      security:
+        - Bearer: []
+      operationId: "listoryUpdate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "listory"
+        schema:
+          $ref: '#/definitions/Listory'
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/ListoryDetails"
+          description: "Updated listory details"
+        405:
+          description: "Incorrect id / Incorrect form"  
+    delete:
+      tags:
+      - "listory"
+      summary: "Delete a listory item"
+      security:
+        - Bearer: []
+      operationId: "listoryDelete"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted listory"
+        405:
+          description: "Incorrect id"  
 definitions:
+  RegisterResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      userId:
+        type: "string"
+  LoginResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      userId:
+        type: "string"
+      token:
+        type: "string"
   RegisterForm:
     type: "object"
     properties:
@@ -50,6 +187,54 @@ definitions:
       password:
         type: "string"
         description: The password in plain text
-      amil:
+      mail:
         type: "string"
         description: Contact email for the user
+  LoginForm:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: User name of the new user
+      password:
+        type: "string"
+        description: The password in plain text
+  Listory:
+    type: "object"
+    properties:
+      name: 
+        type: "string"
+        description: "The title of the listory"
+      description:
+        type: "string"
+        description: "The text description for the listory"
+      image:
+        type: "string"
+        description: "Link to image if applicable"
+  ListoryDetails:
+    type: "object"
+    properties:
+      name: 
+        type: "string"
+        description: "The title of the listory"
+      description:
+        type: "string"
+        description: "The text description for the listory"
+      image:
+        type: "string"
+        description: "Link to image if applicable"
+      page:
+        type: "string"
+        description: "The link to listory item"
+      listoryId:
+        type: "string"
+        description: "The id/identifier of the listory item"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
