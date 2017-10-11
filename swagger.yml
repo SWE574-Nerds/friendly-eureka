@@ -266,6 +266,11 @@ definitions:
       listoryId:
         type: "string"
         description: "The id/identifier of the listory item"
+      owner:
+        $ref: '#/definitions/RegisterResponse'
+      createdAt:
+        type: "string"
+        description: "Creation date of the listory item"
 securityDefinitions:
   Bearer:
     type: apiKey
