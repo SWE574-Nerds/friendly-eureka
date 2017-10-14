@@ -5,13 +5,15 @@ from api.dto.RegisterForm import RegisterForm
 from api.validators.RegisterFormValidator import RegisterFormValidator
 from api.validators.LoginFormValidator import LoginFormValidator
 from api.dto.LoginForm import LoginForm
+from api.services.TokenService import TokenService
+from api.middleware.AuthMiddleware import AuthMiddleware
 
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from django.utils.decorators import decorator_from_middleware
 from django.db import IntegrityError
-
 
 @api_view(['POST'])
 def api_login(request):
@@ -25,7 +27,9 @@ def api_login(request):
     else:
         user = authenticate(username=form.name, password=form.password)
         if user is not None:
-            return Response("5", status=status.HTTP_200_OK)
+            tokenizer = TokenService()
+            token = tokenizer.assignToken(user)
+            return Response(token, status=status.HTTP_200_OK)
         else:
             return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
@@ -47,3 +51,11 @@ def api_register(request):
             return Response("OK", status=status.HTTP_200_OK)
         except IntegrityError as e:
             return Response("User exists", status.HTTP_400_BAD_REQUEST)
+
+
+@decorator_from_middleware(AuthMiddleware)
+@api_view(['GET'])
+def test(request):
+    api_user = request.api_user
+    valid_api_user = request.valid_api_user
+    return Response("Hello World " + api_user.username , status.HTTP_200_OK)
