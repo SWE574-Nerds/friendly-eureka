@@ -1,3 +1,7 @@
 Django==1.11.5
 djangorestframework==3.6.2
 psycopg2
+Pillow
+django-crispy-forms
+django-ckeditor
+django-simple-captcha
