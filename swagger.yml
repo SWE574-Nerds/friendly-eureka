@@ -1,0 +1,358 @@
+swagger: "2.0"
+info:
+  description: "This is the API documentation of the EUREKA project."
+  version: "1.0.0"
+  title: "Eureka Living History API"
+  termsOfService: "TBA"
+  contact:
+    email: "TBA@TBA.com"
+  license:
+    name: "MIT"
+    url: "https://github.com/SWE574-Nerds/friendly-eureka/blob/master/LICENSE.md"
+basePath: "/api/v1/"
+schemes:
+- "http"
+paths:
+  /user/register:
+    post:
+      tags:
+      - "user"
+      summary: "Create a new user"
+      description: ""
+      operationId: "register"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "User name for the new user"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterForm"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/RegisterResponse"
+          description: "User created"
+        204:
+          description: "Requirements unmet"
+        400:
+          description: "Bad request"
+        405:
+          description: "Invalid input"
+  /user/login:
+    post:
+      tags:
+      - "user"
+      summary: "Get an auth token from the app"
+      operationId: "login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "User name"
+        required: true
+        schema:
+          $ref: "#/definitions/LoginForm"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/LoginResponse"
+          description: "Logged in"
+        405:
+          description: "Invalid input"
+  /listory/create:
+    post:
+      tags:
+      - "listory"
+      summary: "Create a living history item (listory)"
+      security:
+        - Bearer: []
+      operationId: "listoryCreate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "listory"
+        description: "The listory definition"
+        required: true
+        schema:
+          $ref: '#/definitions/Listory'
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/ListoryDetails"
+          description: "Created successfully"
+        405:
+          description: "Invalid input / Validation error"      
+  /listory/{id}:
+    get:
+      tags:
+      - "listory"
+      summary: "Get details of a listory item"
+      operationId: "listoryGet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/ListoryDetails"
+          description: "Retrieved listory details"
+        405:
+          description: "Incorrect id"  
+    post:
+      tags:
+      - "listory"
+      summary: "Update a listory item"
+      security:
+        - Bearer: []
+      operationId: "listoryUpdate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "listory"
+        schema:
+          $ref: '#/definitions/Listory'
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/ListoryDetails"
+          description: "Updated listory details"
+        405:
+          description: "Incorrect id / Incorrect form"  
+    delete:
+      tags:
+      - "listory"
+      summary: "Delete a listory item"
+      security:
+        - Bearer: []
+      operationId: "listoryDelete"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted listory"
+        405:
+          description: "Incorrect id"  
+  /listory/{id}/follow:
+    get:
+      summary: "Follow a listory item"
+      tags: 
+        - follow
+      security: 
+        - Bearer: []
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id user wants to follow"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: OK
+        405: 
+          description: "Invalid"
+  /listory/{id}/unfollow:
+    get:
+      summary: "Unfollow a listory item"
+      tags: 
+        - follow
+      security: 
+        - Bearer: []
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id user wants to unfollow"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: OK
+        405: 
+          description: "Invalid"
+          
+  /upload/{type}:
+    post:
+      tags:
+        - content
+      security: 
+        - Bearer: []
+      parameters: 
+      - in: "path"
+        name: "type"
+        description: "The type of the resource"
+        required: true
+        type: "string"
+      - in: "formData"
+        name: "file"
+        type: "file"
+        description: "The file to be uploaded"
+        required: true
+        
+      consumes: 
+        - "multipart/form-data"
+      produces: 
+        - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/ContentResponse'
+          description: OK
+        405:
+          description: "Missing information"
+  /content/{id}:
+    get:
+      summary: "Get the content"
+      tags:
+        - content
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "The id of the resource"
+        required: true
+        type: "string"
+      produces: 
+        - "application/octet-stream"
+      responses:
+        200:
+          description: "Returns the resource that was provided"
+        405:
+          description: "Missing information"
+    delete:
+      summary: "Delete content"
+      tags:
+        - content
+      security: 
+        - Bearer: []
+      parameters: 
+      - in: "path"
+        name: "id"
+        description: "The id of the resource"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "OK - Resource deleted"
+        400:
+          description: "Bad Request - Resource occupied by listory"
+        405:
+          description: "Missing information"
+      
+    
+definitions:
+  ContentResponse:
+    properties:
+      id:
+        type: "string"
+        description: "id of the resource"
+      type:
+        type: "string"
+        description: "Type of the resource"
+  RegisterResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      userId:
+        type: "string"
+  LoginResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      userId:
+        type: "string"
+      token:
+        type: "string"
+  RegisterForm:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: User name of the new user
+      password:
+        type: "string"
+        description: The password in plain text
+      mail:
+        type: "string"
+        description: Contact email for the user
+  LoginForm:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: User name of the new user
+      password:
+        type: "string"
+        description: The password in plain text
+  Listory:
+    type: "object"
+    properties:
+      name: 
+        type: "string"
+        description: "The title of the listory"
+      description:
+        type: "string"
+        description: "The text description for the listory"
+      image:
+        type: "string"
+        description: "Link to image if applicable"
+  ListoryDetails:
+    type: "object"
+    properties:
+      name: 
+        type: "string"
+        description: "The title of the listory"
+      description:
+        type: "string"
+        description: "The text description for the listory"
+      image:
+        type: "string"
+        description: "Link to image if applicable"
+      page:
+        type: "string"
+        description: "The link to listory item"
+      listoryId:
+        type: "string"
+        description: "The id/identifier of the listory item"
+      owner:
+        $ref: '#/definitions/RegisterResponse'
+      createdAt:
+        type: "string"
+        description: "Creation date of the listory item"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
