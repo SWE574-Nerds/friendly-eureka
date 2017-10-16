@@ -29,7 +29,11 @@ def api_login(request):
         if user is not None:
             tokenizer = TokenService()
             token = tokenizer.assignToken(user)
-            return Response(token, status=status.HTTP_200_OK)
+            return Response({
+                'name': user.username,
+                'userId': user.pk,
+                'token': token
+            }, status=status.HTTP_200_OK)
         else:
             return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
@@ -48,9 +52,24 @@ def api_register(request):
                                         email=form.mail,
                                         password=form.password)
             user.save()
-            return Response("OK", status=status.HTTP_200_OK)
+            return Response({
+                'name': user.username,
+                'userId': user.pk
+            }, status=status.HTTP_200_OK)
         except IntegrityError as e:
             return Response("User exists", status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def api_userinfo(request, id):
+    try:
+        user = User.objects.get(pk=id)
+        return Response({
+                'name': user.username,
+                'userId': user.pk
+            }, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response("User not found", status=status.HTTP_204_NO_CONTENT)
 
 
 @decorator_from_middleware(AuthMiddleware)
