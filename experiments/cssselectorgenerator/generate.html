@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>elementFromPoint example</title>
+
+<script>
+var x,y;
+
+document.onmousemove = function(e){
+    e = e || window.event;
+    x = e.clientX;
+    y = e.clientY;
+};
+
+function elementAtMousePosition() {
+    return document.elementFromPoint(x,y);
+}
+
+function changeColor(newColor) {
+  elem = elementAtMousePosition();
+
+  elem.style.color = newColor;
+  console.log(elem)
+}
+</script>
+<script type="text/javascript" src="generate.js"></script>
+<script>
+function myFunction() {
+var my_generator = new CssSelectorGenerator();
+
+var elements = elementAtMousePosition();//document.body.querySelectorAll('*');
+console.log("<br>")
+console.log(elements, my_generator.getSelector(elements));
+var cssSelectorResult = my_generator.getSelector(elements);
+alert(cssSelectorResult);
+};
+
+</script>
+</head>
+<body>
+<p id="para1">Css Selector POC</p>
+<label class="label1" onclick="myFunction()">My favorite color is pink</label>:
+<button type="button1" onclick="myFunction()">Yes! Get Css Selector </button></br>
+<label class="label1" onclick="myFunction()">My favorite color is not pink </label>:
+<button id="button2" onclick="myFunction()">No! Get Css Selector </button></br>
+<label id="label3" onclick="myFunction()">Get Css Selector </label>:
+<button class="button3" onclick="myFunction()">Get Css Selector </button></br>
+
+<form action="/action_page.php" onclick="myFunction()">
+  <textarea id="mytextarea" name="message" rows="10" cols="30">I love SWE 573!</textarea>
+  <br>
+</form>
+
+<h2 id="headerlalalanerdnerd_neerd" onclick="myFunction()">Nerds Pic</h2>
+<img id="helloIamNerd" onclick="myFunction()" src="https://raw.githubusercontent.com/SWE574-Nerds/friendly-eureka/master/images/nerdicon.jpg" style="width:width;height:height;">
+
+
+</body>
+</html>
