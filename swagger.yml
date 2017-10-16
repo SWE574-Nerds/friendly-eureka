@@ -13,6 +13,33 @@ basePath: "/api/v1/"
 schemes:
 - "http"
 paths:
+  /user/{id}:
+    get:
+      tags:
+      - "user"
+      summary: "Get information on a user"
+      description: ""
+      operationId: "userInfo"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "user id"
+        required: true
+        type: integer
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/RegisterResponse"
+          description: "User retrieved"
+        204:
+          description: "Requirements unmet"
+        400:
+          description: "Bad request"
+        405:
+          description: "Invalid input"
+
   /user/register:
     post:
       tags:
@@ -197,7 +224,6 @@ paths:
           description: OK
         405: 
           description: "Invalid"
-          
   /upload/{type}:
     post:
       tags:
@@ -356,3 +382,4 @@ securityDefinitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
+

@@ -7,6 +7,7 @@ app_name = 'api'
 urlpatterns = [
     url(r'^user/login/$', api_login, name='api_login'),
     url(r'^user/register/$', api_register, name='api_register'),
+    url(r'^user/(?P<id>\w{0,50})/$', api_userinfo, name='api_userinfo'),
     url(r'^test/$', test, name='api_test'),
 ]
 

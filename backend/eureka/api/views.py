@@ -60,6 +60,18 @@ def api_register(request):
             return Response("User exists", status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def api_userinfo(request, id):
+    try:
+        user = User.objects.get(pk=id)
+        return Response({
+                'name': user.username,
+                'userId': user.pk
+            }, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response("User not found", status=status.HTTP_204_NO_CONTENT)
+
+
 @decorator_from_middleware(AuthMiddleware)
 @api_view(['GET'])
 def test(request):
