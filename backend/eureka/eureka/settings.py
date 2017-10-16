@@ -40,11 +40,22 @@ INSTALLED_APPS = [
     'accounts',
     'post',
     'home',
+    'api',
 
     'crispy_forms',
     'ckeditor',
     'captcha',
+
+    'rest_framework',
+
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+    ]
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +65,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
+
+
+
 
 ROOT_URLCONF = 'eureka.urls'
 
