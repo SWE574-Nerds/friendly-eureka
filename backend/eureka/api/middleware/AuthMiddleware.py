@@ -6,12 +6,12 @@ from api.models import Tokens
 class AuthMiddleware(object):
     def process_request(self, request):
         request.test = 5
-        token = request.META['HTTP_AUTHORIZATION']
 
         try:
+            token = request.META['HTTP_AUTHORIZATION']
             object = Tokens.objects.get(token=token)
             request.api_user = object.user
             request.valid_api_user = True
             return None
-        except Tokens.DoesNotExist:
+        except:
             return JsonResponse({'error': 'Unauthorized'}, status=401)
