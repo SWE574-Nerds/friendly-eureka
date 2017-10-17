@@ -27,7 +27,25 @@ def register_view(request):
         return redirect('home')
     return render(request, 'accounts/form.html', {'form': form, 'title':'Register'})
 
-
+	
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated. Use can use new password.')
+            logout(request)
+            return redirect('accounts:login')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'accounts/change_password.html', {
+        'form': form
+    })
+	
+	
 def logout_view(request):
     logout(request)
     return redirect('accounts:login')
