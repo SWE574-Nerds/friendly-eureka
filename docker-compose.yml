@@ -17,6 +17,7 @@ services:
     depends_on:
     - "postgres"
 
+
   postgres:
     image: "postgres"
     ports:
@@ -29,8 +30,8 @@ services:
 
   image:
     build:
-      context: ./image
+      context: ./backend/image
     ports:
      - "8001:5000"
     volumes:
-     - ./image:/code
+     - ./backend/image:/code

@@ -58,4 +58,4 @@ def o(filename):
     return send_file('o/'+filename, mimetype='image/' + get_extension(filename))
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False, host='0.0.0.0', port=5000)
