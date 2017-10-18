@@ -25,3 +25,12 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
+
+
+  image:
+    build:
+      context: ./image
+    ports:
+     - "8001:5000"
+    volumes:
+     - ./image:/code
