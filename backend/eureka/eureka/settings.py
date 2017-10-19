@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ckeditor',
     'captcha',
+	'avatar',
 
     'rest_framework',
 
@@ -157,3 +158,6 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+RECAPTCHA_PUBLIC_KEY = '6LdmcTMUAAAAAFcb_0ZUm1km2pc3y6cIbNFflMtb'
+RECAPTCHA_PRIVATE_KEY = '6LdmcTMUAAAAAK86LKsPFh2PtdjxY7jQdY9wNzZQ'
+AVATAR_CLEANUP_DELETED = True

@@ -13,7 +13,14 @@
             </button>
 
             <!-- İsim Soyisim veya Marka İsmi -->
-            <a href="{% url 'post:index' %}" class="navbar-brand">EUREKA</a>
+             {% if request.user.is_authenticated %}
+                {% load avatar_tags %}
+                <a href="{% url 'post:index' %}" class="navbar-brand">
+                    <div style="float:left">{% avatar user 35 class="img-circle img-responsive" id="user_avatar" %}</div>
+                     &nbsp; {{ user.username }}
+                </a>
+            {% endif %}
+
         </div>
 
         <nav class="collapse navbar-collapse" role="navigation">
@@ -30,12 +37,16 @@
 
             <!-- Temel Sayfalar -->
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'post:index' %}">Homepage</a></li>
                 {% if request.user.is_authenticated %}
                     <li><a href="{% url 'post:create' %}">Create Post</a></li>
+                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings</a>
+								<ul class="dropdown-menu">
+									<li><a href="{% url 'accounts:change_password' %}">Change password</a></li>
+									<li><a href="{% url 'avatar_change' %}">Change your avatar</a></li>
+								</ul>
+							</li>
                 {% endif %}
-                <li><a href="{% url 'post:index' %}">Homepage</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">About</a></li>
 
                 {% if not request.user.is_authenticated %}
                     <li><a href="{% url 'accounts:register' %}">Register</a></li>
@@ -43,6 +54,8 @@
                 {% else %}
                     <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
                 {% endif %}
+
+                 <li><a href="#">About</a></li>
 
             </ul>
 

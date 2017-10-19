@@ -1,11 +1,12 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from captcha.fields import ReCaptchaField
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=100, label='Username')
-    password = forms.CharField(max_length=100, label='Password', widget=forms.PasswordInput)
+    username = forms.CharField(max_length=100, label='', widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(max_length=100, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
     def clean(self):
         username = self.cleaned_data.get('username')
@@ -18,13 +19,16 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(forms.ModelForm):
-    username = forms.CharField(max_length=100, label='Username')
-    password1 = forms.CharField(max_length=100, label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(max_length=100, label='Re-Password', widget=forms.PasswordInput)
+    captcha = ReCaptchaField(label='')
+    email = forms.EmailField(max_length=120, label='', widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    username = forms.CharField(max_length=100, label='', widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password1 = forms.CharField(max_length=100, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    password2 = forms.CharField(max_length=100,  label='', widget=forms.PasswordInput(attrs={'placeholder': 'Re-type Password'}))
 
     class Meta:
         model = User
         fields = [
+            'email',
             'username',
             'password1',
             'password2',

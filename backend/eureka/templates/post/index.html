@@ -11,17 +11,21 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <div class="thumbnail">
+                    {% load avatar_tags %}
+                    <div style="float: left;"> {% avatar user 50 class="img-circle img-responsive" id="user_avatar" %} </div>
+                    <h4 class="text-primary bold"> {{ post.user }}</h4>
+                    <br>
               <div class="caption">
                   {% if post.image %}
                   <img src="{{ post.image.url }}" class="img-responsive">
                   {% endif %}
                 <h3>{{ post.title }}<small> {{ post.publishing_date|timesince }} önce </small></h3>
-                  <h5>User: {{ post.user }}</h5>
+
                 <p>{{ post.content|safe|linebreaks|truncatechars:150 }}</p>
                     {% if request.user.is_authenticated %}
-                <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">İncele</a>
-                  <a href="{{ post.get_update_url }}" class="btn btn-default" role="button">Güncelle</a>
-                  <a href="{{ post.get_delete_url }}" class="btn btn-danger" role="button">Sil</a>
+                <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary" role="button">Details</a>
+                  <a href="{{ post.get_update_url }}" class="btn btn-default" role="button">Update</a>
+                  <a href="{{ post.get_delete_url }}" class="btn btn-danger" role="button">Delete</a>
                 </p>
                      {% endif %}
               </div>
