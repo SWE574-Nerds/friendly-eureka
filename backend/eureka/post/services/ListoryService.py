@@ -16,3 +16,10 @@ def get_listory_by_id(listoryId):
         return Post.objects.get(pk__exact=listoryId)
     except:
         return None
+
+
+def get_listories(max_count):
+    try:
+        return Post.objects.all()[:max_count]
+    except:
+        return []

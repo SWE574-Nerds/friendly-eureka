@@ -197,3 +197,22 @@ def api_delete_listory(request, id):
     except:
         return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
 
+
+@api_view(['GET'])
+def get_all_listories(request):
+    listories = ListoryService.get_listories(max_count=10)
+    response = []
+
+    for listory in listories:
+        response.append({
+            'name': listory.title,
+            'description': listory.content,
+            #   'image': listory.img,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': listory.user.username,
+                'userId': listory.user.pk
+            },
+            'createdAt': None
+        })
+    return Response(response, status=status.HTTP_200_OK)
