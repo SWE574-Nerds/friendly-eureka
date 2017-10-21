@@ -96,7 +96,7 @@ def api_create_listory(request):
     if len(errors):
         return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
-     #   try:
+        try:
             api_user = request.api_user
             listoryId = ListoryService.create_listory(form.name, form.description, api_user)
             listory = ListoryService.get_listory_by_id(listoryId)
@@ -111,6 +111,6 @@ def api_create_listory(request):
                 },
                 'createdAt': None
             }, status=status.HTTP_200_OK)
-    #    except:
-    #        return Response("Bad", status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
