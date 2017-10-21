@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^user/register/$', api_register, name='api_register'),
     url(r'^user/(?P<id>\w{0,50})/$', api_userinfo, name='api_userinfo'),
     url(r'^test/$', test, name='api_test'),
+    url(r'^listory/create/$', api_create_listory, name='api_create_listory'),
 ]
 
 
