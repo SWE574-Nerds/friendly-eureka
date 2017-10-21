@@ -73,7 +73,7 @@ def api_userinfo(request, id):
                 'userId': user.pk
             }, status=status.HTTP_200_OK)
     except User.DoesNotExist:
-        return Response("User not found", status=status.HTTP_204_NO_CONTENT)
+        return Response("User not found", status=status.HTTP_404_NOT_FOUND)
 
 
 @decorator_from_middleware(AuthMiddleware)
@@ -114,3 +114,21 @@ def api_create_listory(request):
         except:
             return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET'])
+def api_get_listory(request, id):
+    listory = ListoryService.get_listory_by_id(id)
+    if listory is not None:
+        return Response({
+            'name': listory.title,
+            'description': listory.content,
+            #   'image': listory.img,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': listory.user.username,
+                'userId': listory.user.pk
+            },
+            'createdAt': None
+        }, status=status.HTTP_200_OK)
+    else:
+        return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
