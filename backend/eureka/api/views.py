@@ -115,12 +115,14 @@ def api_create_listory(request):
             return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def api_listory(request, id):
     if request.method == 'GET':
         return api_get_listory(request, id)
     if request.method == 'POST':
         return api_update_listory(request, id)
+    if request.method == 'DELETE':
+        return api_delete_listory(request, id)
 
 
 @decorator_from_middleware(AuthMiddleware)
@@ -164,7 +166,6 @@ def api_update_listory(request, id):
             return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
 def api_get_listory(request, id):
-    method = request.method
     listory = ListoryService.get_listory_by_id(id)
     if listory is not None:
         return Response({
@@ -180,3 +181,19 @@ def api_get_listory(request, id):
         }, status=status.HTTP_200_OK)
     else:
         return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@decorator_from_middleware(AuthMiddleware)
+def api_delete_listory(request, id):
+    try:
+        listory = ListoryService.get_listory_by_id(id)
+        api_user = request.api_user
+
+        if listory.user.pk == api_user.pk:
+            listory.delete()
+            return Response("Ok", status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("Not your listory", status=status.HTTP_401_UNAUTHORIZED)
+    except:
+        return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
+
