@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'ckeditor',
-    'captcha',
 
     'rest_framework',
 
