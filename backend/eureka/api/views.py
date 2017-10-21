@@ -115,8 +115,56 @@ def api_create_listory(request):
             return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
+def api_listory(request, id):
+    if request.method == 'GET':
+        return api_get_listory(request, id)
+    if request.method == 'POST':
+        return api_update_listory(request, id)
+
+
+@decorator_from_middleware(AuthMiddleware)
+@api_view(['POST'])
+def api_update_listory(request, id):
+
+    form = ListoryForm(request.data)
+    validator = ListoryFormValidator()
+
+    errors = validator.validate(form)
+
+    api_user = request.api_user
+    listory = ListoryService.get_listory_by_id(id)
+
+    if len(errors) and listory.user.pk is not api_user.pk:
+        return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        try:
+
+            if form.name is not None:
+                listory.title = form.name
+            if form.description is not None:
+                listory.content = form.description
+        #    if form.image is not None:
+        #        listory.img = form.image
+
+            listory.save()
+
+            return Response({
+                'name' : listory.title,
+                'description' : listory.content,
+             #   'image': listory.img,
+                'listoryId': listory.pk,
+                'owner': {
+                    'name': api_user.username,
+                    'userId': api_user.pk
+                },
+                'createdAt': None
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+
 def api_get_listory(request, id):
+    method = request.method
     listory = ListoryService.get_listory_by_id(id)
     if listory is not None:
         return Response({
