@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'post',
     'home',
     'api',
-
+    'avatar',
     'crispy_forms',
     'ckeditor',
 
@@ -156,3 +156,14 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'jr/jquery.min.js')
