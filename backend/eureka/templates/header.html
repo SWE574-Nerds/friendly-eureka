@@ -18,6 +18,7 @@
 
         <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
                 <li>
                 <form class="navbar-form navbar-left" role="search" method="GET" action="">
                     <div class="input-group">
@@ -28,8 +29,6 @@
                     </div>
                 </form>
                 </li>
-
-                {% if request.user.is_authenticated %}
                 <li><a href="{% url 'post:index' %}"><span class='glyphicon glyphicon-home'></span></a></li>
                 <li><a href="{% url 'post:create' %}"><span class='glyphicon glyphicon-plus'></span></a></li>
                 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class='glyphicon glyphicon-asterisk'></span></a>
@@ -40,6 +39,9 @@
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
                     </ul>
+                {% else %}
+                 <li><a href="{% url 'accounts:login' %}"><span class='glyphicon glyphicon-log-in'></span></a></li>
+                 <li><a href="{% url 'accounts:register' %}"><span class='glyphicon glyphicon-registration-mark'></span></a></li>
                 {% endif %}
             </ul>
         </nav>
