@@ -10,7 +10,7 @@ import { UserService } from './user.service'
 })
 export class WelcomeScreenComponent implements OnInit {
   
-  private user: User;
+  @Input() user: User;
 
   private message = 'Welcome to Eureka!'
 

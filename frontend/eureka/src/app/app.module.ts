@@ -10,12 +10,13 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterOutlet } from '@angular/router';
 import { WelcomeScreenComponent } from './welcome-screen.component';
 import { RegisterFormComponent } from './register-form.component';
+import { MyTestComponent } from './my-test.component'
 
 import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
-    AppComponent, DashboardComponent, WelcomeScreenComponent, RegisterFormComponent
+    AppComponent, DashboardComponent, WelcomeScreenComponent, RegisterFormComponent, MyTestComponent
   ],
   imports: [
     BrowserModule, FormsModule, AppRoutingModule, HttpModule

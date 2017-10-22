@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
 import { Headers, Http } from '@angular/http';
+import {Router} from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -8,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 export class UserService {
     private headers = new Headers({'Content-Type': 'application/json'});
     
-    private user: User;
+    private user: User = new User();
 
     private registerUrl = '/api/user/register';
 
@@ -20,8 +21,8 @@ export class UserService {
     });
     }
 
-    register(email: string, password: string, username: string): void {
-
+    register(email: string, password: string, username: string): Promise<User> {
+            return new Promise(resolve => {
         this.http.post(this.registerUrl, {
             name: username,
             password: password,
@@ -30,9 +31,13 @@ export class UserService {
             headers: this.headers
           })
         .toPromise()
-        .then(response => this.user = response.json() as User )
+        .then(response => {
+            let auser:User = response.json() as User;
+            this.user.name = auser.name;
+            resolve(this.user);
+        })
         .catch(this.handleError);
-
+        });
     }
 
       private handleError(error: any): Promise<any> {
