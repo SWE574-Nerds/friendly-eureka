@@ -2,8 +2,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
 from api.dto.RegisterForm import RegisterForm
+from api.dto.ListoryForm import ListoryForm
 from api.validators.RegisterFormValidator import RegisterFormValidator
 from api.validators.LoginFormValidator import LoginFormValidator
+from api.validators.ListoryFormValidator import ListoryFormValidator
 from api.dto.LoginForm import LoginForm
 from api.services.TokenService import TokenService
 from api.middleware.AuthMiddleware import AuthMiddleware
@@ -11,6 +13,8 @@ from api.middleware.AuthMiddleware import AuthMiddleware
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from post.services import ListoryService
 
 from django.utils.decorators import decorator_from_middleware
 from django.db import IntegrityError
@@ -69,7 +73,7 @@ def api_userinfo(request, id):
                 'userId': user.pk
             }, status=status.HTTP_200_OK)
     except User.DoesNotExist:
-        return Response("User not found", status=status.HTTP_204_NO_CONTENT)
+        return Response("User not found", status=status.HTTP_404_NOT_FOUND)
 
 
 @decorator_from_middleware(AuthMiddleware)
@@ -78,3 +82,137 @@ def test(request):
     api_user = request.api_user
     valid_api_user = request.valid_api_user
     return Response("Hello World " + api_user.username , status.HTTP_200_OK)
+
+
+@decorator_from_middleware(AuthMiddleware)
+@api_view(['POST'])
+def api_create_listory(request):
+
+    form = ListoryForm(request.data)
+    validator = ListoryFormValidator()
+
+    errors = validator.validate(form)
+
+    if len(errors):
+        return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        try:
+            api_user = request.api_user
+            listoryId = ListoryService.create_listory(form.name, form.description, api_user)
+            listory = ListoryService.get_listory_by_id(listoryId)
+            return Response({
+                'name' : listory.title,
+                'description' : listory.content,
+             #   'image': listory.img,
+                'listoryId': listory.pk,
+                'owner': {
+                    'name': api_user.username,
+                    'userId': api_user.pk
+                },
+                'createdAt': None
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST', 'DELETE'])
+def api_listory(request, id):
+    if request.method == 'GET':
+        return api_get_listory(request, id)
+    if request.method == 'POST':
+        return api_update_listory(request, id)
+    if request.method == 'DELETE':
+        return api_delete_listory(request, id)
+
+
+@decorator_from_middleware(AuthMiddleware)
+@api_view(['POST'])
+def api_update_listory(request, id):
+
+    form = ListoryForm(request.data)
+    validator = ListoryFormValidator()
+
+    errors = validator.validate(form)
+
+    api_user = request.api_user
+    listory = ListoryService.get_listory_by_id(id)
+
+    if len(errors) and listory.user.pk is not api_user.pk:
+        return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        try:
+
+            if form.name is not None:
+                listory.title = form.name
+            if form.description is not None:
+                listory.content = form.description
+        #    if form.image is not None:
+        #        listory.img = form.image
+
+            listory.save()
+
+            return Response({
+                'name' : listory.title,
+                'description' : listory.content,
+             #   'image': listory.img,
+                'listoryId': listory.pk,
+                'owner': {
+                    'name': api_user.username,
+                    'userId': api_user.pk
+                },
+                'createdAt': None
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+
+def api_get_listory(request, id):
+    listory = ListoryService.get_listory_by_id(id)
+    if listory is not None:
+        return Response({
+            'name': listory.title,
+            'description': listory.content,
+            #   'image': listory.img,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': listory.user.username,
+                'userId': listory.user.pk
+            },
+            'createdAt': None
+        }, status=status.HTTP_200_OK)
+    else:
+        return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@decorator_from_middleware(AuthMiddleware)
+def api_delete_listory(request, id):
+    try:
+        listory = ListoryService.get_listory_by_id(id)
+        api_user = request.api_user
+
+        if listory.user.pk == api_user.pk:
+            listory.delete()
+            return Response("Ok", status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("Not your listory", status=status.HTTP_401_UNAUTHORIZED)
+    except:
+        return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def get_all_listories(request):
+    listories = ListoryService.get_listories(max_count=10)
+    response = []
+
+    for listory in listories:
+        response.append({
+            'name': listory.title,
+            'description': listory.content,
+            #   'image': listory.img,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': listory.user.username,
+                'userId': listory.user.pk
+            },
+            'createdAt': None
+        })
+    return Response(response, status=status.HTTP_200_OK)

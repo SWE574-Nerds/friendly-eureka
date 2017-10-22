@@ -1,4 +1,4 @@
-swagger: "2.0"
+wagger: "2.0"
 info:
   description: "This is the API documentation of the EUREKA project."
   version: "1.0.0"
@@ -117,6 +117,22 @@ paths:
           schema:
             $ref: "#/definitions/ListoryDetails"
           description: "Created successfully"
+        405:
+          description: "Invalid input / Validation error"      
+  /listory/:
+    get:
+      tags:
+      - "listory"
+      summary: "Get a list of all living history items"
+
+      operationId: "listoryAll"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AllListoryItems"
+          description: "All listory items"
         405:
           description: "Invalid input / Validation error"      
   /listory/{id}:
@@ -293,6 +309,10 @@ paths:
       
     
 definitions:
+  AllListoryItems:
+    type: array
+    items:
+      $ref: '#/definitions/ListoryDetails'
   ContentResponse:
     properties:
       id:
