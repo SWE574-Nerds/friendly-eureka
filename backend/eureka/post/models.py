@@ -48,10 +48,3 @@ class Post(models.Model):
         ordering = ['-publishing_date']
 
 
-class Comment(models.Model):
-    post = models.ForeignKey('post.Post', related_name='comments',on_delete=models.CASCADE)
-    name = models.CharField(max_length=200,verbose_name='Username')
-    content = models.TextField(verbose_name='Comment')
-    created_Date = models.DateTimeField(auto_now_add=True)
-
-

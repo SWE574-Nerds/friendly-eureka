@@ -41,10 +41,8 @@ INSTALLED_APPS = [
     'post',
     'home',
     'api',
-    'avatar',
     'crispy_forms',
     'ckeditor',
-
     'rest_framework',
 
 ]

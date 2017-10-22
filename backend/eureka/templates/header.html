@@ -10,10 +10,8 @@
                 <span class="icon-bar"></span>
             </button>
             {% if request.user.is_authenticated %}
-                {% load avatar_tags %}
                 <a href="{% url 'post:index' %}" class="navbar-brand">
-                    <div style="float:left;margin-top:-5px;">{% avatar user 35 class="img-circle img-responsive" id="user_avatar" %}</div>
-                     &nbsp; {{ user.username }}
+                    <div style="margin-top:-5px;">{{ user.username }}</div>
                 </a>
             {% endif %}
         </div>
@@ -37,7 +35,7 @@
                 <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class='glyphicon glyphicon-asterisk'></span></a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li><a href="{% url 'accounts:change_password' %}">Change password</a></li>
-                        <li><a href="{% url 'avatar_change' %}">Change your avatar</a></li>
+                        <li><a href="#">Change your avatar</a></li>
                         <li><a href="#">About</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'accounts:logout' %}">Logout</a></li>

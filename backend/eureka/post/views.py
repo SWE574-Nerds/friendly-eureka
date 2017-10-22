@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from .models import Post
-from .form import PostForm, CommentForm
+from .form import PostForm
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -34,7 +34,7 @@ def post_index(request):
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
 
-    form = CommentForm(request.POST or None)
+    form = PostForm(request.POST or None)
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post

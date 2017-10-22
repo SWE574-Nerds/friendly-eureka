@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Comment, Category, TimeInfo
+from .models import Post, Category, TimeInfo
 from ckeditor.fields import RichTextField
 
 
@@ -22,12 +22,3 @@ class PostForm(forms.ModelForm):
             'timeValue2',
         ]
 
-
-class CommentForm(forms.ModelForm):
-
-    class Meta:
-        model = Comment
-        fields = [
-            'name',
-            'content',
-        ]
