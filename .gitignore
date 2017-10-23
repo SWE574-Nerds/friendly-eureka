@@ -239,6 +239,7 @@ venv.bak/
 #!! ERROR: sqlite is undefined. Use list command to see defined gitignore types !!#
 
 #!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
+*vscode*
 
 # End of https://www.gitignore.io/api/python,django,js,bootstrap,docker,cmake,c++,git,intellij,vscode,sqlite,python3,django3
 
@@ -390,3 +391,9 @@ testem.log
 #!! ERROR: nodejs is undefined. Use list command to see defined gitignore types !!#
 
 # End of https://www.gitignore.io/api/angular,js,nodejs
+
+# Created by https://www.gitignore.io/api/vscode
+
+#!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
+
+# End of https://www.gitignore.io/api/vscode

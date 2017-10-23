@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+var proxy = require('./proxy');
+
+var request = require('request');
 
 // Get our API routes
 const api = require('./server/routes/api');
@@ -16,8 +19,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Set our api routes
-app.use('/api', api);
+// Api endpoints
+proxy.pipeTo(app, '/api/*', 'http://127.0.0.1:8000');
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
