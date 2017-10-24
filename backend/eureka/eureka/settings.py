@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ckeditor',
     'rest_framework',
-
+    'historyitems',
 ]
 
 
