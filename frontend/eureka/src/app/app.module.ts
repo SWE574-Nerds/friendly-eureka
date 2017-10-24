@@ -5,14 +5,14 @@ import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms'; 
 
 
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard.component';
+import { AppComponent } from './app/app.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RouterOutlet } from '@angular/router';
-import { WelcomeScreenComponent } from './welcome-screen.component';
-import { RegisterFormComponent } from './register-form.component';
-import { MyTestComponent } from './my-test.component'
+import { WelcomeScreenComponent } from './components/welcome-screen/welcome-screen.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { MyTestComponent } from './components/my-test/my-test.component'
 
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [

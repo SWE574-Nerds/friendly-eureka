@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { User } from './user'
-import { UserService } from './user.service'
+import { User } from '../../services/user'
+import { UserService } from '../../services/user.service'
 
 @Component({
   selector: 'welcome-screen',
@@ -21,9 +21,7 @@ export class WelcomeScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().then(user => {
-      this.user = user;      
-      if (this.user != null)
-      this.message = 'Hello, ' + this.user.name;
+      this.user = user;
     });  
   }
 

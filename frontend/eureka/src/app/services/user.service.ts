@@ -12,12 +12,13 @@ export class UserService {
     private user: User = new User();
 
     private registerUrl = '/api/user/register';
-
+    private loginUrl = '/api/user/login';
+    
     constructor(private http: Http) { }
 
     getUser(): Promise<User> {
         return new Promise(resolve => {
-       setTimeout(() => resolve(this.user), 100);
+       setTimeout(() => resolve(this.user), 10);
     });
     }
 
@@ -31,10 +32,25 @@ export class UserService {
             headers: this.headers
           })
         .toPromise()
-        .then(response => {
-            let auser:User = response.json() as User;
-            this.user.name = auser.name;
-            resolve(this.user);
+        .then((resp) => {
+
+            this.http.post(this.loginUrl, {
+                name: username,
+                password: password,
+                mail: email
+            }, {
+                headers: this.headers
+              })
+            .toPromise()
+            .then(response => {
+                let auser:User = response.json() as User;
+                this.user.name = auser.name;
+                this.user.token = auser.token;
+                this.user.userId = auser.userId;
+                this.user.avatar = auser.avatar;
+
+                resolve(this.user);
+            });
         })
         .catch(this.handleError);
         });
