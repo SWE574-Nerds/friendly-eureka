@@ -15,7 +15,7 @@ urlpatterns = [
 
     url(r'^accounts/', include('accounts.urls')),
 
- 
+    url(r'^historyitems/', include('historyitems.urls')),
 ]
 
 
