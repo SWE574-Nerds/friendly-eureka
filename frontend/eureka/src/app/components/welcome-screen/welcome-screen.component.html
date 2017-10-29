@@ -36,14 +36,18 @@
             </div>
         </div>
 
+
+            
         <div class="col-md-4">
-            <div *ngIf="! form.onRegister">
+            <div *ngIf="! user.token">
+                <div *ngIf="! form.onRegister">
                 <login-form [form]="form"></login-form>
             </div>
             <div *ngIf="form.onRegister">
                 <register-form [form]="form"></register-form>
             </div>
         </div>
-
+    </div>
+    
     </div>
 </div>
