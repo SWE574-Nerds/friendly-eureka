@@ -5,7 +5,6 @@ from api.models import Tokens
 
 class AuthMiddleware(object):
     def process_request(self, request):
-        request.test = 5
 
         try:
             token = request.META['HTTP_AUTHORIZATION']

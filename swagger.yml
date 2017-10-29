@@ -1,4 +1,4 @@
-wagger: "2.0"
+swagger: "2.0"
 info:
   description: "This is the API documentation of the EUREKA project."
   version: "1.0.0"
@@ -306,8 +306,33 @@ paths:
           description: "Bad Request - Resource occupied by listory"
         405:
           description: "Missing information"
-      
-    
+  /time:
+    get:
+      tags:
+      - "time"
+      summary: "Get time options"
+      operationId: "time"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/TimeInfoArray"
+          description: "Retrieved time info details"
+  /category:
+    get:
+      tags:
+      - "category"
+      summary: "Get category options"
+      operationId: "category"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/CategoryArray"
+          description: "Retrieved category details"
+  
 definitions:
   AllListoryItems:
     type: array
@@ -358,6 +383,37 @@ definitions:
       password:
         type: "string"
         description: The password in plain text
+  TimeInfoArray:
+    type: "array"
+    items:
+      $ref: '#/definitions/TimeInfo'
+  TimeInfoGroup:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "The of the time type"
+      units:
+        type: "string"
+        description: "The units of values. YEAR or DATE"
+      values: 
+        type: array
+        items:
+          type: integer
+   
+  TimeInfoForm:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "timeInfo ID"
+      value_1:
+        type: "string"
+        description: "The time value in the required unit"
+      value_2:
+        type: "string"
+        description: "The time value in the required unit"
+    
   Listory:
     type: "object"
     properties:
@@ -370,6 +426,13 @@ definitions:
       image:
         type: "string"
         description: "Link to image if applicable"
+      category:
+        type: "integer"
+        description: "The category id"
+      timeInfo:
+        $ref: '#/definitions/TimeInfoForm'
+      
+      
   ListoryDetails:
     type: "object"
     properties:
@@ -388,17 +451,50 @@ definitions:
       listoryId:
         type: "string"
         description: "The id/identifier of the listory item"
+      category:
+        type: "string"
+        description: "The category name"
       owner:
         $ref: '#/definitions/RegisterResponse'
       createdAt:
         type: "string"
         description: "Creation date of the listory item"
+      time:
+        $ref: '#/definitions/TimeInfoGroup'
+      
+  CategoryArray:
+    type: "array"
+    items:
+      $ref: '#/definitions/Category'
+  Category:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description : "Category name/label"
+      id:
+        type: "integer"
+        description: "The id to be used in the rest calls."
+  TimeInfo:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "The id of the timeInfo to be used in the calls"
+      name:
+        type: "string"
+        description: ""
+      value_name:
+        type: "string"
+      value_count:
+        type: "string"
+          
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
-    
+  
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"

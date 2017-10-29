@@ -4,39 +4,17 @@ from __future__ import absolute_import
 from datetime import date, datetime
 from typing import List, Dict
 
+class ListoryTimeInfoForm(object):
+    def __init__(self, timeInfo):
+        if timeInfo is not None:
+            self.id = timeInfo.get('id') or None
+            self.value1 = timeInfo.get('value_1') or None
+            self.value2 = timeInfo.get('value_2') or None
 
 class ListoryForm(object):
-    def __init__(self, name: str=None, description: str=None, image: str=None):
-        self._name = name
-        self._description = description
-        self._image = image
-
     def __init__(self, post):
-        self._name = post.get('name') or None
+        self.name = post.get('name') or None
         self.description = post.get('description') or None
         self.image = post.get('image') or None
-
-    @property
-    def name(self) -> str:
-        return self._name
-
-    @name.setter
-    def name(self, name: str):
-        self._name = name
-
-    @property
-    def description(self) -> str:
-        return self._description
-
-    @description.setter
-    def description(self, description: str):
-        self._description = description
-
-    @property
-    def image(self) -> str:
-        return self._image
-
-    @image.setter
-    def image(self, image: str):
-        self._image = image
-
+        self.timeInfo = ListoryTimeInfoForm(post.get('timeInfo')) or None
+        self.category_id = post.get('category') or None
