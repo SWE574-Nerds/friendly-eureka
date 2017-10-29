@@ -1,39 +1,48 @@
-<div class="container-fluid">
-    <div class="row">
+<div class="container">
+     <div class="row"  style="margin-top:100px">
         <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="jumbotron">
+            <img src="./assets/img/loginPage.png" alt="Eureka!" style="width:100%"/>
+        </div>
+    </div>
 
-                        <div *ngIf="! user.name">
-                                <h2>
-                                    Welcome stranger!
-                                </h2>
-                            </div>
+    <div class="row" style="margin-top:100px">
+        <div class="col-md-8">
+            <div>
+                <div *ngIf="! user.name">
+                    <h4 style="font-weight: normal">
+                        Welcome to Eureka!
+                    </h4>
+                </div>
 
-                        <div *ngIf="user.name">
-                            <h2>
-                                    Welcome, {{user.name}}
-                                    Welcome, {{user.token}}
-                                </h2>
-                        </div>
+                <div *ngIf="user.name">
+                    <h2>
+                        Welcome, {{user.name}}
+                        Welcome, {{user.token}}
+                    </h2>
+                </div>
 
-                        <p>
-                            This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and
-                            three supporting pieces of content. Use it as a starting point to create something more unique.
-                        </p>
+                    <p>
+                        This is a template for a simple marketing or informational website. 
+                    </p>
+                    <p>
+                         It includes a large callout called the hero unit and  three supporting pieces of content.          
+                    </p>
+                    <p>
+                         Use it as a starting point to create something more unique.
+                    </p>
                   <!--      <p>
                             <a class="btn btn-primary btn-large" href="#">Learn more</a>
                         </p>
                     -->
-                    </div>
-                </div>
-                <div class="col-md-4">
+            </div>
+        </div>
 
-                    <div *ngIf="! user.name">
-                        <register-form></register-form>
-                    </div>
-                </div>
+        <div class="col-md-4">
+            <div *ngIf="title == 'login'">
+                <login-form></login-form>
+            </div>
+            <div *ngIf="title == 'signup'">
+                <register-form></register-form>
             </div>
         </div>
     </div>

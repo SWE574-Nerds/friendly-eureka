@@ -56,6 +56,37 @@ export class UserService {
         });
     }
 
+    login(password: string, username: string): Promise<User> {
+        return new Promise(resolve => {
+    this.http.post(this.loginUrl, {
+        name: username,
+        password: password,
+    }, {
+        headers: this.headers
+      })
+    .toPromise()
+    .then((resp) => {
+
+        this.http.post(this.loginUrl, {
+            name: username,
+            password: password,
+        }, {
+            headers: this.headers
+          })
+        .toPromise()
+        .then(response => {
+            let auser:User = response.json() as User;
+            this.user.name = auser.name;
+            this.user.token = auser.token;
+            this.user.userId = auser.userId;
+            this.user.avatar = auser.avatar;
+
+            resolve(this.user);
+        });
+    })
+    .catch(this.handleError);
+    });
+}
       private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
