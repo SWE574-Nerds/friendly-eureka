@@ -5,8 +5,8 @@ import { WelcomeScreenComponent } from './components/welcome-screen/welcome-scre
 import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/welcome/signup', pathMatch: 'full' },
-  { path: 'welcome/:title',  component: WelcomeScreenComponent },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'welcome',  component: WelcomeScreenComponent },
   { path: 'termsofservice',  component: TermsofserviceComponent },
 ];
  

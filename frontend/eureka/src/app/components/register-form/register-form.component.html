@@ -40,10 +40,10 @@
     </div>
 
     <div style="text-align: center"> 
-        <h6 style="font-weight: normal">By clicking Sign up, I agree to the <a href="termsofservice" >Terms of Service and Privacy Policy</a></h6>
+        <h6 style="font-weight: normal">By clicking Sign up, I agree to the <a routerLink="/termsofservice" >Terms of Service and Privacy Policy</a></h6>
         <button (click)="onSubmit()" type="submit" class="btn btn-primary">
               Sign Up
         </button>
-        <h6 style="font-weight: normal">Already have an account? <a href="/welcome/login" >Click Here</a></h6>
+        <h6 style="font-weight: normal">Already have an account? <button class="btn btn-link" (click)="gotoLogin()" >Click Here</button></h6>
     </div>   
 

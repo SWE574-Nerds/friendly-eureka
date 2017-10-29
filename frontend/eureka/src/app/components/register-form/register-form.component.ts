@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
+import { WelcomeForm } from '../../components/welcome-screen/form'
+
+
 @Component({
   selector: 'register-form',
   templateUrl: './register-form.component.html',
@@ -19,6 +22,12 @@ export class RegisterFormComponent {
   @Input() email: string;
 
   private message: string;
+
+  @Input() form: WelcomeForm;
+  
+  gotoLogin(){
+    this.form.onRegister = false;
+  }
 
   onSubmit(){
 

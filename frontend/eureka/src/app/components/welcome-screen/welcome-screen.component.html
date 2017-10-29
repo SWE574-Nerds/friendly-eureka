@@ -17,7 +17,6 @@
                 <div *ngIf="user.name">
                     <h2>
                         Welcome, {{user.name}}
-                        Welcome, {{user.token}}
                     </h2>
                 </div>
 
@@ -38,12 +37,13 @@
         </div>
 
         <div class="col-md-4">
-            <div *ngIf="title == 'login'">
-                <login-form></login-form>
+            <div *ngIf="! form.onRegister">
+                <login-form [form]="form"></login-form>
             </div>
-            <div *ngIf="title == 'signup'">
-                <register-form></register-form>
+            <div *ngIf="form.onRegister">
+                <register-form [form]="form"></register-form>
             </div>
         </div>
+
     </div>
 </div>

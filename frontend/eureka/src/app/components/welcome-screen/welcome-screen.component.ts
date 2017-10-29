@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { User } from '../../services/user'
+import { WelcomeForm } from './form'
 import { UserService } from '../../services/user.service'
-import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -14,32 +14,19 @@ export class WelcomeScreenComponent implements OnInit {
   
   @Input() user: User;
 
-  private message = 'Welcome to Eureka!';
-  public title : string;
-  private route$ : Subscription;
-
+  private form: WelcomeForm = new WelcomeForm(); // false means Login
 
   constructor(
     private userService: UserService,
-    private route : ActivatedRoute
   ){}
-
 
   ngOnInit(): void {
     this.userService.getUser().then(user => {
       this.user = user;
     });  
 
-    this.route$ = this.route.params.subscribe(
-      (params : Params) => {
-          this.title = params["title"]; 
-      }
-  );
   }
 
-  ngOnDestroy() {
-    if(this.route$) this.route$.unsubscribe();
-}
 
 }
 
