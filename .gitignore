@@ -1,4 +1,6 @@
-
+*package-lock.json
+*frontend*dist*
+*vscode*
 # Created by https://www.gitignore.io/api/python,django,js,bootstrap,docker,cmake,c++,git,intellij,vscode,sqlite,python3,django3,androidstudio,android,java
 
 #!! ERROR: bootstrap is undefined. Use list command to see defined gitignore types !!#

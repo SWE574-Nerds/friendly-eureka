@@ -695,6 +695,31 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+            defs.AllListoryItems = {
+  "type" : "array",
+  "items" : {
+    "$ref" : "#/definitions/ListoryDetails"
+  }
+};
+            defs.Category = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "Category name/label"
+    },
+    "id" : {
+      "type" : "integer",
+      "description" : "The id to be used in the rest calls."
+    }
+  }
+};
+            defs.CategoryArray = {
+  "type" : "array",
+  "items" : {
+    "$ref" : "#/definitions/Category"
+  }
+};
             defs.ContentResponse = {
   "properties" : {
     "id" : {
@@ -721,6 +746,13 @@ margin-bottom: 20px;
     "image" : {
       "type" : "string",
       "description" : "Link to image if applicable"
+    },
+    "category" : {
+      "type" : "integer",
+      "description" : "The category id"
+    },
+    "timeInfo" : {
+      "$ref" : "#/definitions/TimeInfoForm"
     }
   }
 };
@@ -747,12 +779,19 @@ margin-bottom: 20px;
       "type" : "string",
       "description" : "The id/identifier of the listory item"
     },
+    "category" : {
+      "type" : "string",
+      "description" : "The category name"
+    },
     "owner" : {
       "$ref" : "#/definitions/RegisterResponse"
     },
     "createdAt" : {
       "type" : "string",
       "description" : "Creation date of the listory item"
+    },
+    "time" : {
+      "$ref" : "#/definitions/TimeInfoGroup"
     }
   }
 };
@@ -811,6 +850,67 @@ margin-bottom: 20px;
     }
   }
 };
+            defs.TimeInfo = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer",
+      "description" : "The id of the timeInfo to be used in the calls"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : ""
+    },
+    "value_name" : {
+      "type" : "string"
+    },
+    "value_count" : {
+      "type" : "string"
+    }
+  }
+};
+            defs.TimeInfoArray = {
+  "type" : "array",
+  "items" : {
+    "$ref" : "#/definitions/TimeInfo"
+  }
+};
+            defs.TimeInfoForm = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer",
+      "description" : "timeInfo ID"
+    },
+    "value_1" : {
+      "type" : "string",
+      "description" : "The time value in the required unit"
+    },
+    "value_2" : {
+      "type" : "string",
+      "description" : "The time value in the required unit"
+    }
+  }
+};
+            defs.TimeInfoGroup = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "The of the time type"
+    },
+    "units" : {
+      "type" : "string",
+      "description" : "The units of values. YEAR or DATE"
+    },
+    "values" : {
+      "type" : "array",
+      "items" : {
+        "type" : "integer"
+      }
+    }
+  }
+};
   </script>
 
   <div class="container-fluid">
@@ -827,6 +927,10 @@ margin-bottom: 20px;
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
+                  <li class="nav-header" data-group="Category"><a href="#api-Category">API Methods - Category</a></li>
+                    <li data-group="Category" data-name="category" class="">
+                      <a href="#api-Category-category">category</a>
+                    </li>
                   <li class="nav-header" data-group="Content"><a href="#api-Content">API Methods - Content</a></li>
                     <li data-group="Content" data-name="contentIdDelete" class="">
                       <a href="#api-Content-contentIdDelete">contentIdDelete</a>
@@ -845,6 +949,9 @@ margin-bottom: 20px;
                       <a href="#api-Follow-listoryIdUnfollowGet">listoryIdUnfollowGet</a>
                     </li>
                   <li class="nav-header" data-group="Listory"><a href="#api-Listory">API Methods - Listory</a></li>
+                    <li data-group="Listory" data-name="listoryAll" class="">
+                      <a href="#api-Listory-listoryAll">listoryAll</a>
+                    </li>
                     <li data-group="Listory" data-name="listoryCreate" class="">
                       <a href="#api-Listory-listoryCreate">listoryCreate</a>
                     </li>
@@ -856,6 +963,10 @@ margin-bottom: 20px;
                     </li>
                     <li data-group="Listory" data-name="listoryUpdate" class="">
                       <a href="#api-Listory-listoryUpdate">listoryUpdate</a>
+                    </li>
+                  <li class="nav-header" data-group="Time"><a href="#api-Time">API Methods - Time</a></li>
+                    <li data-group="Time" data-name="time" class="">
+                      <a href="#api-Time-time">time</a>
                     </li>
                   <li class="nav-header" data-group="User"><a href="#api-User">API Methods - User</a></li>
                     <li data-group="User" data-name="login" class="">
@@ -886,6 +997,261 @@ margin-bottom: 20px;
           </div>
         </div>
         <div id="sections">
+                <section id="api-Category">
+                  <h1>Category</h1>
+                    <div id="api-Category-category">
+                      <article id="api-Category-category-0" data-group="User" data-name="category" data-version="0">
+                        <div class="pull-left">
+                          <h1>category</h1>
+                          <p>Get category options</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/category</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Category-category-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Category-category-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Category-category-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Category-category-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Category-category-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Category-category-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Category-category-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Category-category-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Category-category-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Category-category-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Category-category-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Category-category-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost/api/v1//category"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Category-category-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.CategoryApi;
+
+import java.io.File;
+import java.util.*;
+
+public class CategoryApiExample {
+
+    public static void main(String[] args) {
+        
+        CategoryApi apiInstance = new CategoryApi();
+        try {
+            CategoryArray result = apiInstance.category();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CategoryApi#category");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Category-category-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.CategoryApi;
+
+public class CategoryApiExample {
+
+    public static void main(String[] args) {
+        CategoryApi apiInstance = new CategoryApi();
+        try {
+            CategoryArray result = apiInstance.category();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling CategoryApi#category");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Category-category-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Category-category-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+CategoryApi *apiInstance = [[CategoryApi alloc] init];
+
+// Get category options
+[apiInstance categoryWithCompletionHandler: 
+              ^(CategoryArray output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Category-category-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
+
+var api = new EurekaLivingHistoryApi.CategoryApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.category(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Category-category-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Category-category-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class categoryExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new CategoryApi();
+
+            try
+            {
+                // Get category options
+                CategoryArray result = apiInstance.category();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CategoryApi.category: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Category-category-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\CategoryApi();
+
+try {
+    $result = $api_instance->category();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling CategoryApi->category: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Category-category-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::CategoryApi;
+
+my $api_instance = WWW::SwaggerClient::CategoryApi->new();
+
+eval { 
+    my $result = $api_instance->category();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling CategoryApi->category: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Category-category-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.CategoryApi()
+
+try: 
+    # Get category options
+    api_response = api_instance.category()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling CategoryApi->category: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Retrieved category details </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-category-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-category-200-schema">
+                                  <div id='responses-category-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Retrieved category details",
+  "schema" : {
+    "$ref" : "#/definitions/CategoryArray"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-category-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-category-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-category-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Content">
                   <h1>Content</h1>
                     <div id="api-Content-contentIdDelete">
@@ -2427,6 +2793,266 @@ except ApiException as e:
                   </section>
                 <section id="api-Listory">
                   <h1>Listory</h1>
+                    <div id="api-Listory-listoryAll">
+                      <article id="api-Listory-listoryAll-0" data-group="User" data-name="listoryAll" data-version="0">
+                        <div class="pull-left">
+                          <h1>listoryAll</h1>
+                          <p>Get a list of all living history items</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/listory/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Listory-listoryAll-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Listory-listoryAll-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Listory-listoryAll-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Listory-listoryAll-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Listory-listoryAll-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Listory-listoryAll-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Listory-listoryAll-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Listory-listoryAll-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Listory-listoryAll-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Listory-listoryAll-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Listory-listoryAll-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Listory-listoryAll-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost/api/v1//listory/"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Listory-listoryAll-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ListoryApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ListoryApiExample {
+
+    public static void main(String[] args) {
+        
+        ListoryApi apiInstance = new ListoryApi();
+        try {
+            AllListoryItems result = apiInstance.listoryAll();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ListoryApi#listoryAll");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Listory-listoryAll-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ListoryApi;
+
+public class ListoryApiExample {
+
+    public static void main(String[] args) {
+        ListoryApi apiInstance = new ListoryApi();
+        try {
+            AllListoryItems result = apiInstance.listoryAll();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ListoryApi#listoryAll");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Listory-listoryAll-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Listory-listoryAll-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+ListoryApi *apiInstance = [[ListoryApi alloc] init];
+
+// Get a list of all living history items
+[apiInstance listoryAllWithCompletionHandler: 
+              ^(AllListoryItems output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryAll-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
+
+var api = new EurekaLivingHistoryApi.ListoryApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.listoryAll(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Listory-listoryAll-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Listory-listoryAll-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class listoryAllExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ListoryApi();
+
+            try
+            {
+                // Get a list of all living history items
+                AllListoryItems result = apiInstance.listoryAll();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ListoryApi.listoryAll: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryAll-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ListoryApi();
+
+try {
+    $result = $api_instance->listoryAll();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ListoryApi->listoryAll: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryAll-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ListoryApi;
+
+my $api_instance = WWW::SwaggerClient::ListoryApi->new();
+
+eval { 
+    my $result = $api_instance->listoryAll();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ListoryApi->listoryAll: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryAll-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ListoryApi()
+
+try: 
+    # Get a list of all living history items
+    api_response = api_instance.listory_all()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ListoryApi->listoryAll: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - All listory items </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-listoryAll-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-listoryAll-200-schema">
+                                  <div id='responses-listoryAll-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "All listory items",
+  "schema" : {
+    "$ref" : "#/definitions/AllListoryItems"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-listoryAll-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-listoryAll-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-listoryAll-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 405 - Invalid input / Validation error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Listory-listoryCreate">
                       <article id="api-Listory-listoryCreate-0" data-group="User" data-name="listoryCreate" data-version="0">
                         <div class="pull-left">
@@ -3771,6 +4397,261 @@ $(document).ready(function() {
                       </div>
                       <hr>
                   </section>
+                <section id="api-Time">
+                  <h1>Time</h1>
+                    <div id="api-Time-time">
+                      <article id="api-Time-time-0" data-group="User" data-name="time" data-version="0">
+                        <div class="pull-left">
+                          <h1>time</h1>
+                          <p>Get time options</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/time</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Time-time-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Time-time-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Time-time-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Time-time-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Time-time-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Time-time-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Time-time-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Time-time-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Time-time-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Time-time-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Time-time-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Time-time-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost/api/v1//time"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Time-time-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.TimeApi;
+
+import java.io.File;
+import java.util.*;
+
+public class TimeApiExample {
+
+    public static void main(String[] args) {
+        
+        TimeApi apiInstance = new TimeApi();
+        try {
+            TimeInfoArray result = apiInstance.time();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TimeApi#time");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Time-time-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.TimeApi;
+
+public class TimeApiExample {
+
+    public static void main(String[] args) {
+        TimeApi apiInstance = new TimeApi();
+        try {
+            TimeInfoArray result = apiInstance.time();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TimeApi#time");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Time-time-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Time-time-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+TimeApi *apiInstance = [[TimeApi alloc] init];
+
+// Get time options
+[apiInstance timeWithCompletionHandler: 
+              ^(TimeInfoArray output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Time-time-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
+
+var api = new EurekaLivingHistoryApi.TimeApi()
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.time(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Time-time-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Time-time-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class timeExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new TimeApi();
+
+            try
+            {
+                // Get time options
+                TimeInfoArray result = apiInstance.time();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling TimeApi.time: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Time-time-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\TimeApi();
+
+try {
+    $result = $api_instance->time();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling TimeApi->time: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Time-time-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::TimeApi;
+
+my $api_instance = WWW::SwaggerClient::TimeApi->new();
+
+eval { 
+    my $result = $api_instance->time();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling TimeApi->time: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Time-time-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.TimeApi()
+
+try: 
+    # Get time options
+    api_response = api_instance.time()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling TimeApi->time: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Retrieved time info details </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-time-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-time-200-schema">
+                                  <div id='responses-time-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Retrieved time info details",
+  "schema" : {
+    "$ref" : "#/definitions/TimeInfoArray"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-time-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-time-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-time-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-User">
                   <h1>User</h1>
                     <div id="api-User-login">
@@ -4742,7 +5623,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-10-17T17:24:33.342Z
+              Generated 2017-10-29T15:10:34.874Z
             </div>
           </div>
       </div>
