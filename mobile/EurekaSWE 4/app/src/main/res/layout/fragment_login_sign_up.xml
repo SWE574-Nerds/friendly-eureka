@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <EditText
+        android:id="@+id/email"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:minWidth="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="40dp"
+        android:hint="email"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:minWidth="200dp"
+        android:id="@+id/username"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/email"
+        android:layout_centerInParent="false"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:hint="username"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:minWidth="200dp"
+        android:id="@+id/password"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/username"
+        android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:hint="password"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:minWidth="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:hint="re enter password"
+        android:textColorHint="@color/white"
+        android:id="@+id/reenter" />
+
+
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reenter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="CheckBox" />
+
+    <Button
+        android:id="@+id/button_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:layout_below="@+id/checkBox"
+        android:layout_marginTop="10dp"
+      android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/bottom_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already a member?" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="Sign in"
+            android:textColor="@color/baby_blue" />
+
+    </LinearLayout>
+</RelativeLayout>

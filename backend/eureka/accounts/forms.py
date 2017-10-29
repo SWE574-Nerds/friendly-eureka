@@ -37,3 +37,4 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError('The password does not match')
         return password2
 
+
