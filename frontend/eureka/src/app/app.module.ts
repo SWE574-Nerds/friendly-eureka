@@ -12,12 +12,19 @@ import { WelcomeScreenComponent } from './components/welcome-screen/welcome-scre
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component'
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { TestComponent } from './components/test/test.component';
 
 import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
-    AppComponent, DashboardComponent, WelcomeScreenComponent, RegisterFormComponent, TermsofserviceComponent, LoginFormComponent
+    AppComponent, 
+    DashboardComponent, 
+    WelcomeScreenComponent, 
+    RegisterFormComponent, 
+    TermsofserviceComponent, 
+    LoginFormComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule, FormsModule, AppRoutingModule, HttpModule
