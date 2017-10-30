@@ -3,19 +3,52 @@
 
 {% block body %}
 
+
+
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+    <div class="row" style="margin-top:50px">
+        <div class="col-md-6 col-md-offset-2">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <h1>Form</h1>
-                {{ form|crispy }}
+                <div class="col-md-12">
+                    <h3><mark>New listory</mark></h3>
+                </div>
+
+                <div class="col-md-12" style="margin-top:10px">
+                    {{ form.title }}
+                </div>
+
+                <div class="col-md-12" style="margin-top:10px">
+                    {{ form.category }}
+                </div>
+
+                <div class="col-md-12" style="margin-top:10px">
+                    {{ form.content }}
+                </div>
+
+                <div class="col-md-12" style="margin-top:10px">
+                    {{ form.timeInfo }}
+                </div>
+
+                <div class="col-md-6" style="margin-top:10px">
+                    {{ form.timeValue1 }}
+                </div>
+
+                <div class="col-md-6" style="margin-top:10px">
+                    {{ form.timeValue2 }}
+                </div>
+
+
                 {{ form.media }}
-                <input class="btn btn-primary" type="submit" value="Send"/>
+                <div class="col-md-4" style="margin-top:20px">
+                    <input class="btn btn-default" type="submit" value="Complete">
+                </div>
             </form>
         </div>
     </div>
-
-
 </div>
+
+
 {% endblock %}

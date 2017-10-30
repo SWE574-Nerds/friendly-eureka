@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^listory/create/$', api_create_listory, name='api_create_listory'),
     url(r'^listory/(?P<id>\w{0,50})/$', api_listory, name='api_listory'),
     url(r'^listory/$', get_all_listories, name='get_all_listories'),
+
+    url(r'^time/$', get_time_types, name='get_time_types'),
+    url(r'^category/$', get_category_types, name='get_category_types'),
 ]
 
 

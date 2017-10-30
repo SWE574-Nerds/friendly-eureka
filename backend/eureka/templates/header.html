@@ -1,9 +1,7 @@
-<!-- Navbar Start -->
-<nav class="navbar navbar-default navbar-fixed-top" role="banner">
+
+<nav class="navbar navbar-default navbar-fixed-top" role="banner" style="background-color:white">
     <div class="container">
-
         <div class="navbar-header">
-
             <!-- Telefon ekranları için menü butonu -->
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -11,42 +9,41 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
-            <!-- İsim Soyisim veya Marka İsmi -->
-            <a href="{% url 'post:index' %}" class="navbar-brand">EUREKA</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'post:index' %}" class="navbar-brand">
+                    <div style="margin-top:-5px;">{{ user.username }}</div>
+                </a>
+            {% endif %}
         </div>
 
         <nav class="collapse navbar-collapse" role="navigation">
-
-            <!-- Arama Çubuğu -->
-            <form class="navbar-form navbar-left" role="search" method="GET" action="">
-                <div class="input-group">
-                    <input class="form-control" type="text" name="q" placeholder="Search" value="{{ request.GET.q }}" >
-                    <span class="input-group-btn">
-                        <input class="btn btn-default" type="submit" value="Search">
-                    </span>
-                </div>
-            </form>
-
-            <!-- Temel Sayfalar -->
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'post:create' %}">Create Post</a></li>
-                {% endif %}
-                <li><a href="{% url 'post:index' %}">Homepage</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">About</a></li>
-
-                {% if not request.user.is_authenticated %}
-                    <li><a href="{% url 'accounts:register' %}">Register</a></li>
-                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li>
+                <form class="navbar-form navbar-left" role="search" method="GET" action="">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search" value="{{ request.GET.q }}" >
+                        <span class="input-group-btn">
+                            <input class="btn btn-default" type="submit" value="Search">
+                        </span>
+                    </div>
+                </form>
+                </li>
+                <li><a href="{% url 'post:index' %}"><span class='glyphicon glyphicon-home'></span></a></li>
+                <li><a href="{% url 'post:create' %}"><span class='glyphicon glyphicon-plus'></span></a></li>
+                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class='glyphicon glyphicon-asterisk'></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="{% url 'accounts:change_password' %}">Change password</a></li>
+                        <li><a href="#">Change your avatar</a></li>
+                        <li><a href="#">About</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                    </ul>
                 {% else %}
-                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                 <li><a href="{% url 'accounts:login' %}"><span class='glyphicon glyphicon-log-in'></span></a></li>
+                 <li><a href="{% url 'accounts:register' %}"><span class='glyphicon glyphicon-registration-mark'></span></a></li>
                 {% endif %}
-
             </ul>
-
         </nav>
-
     </div>
 </nav>

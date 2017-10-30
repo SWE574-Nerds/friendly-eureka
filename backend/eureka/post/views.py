@@ -34,7 +34,7 @@ def post_index(request):
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
 
-    form = CommentForm(request.POST or None)
+    form = PostForm(request.POST or None)
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
