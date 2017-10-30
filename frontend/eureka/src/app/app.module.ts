@@ -12,9 +12,15 @@ import { WelcomeScreenComponent } from './components/welcome-screen/welcome-scre
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component'
 import { LoginFormComponent } from './components/login-form/login-form.component';
-import { TestComponent } from './components/test/test.component';
+import { CardViewComponent } from './components/cardview/cardview.component';
 
 import { UserService } from './services/user.service';
+import { ListoryService } from './services/listory.service';
+
+import { BackgroundDirective } from './components/cardview/backgrounder.directive';
+import { CardComponent } from './components/cardview/card/card.component';
+
+
 
 @NgModule({
   declarations: [
@@ -24,12 +30,14 @@ import { UserService } from './services/user.service';
     RegisterFormComponent, 
     TermsofserviceComponent, 
     LoginFormComponent,
-    TestComponent
+    CardViewComponent,
+    BackgroundDirective,
+    CardComponent
   ],
   imports: [
     BrowserModule, FormsModule, AppRoutingModule, HttpModule
   ],
-  providers: [ UserService ],
+  providers: [ UserService, ListoryService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
