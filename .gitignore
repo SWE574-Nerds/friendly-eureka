@@ -241,6 +241,7 @@ venv.bak/
 #!! ERROR: sqlite is undefined. Use list command to see defined gitignore types !!#
 
 #!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
+*vscode*
 
 # End of https://www.gitignore.io/api/python,django,js,bootstrap,docker,cmake,c++,git,intellij,vscode,sqlite,python3,django3
 
@@ -352,6 +353,52 @@ typings/
 
 #!! ERROR: npm is undefined. Use list command to see defined gitignore types !!#
 
+# End of https://www.gitignore.io/api/npm,js,jspm,bower,node,nodejs,angular
+
+# Created by https://www.gitignore.io/api/angular,js,nodejs
+
+### Angular ###
+## Angular ##
+# compiled output
+/dist
+/tmp
+/app/**/*.js
+/app/**/*.js.map
+
+# dependencies
+/node_modules
+/bower_components
+
+# IDEs and editors
+/.idea
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
+
+#!! ERROR: js is undefined. Use list command to see defined gitignore types !!#
+
+#!! ERROR: nodejs is undefined. Use list command to see defined gitignore types !!#
+
+# End of https://www.gitignore.io/api/angular,js,nodejs
+
+# Created by https://www.gitignore.io/api/vscode
+
+#!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
+
+# End of https://www.gitignore.io/api/vscode
 ### Android ###
 # Built application files
 *.apk
