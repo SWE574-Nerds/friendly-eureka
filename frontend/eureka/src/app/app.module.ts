@@ -21,6 +21,7 @@ import { CreateService } from './services/create.service';
 import { BackgroundDirective } from './components/cardview/backgrounder.directive';
 import { CardComponent } from './components/cardview/card/card.component';
 import { CreateFormComponent } from './components/create/create.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 import { SimpleStore } from '../app/app/SimpleStore';
 
@@ -37,7 +38,8 @@ import { SimpleStore } from '../app/app/SimpleStore';
     CardViewComponent,
     BackgroundDirective,
     CardComponent,
-    CreateFormComponent
+    CreateFormComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule, FormsModule, AppRoutingModule, HttpModule

@@ -3,6 +3,7 @@ import { User } from './user';
 import { Headers, Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { Card } from '../components/cardview/card';
+import { Listory } from './Listory';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -11,8 +12,20 @@ export class ListoryService {
     private headers = new Headers({'Content-Type': 'application/json'});
     
     private listoryUrl = '/api/listory';
+    private listoryIdUrl = '/api/listory/:id';
     
     constructor(private http: Http) { }
+
+    getListory(id): Promise<Listory> {
+      return new Promise<Listory>(resolve => {
+      this.http.get(this.listoryIdUrl.replace(':id', id))
+      .toPromise()
+      .then((resp) => {
+          var listory:Listory = resp.json();
+          resolve(listory);
+      });
+    });
+    }
 
     getCards(): Promise<Card[]> {
         return new Promise(resolve => {

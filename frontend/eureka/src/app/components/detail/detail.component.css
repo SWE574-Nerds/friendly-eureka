@@ -1,0 +1,41 @@
+.carddiv{
+    height: 100px;
+    overflow: hidden;
+    align-content: center;
+    margin: -20px;
+    margin-bottom: 20px;
+    background-size: cover;
+    background-position: center;
+}
+
+.left {
+    float: left;
+    padding: 0 20px 20px 0;
+}
+ 
+img{
+    max-width: 25%;
+    height: auto;
+}
+
+.cardcanvas{
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.owner{
+    float:left; 
+    font-size: 13px;
+    text-align:left; 
+    color:rgb(165, 151, 73);
+    font-weight: bold;
+}
+
+.update{
+    font-size: 12px;
+    float:right; 
+    color:rgb(99, 99, 99);
+    margin-bottom: 8px;
+    font-style: italic;
+}

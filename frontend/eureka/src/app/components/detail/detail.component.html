@@ -1,0 +1,14 @@
+<div class="card cardcanvas " >
+        <div class="card-block">
+    
+
+            <h4 class="card-title">{{listory.name}}</h4>
+
+            <img class="left" *ngIf="listory.image" src="{{listory.image}}" />            
+            
+            <p class="card-text">{{listory.description}}</p>
+            
+            <p><span class="owner" >{{listory.owner.name}}</span> <span class="update">{{card.createdAt}}</span></p>
+        </div>
+    </div>
+    
