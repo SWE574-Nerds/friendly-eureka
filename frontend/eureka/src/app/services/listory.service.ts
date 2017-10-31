@@ -48,8 +48,8 @@ export class ListoryService {
                   title: listory.name,
                   description:  listory.description.substr(0, 150),
                   owner: listory.owner.name,
-                  lastUpdate: "Unknown",
-                  image: null
+                  lastUpdate: listory.createdAt,
+                  image: listory.image
                 });
               }
 
