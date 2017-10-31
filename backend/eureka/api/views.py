@@ -10,6 +10,8 @@ from api.dto.LoginForm import LoginForm
 from api.services.TokenService import TokenService
 from api.middleware.AuthMiddleware import AuthMiddleware
 
+from post.models import TimeInfo, Category
+
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -96,9 +98,9 @@ def api_create_listory(request):
     if len(errors):
         return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
-        try:
+ #       try:
             api_user = request.api_user
-            listoryId = ListoryService.create_listory(form.name, form.description, api_user)
+            listoryId = ListoryService.create_listory(form, api_user)
             listory = ListoryService.get_listory_by_id(listoryId)
             return Response({
                 'name' : listory.title,
@@ -109,10 +111,17 @@ def api_create_listory(request):
                     'name': api_user.username,
                     'userId': api_user.pk
                 },
+                "time" : {
+                    "name": listory.timeInfoGroup.timeInfo.name,
+                    "units" : listory.timeInfoGroup.timeInfo.value_type,
+                    "values" : [ listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2 ],
+                    "count" : listory.timeInfoGroup.timeInfo.value_count
+                },
+                "category" : listory.category.name,
                 'createdAt': None
             }, status=status.HTTP_200_OK)
-        except:
-            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+    #    except:
+    #        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -142,17 +151,19 @@ def api_update_listory(request, id):
     else:
         try:
 
+
             if form.name is not None:
                 listory.title = form.name
             if form.description is not None:
                 listory.content = form.description
+
         #    if form.image is not None:
         #        listory.img = form.image
 
             listory.save()
 
             return Response({
-                'name' : listory.title,
+                 'name' : listory.title,
                 'description' : listory.content,
              #   'image': listory.img,
                 'listoryId': listory.pk,
@@ -160,6 +171,13 @@ def api_update_listory(request, id):
                     'name': api_user.username,
                     'userId': api_user.pk
                 },
+                "time" : {
+                    "name": listory.timeInfoGroup.timeInfo.name,
+                    "units" : listory.timeInfoGroup.timeInfo.value_type,
+                    "values" : [ listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2 ],
+                    "count" : listory.timeInfoGroup.timeInfo.value_count
+                },
+                "category" : listory.category.name,
                 'createdAt': None
             }, status=status.HTTP_200_OK)
         except:
@@ -177,6 +195,13 @@ def api_get_listory(request, id):
                 'name': listory.user.username,
                 'userId': listory.user.pk
             },
+            "time": {
+                "name": listory.timeInfoGroup.timeInfo.name,
+                "units": listory.timeInfoGroup.timeInfo.value_type,
+                "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
+                "count": listory.timeInfoGroup.timeInfo.value_count
+            },
+            "category": listory.category.name,
             'createdAt': None
         }, status=status.HTTP_200_OK)
     else:
@@ -213,6 +238,42 @@ def get_all_listories(request):
                 'name': listory.user.username,
                 'userId': listory.user.pk
             },
+            "time": {
+                "name": listory.timeInfoGroup.timeInfo.name,
+                "units": listory.timeInfoGroup.timeInfo.value_type,
+                "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
+                "count": listory.timeInfoGroup.timeInfo.value_count
+            },
+            "category": listory.category.name,
             'createdAt': None
         })
     return Response(response, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_time_types(request):
+    times = TimeInfo.objects.all()
+
+    response = []
+
+    for time in times:
+        response.append({
+            "id": time.pk,
+            "name": time.name,
+            "value_count" : time.value_count,
+            "value_type" : time.value_type
+        })
+
+    return Response(response, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_category_types(request):
+    categories = Category.objects.all()
+
+    response = []
+
+    for category in categories:
+        response.append({'name': category.name, 'id': category.pk})
+
+    return Response(response, status=status.HTTP_200_OK)
+

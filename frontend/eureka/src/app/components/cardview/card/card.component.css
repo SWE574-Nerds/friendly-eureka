@@ -1,0 +1,31 @@
+.carddiv{
+    height: 100px;
+    overflow: hidden;
+    align-content: center;
+    margin: -20px;
+    margin-bottom: 20px;
+    background-size: cover;
+    background-position: center;
+}
+
+.owner{
+    float:left; 
+    font-size: 12px;
+    text-align:left; 
+    color:rgb(165, 151, 73);
+    font-weight: bold;
+}
+
+.update{
+    font-size: 12px;
+    float:right; 
+    color:rgb(99, 99, 99);
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.cardo:hover {
+	background: rgba(0,0,0,0);
+	color: #3a7999;
+	box-shadow: inset 0 0 0 2px #3a7999;
+}
