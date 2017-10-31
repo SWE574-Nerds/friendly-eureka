@@ -25,6 +25,7 @@ class Category(models.Model):
 class Post(models.Model):
     user = models.ForeignKey('auth.User', verbose_name='Writer', related_name='posts')
     title = models.CharField(max_length=120, verbose_name='Title')
+    image = models.TextField(verbose_name='Image')
     content = RichTextField(verbose_name='Content')
     category = models.ForeignKey(Category, verbose_name='Category', related_name='posts', blank=True)
     timeInfoGroup = models.ForeignKey(TimeInfoGroup, verbose_name='TimeInfoGroup', blank=True)
