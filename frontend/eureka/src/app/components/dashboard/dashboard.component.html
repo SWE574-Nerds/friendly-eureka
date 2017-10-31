@@ -1,21 +1,56 @@
-           <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                    
-                  <li class="nav-item">
-                      <a class="nav-link" href="#" [routerLink]="['/welcome']"> bootstrap glyphicon doesnt work :( <span class='glyphicon glyphicon-log-in'></span></a>
-                  </li>
-              </ul>
-          
-              <a class="navbar-brand title" href="#">Eureka!</a>
-              
-          
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </div>
-          </nav>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <div *ngIf="! user.token">
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="Sign in" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-sign-in" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="Homepage" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="About" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </a>
+        </li>
+      </div>
+
+      <div *ngIf="user.token" style="display:inline-block">
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="New Listory" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="Homepage" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="About" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="nav-item" style="float:left">
+          <a class="nav-link" title="Sign out" href="#" [routerLink]="['/welcome']">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </a>
+        </li>
+      </div>
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
