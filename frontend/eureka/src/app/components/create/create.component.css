@@ -1,0 +1,9 @@
+.centered{
+    width: 50%;
+    align-self: center;
+    margin: auto;
+}
+
+.custom-select{
+    margin-bottom: 5px;
+}
