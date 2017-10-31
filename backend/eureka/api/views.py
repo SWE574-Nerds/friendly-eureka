@@ -105,7 +105,7 @@ def api_create_listory(request):
             return Response({
                 'name' : listory.title,
                 'description' : listory.content,
-                'image': listory.image,
+               'image': listory.image,
                 'listoryId': listory.pk,
                 'owner': {
                     'name': api_user.username,

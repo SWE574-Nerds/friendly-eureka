@@ -9,7 +9,11 @@ import { DetailComponent } from './components/detail/detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+<<<<<<< Updated upstream
   { path: 'welcome',  component: WelcomeScreenComponent },
+=======
+  { path: '/welcome',  component: WelcomeScreenComponent },
+>>>>>>> Stashed changes
   { path: 'termsofservice',  component: TermsofserviceComponent },
   { path: 'all',  component: CardViewComponent },
   { path: 'create', component: CreateFormComponent },

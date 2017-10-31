@@ -17,6 +17,7 @@ export class BackgroundDirective implements OnInit {
 
         this.el.nativeElement.style.backgroundImage = 'url(\'' + this.ngback.image + '\')';
         this.el.nativeElement.style.backgroundSize = 'cover';
+        console.log(this.ngback.image);
 
     } 
 
