@@ -19,4 +19,8 @@ export class DashboardComponent {
       this.user = user;
     });
   }
+
+  signOut(){
+    this.userService.signOut();
+  }
 }
