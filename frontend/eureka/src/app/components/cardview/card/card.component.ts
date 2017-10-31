@@ -20,6 +20,6 @@ export class CardComponent {
 
 
   gotoItem(){
-    this.router.navigate(['/welcome']);
+    this.router.navigate(['/detail', this.card.id]);
   }
 }
