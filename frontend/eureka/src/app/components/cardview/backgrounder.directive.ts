@@ -11,13 +11,10 @@ export class BackgroundDirective implements OnInit {
             this.el = el;
     }
 
-
-
   ngOnInit(): void {
-
         this.el.nativeElement.style.backgroundImage = 'url(\'' + this.ngback.image + '\')';
         this.el.nativeElement.style.backgroundSize = 'cover';
-
+        console.log("Image is ::::" + this.ngback.image);
     } 
 
 }

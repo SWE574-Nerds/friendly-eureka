@@ -105,7 +105,7 @@ def api_create_listory(request):
             return Response({
                 'name' : listory.title,
                 'description' : listory.content,
-             #   'image': listory.img,
+               'image': listory.image,
                 'listoryId': listory.pk,
                 'owner': {
                     'name': api_user.username,
@@ -157,15 +157,15 @@ def api_update_listory(request, id):
             if form.description is not None:
                 listory.content = form.description
 
-        #    if form.image is not None:
-        #        listory.img = form.image
+            if form.image is not None:
+                listory.image = form.image
 
             listory.save()
 
             return Response({
                  'name' : listory.title,
                 'description' : listory.content,
-             #   'image': listory.img,
+                'image': listory.image,
                 'listoryId': listory.pk,
                 'owner': {
                     'name': api_user.username,
@@ -189,7 +189,7 @@ def api_get_listory(request, id):
         return Response({
             'name': listory.title,
             'description': listory.content,
-            #   'image': listory.img,
+            'image': listory.image,
             'listoryId': listory.pk,
             'owner': {
                 'name': listory.user.username,
@@ -232,7 +232,7 @@ def get_all_listories(request):
         response.append({
             'name': listory.title,
             'description': listory.content,
-            #   'image': listory.img,
+            'image': listory.image,
             'listoryId': listory.pk,
             'owner': {
                 'name': listory.user.username,

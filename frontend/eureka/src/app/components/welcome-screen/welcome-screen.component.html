@@ -1,7 +1,7 @@
 <div class="container">
-     <div class="row"  style="margin-top:100px">
+    <div class="row" style="margin-top:100px">
         <div class="col-md-12">
-            <img src="./assets/img/loginPage.png" alt="Eureka!" style="width:100%"/>
+            <img src="./assets/img/loginPage.png" alt="Eureka!" style="width:100%" />
         </div>
     </div>
 
@@ -20,27 +20,24 @@
                     </h2>
                 </div>
 
-                    <p>
-                        This is a template for a simple marketing or informational website. 
-                    </p>
-                    <p>
-                         It includes a large callout called the hero unit and  three supporting pieces of content.          
-                    </p>
-                    <p>
-                         Use it as a starting point to create something more unique.
-                    </p>
-                  <!--      <p>
+                <p>
+                    This is a template for a simple marketing or informational website.
+                </p>
+                <p>
+                    It includes a large callout called the hero unit and three supporting pieces of content.
+                </p>
+                <p>
+                    Use it as a starting point to create something more unique.
+                </p>
+                <!--      <p>
                             <a class="btn btn-primary btn-large" href="#">Learn more</a>
                         </p>
                     -->
             </div>
         </div>
 
-
-            
-        <div class="col-md-4">
-            <div *ngIf="! user.token">
-                <div *ngIf="! form.onRegister">
+        <div *ngIf="! user || ! user.token" class="col-md-4">
+            <div *ngIf="! form.onRegister">
                 <login-form [form]="form"></login-form>
             </div>
             <div *ngIf="form.onRegister">
@@ -48,6 +45,5 @@
             </div>
         </div>
     </div>
-    
-    </div>
+
 </div>

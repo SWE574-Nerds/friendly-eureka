@@ -8,7 +8,7 @@ import { User } from '../../services/user'
 })
 export class DashboardComponent {
 
-  private user: User;
+  private user: User = new User();
 
   constructor(
     private userService: UserService,
@@ -18,5 +18,9 @@ export class DashboardComponent {
     this.userService.getUser().then(user => {
       this.user = user;
     });
+  }
+
+  signOut(){
+    this.userService.signOut();
   }
 }

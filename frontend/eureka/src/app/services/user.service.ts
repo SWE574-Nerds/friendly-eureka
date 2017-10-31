@@ -21,6 +21,13 @@ export class UserService {
         private store: SimpleStore
     ) { }
 
+    signOut(){
+        this.user.name = "";
+        this.user.token = "";
+
+        this.store.delete('user');
+    }
+
     getUser(): Promise<User> {
         return new Promise(resolve => {
             if (! this.user || ! this.user.token){
@@ -97,6 +104,8 @@ export class UserService {
             this.user.token = auser.token;
             this.user.userId = auser.userId;
             this.user.avatar = auser.avatar;
+
+            this.store.store('user', this.user);
 
             resolve(this.user);
         });

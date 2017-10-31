@@ -4,4 +4,5 @@ export class Card {
     description: string;
     owner: string;
     image: string;
+    id: string;
   }

@@ -11,7 +11,7 @@ def create_listory(listoryForm, owner):
             timeValue1=listoryForm.timeInfo.value1 or 0,
             timeValue2=listoryForm.timeInfo.value2 or 0
         )
-        listory = Post.objects.create(user=owner, content=listoryForm.description, title=listoryForm.name, timeInfoGroup=timeInfoGroup, category=category)
+        listory = Post.objects.create(image=listoryForm.image, user=owner, content=listoryForm.description, title=listoryForm.name, timeInfoGroup=timeInfoGroup, category=category)
 
         listory.save()
         return listory.pk
