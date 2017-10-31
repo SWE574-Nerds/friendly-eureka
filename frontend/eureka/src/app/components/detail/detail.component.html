@@ -1,14 +1,27 @@
-<div class="card cardcanvas " >
+<div class="card cardcanvas" *ngIf="listory" >
         <div class="card-block">
     
 
+            <p class="category"><span class="badge badge-primary">{{listory.category}}</span></p>
+
             <h4 class="card-title">{{listory.name}}</h4>
 
-            <img class="left" *ngIf="listory.image" src="{{listory.image}}" />            
+            <div class="left info-block">
+                    <img *ngIf="listory.image" src="{{listory.image}}" />       
+                    <hr *ngIf="listory.image">
+                    
+                    <p class="year-component"><span class="badge badge-success">{{listory.time.name}}</span> <span>{{listory.time.values[0]}}</span><span *ngIf="listory.time.values.length > 1"> - {{listory.time.values[1]}}</span></p>
+                    <p class="year-component"><span class="badge badge-info">Author</span> {{listory.owner.name}}</p>
+                    <p class="year-component"><span class="badge badge-default">Created at</span> {{listory.createdAt}}</p>
+                    
+                </div>
             
             <p class="card-text">{{listory.description}}</p>
-            
-            <p><span class="owner" >{{listory.owner.name}}</span> <span class="update">{{card.createdAt}}</span></p>
         </div>
     </div>
     
+    <div  *ngIf="!listory">
+            <div class="card-block">
+                    <p class="category"><span class="badge badge-primary">History item not found</span></p>                    
+            </div>
+    </div>

@@ -8,13 +8,22 @@
     background-position: center;
 }
 
+.year-component{
+    font-size: 15px;
+    margin: 0px;
+}
+
+.category{
+    float:right;     
+}
+
 .left {
     float: left;
     padding: 0 20px 20px 0;
 }
  
 img{
-    max-width: 25%;
+    max-width: 100%;
     height: auto;
 }
 
@@ -38,4 +47,17 @@ img{
     color:rgb(99, 99, 99);
     margin-bottom: 8px;
     font-style: italic;
+}
+
+
+.info-block{
+    padding: 10px;
+    width: 25%;
+    
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    display: inline-block;
 }
