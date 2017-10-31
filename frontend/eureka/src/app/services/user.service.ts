@@ -3,6 +3,8 @@ import { User } from './user';
 import { Headers, Http } from '@angular/http';
 import {Router} from '@angular/router';
 
+import { SimpleStore } from '../app/SimpleStore';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -14,11 +16,23 @@ export class UserService {
     private registerUrl = '/api/user/register';
     private loginUrl = '/api/user/login';
     
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http,
+        private store: SimpleStore
+    ) { }
 
     getUser(): Promise<User> {
         return new Promise(resolve => {
-       setTimeout(() => resolve(this.user), 10);
+            if (! this.user || ! this.user.token){
+                let candidateUser = this.store.get('user');
+                if (candidateUser != null)
+                 this.user = candidateUser;
+
+                 console.log('Read = ' + candidateUser);
+                 
+
+            }
+       setTimeout(() => resolve(this.user), 0);
     });
     }
 
@@ -48,6 +62,9 @@ export class UserService {
                 this.user.token = auser.token;
                 this.user.userId = auser.userId;
                 this.user.avatar = auser.avatar;
+
+                this.store.store('user', this.user);
+                console.log('Written = ' + this.user);
 
                 resolve(this.user);
             });

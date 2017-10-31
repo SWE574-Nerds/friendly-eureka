@@ -16,9 +16,13 @@ import { CardViewComponent } from './components/cardview/cardview.component';
 
 import { UserService } from './services/user.service';
 import { ListoryService } from './services/listory.service';
+import { CreateService } from './services/create.service';
 
 import { BackgroundDirective } from './components/cardview/backgrounder.directive';
 import { CardComponent } from './components/cardview/card/card.component';
+import { CreateFormComponent } from './components/create/create.component';
+
+import { SimpleStore } from '../app/app/SimpleStore';
 
 
 
@@ -32,12 +36,13 @@ import { CardComponent } from './components/cardview/card/card.component';
     LoginFormComponent,
     CardViewComponent,
     BackgroundDirective,
-    CardComponent
+    CardComponent,
+    CreateFormComponent
   ],
   imports: [
     BrowserModule, FormsModule, AppRoutingModule, HttpModule
   ],
-  providers: [ UserService, ListoryService ],
+  providers: [ UserService, ListoryService, CreateService, SimpleStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
