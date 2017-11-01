@@ -32,13 +32,12 @@ export class CreateFormComponent implements OnInit{
   @Input() date2: number;
   @Input() description: string;
   @Input() title: string;
+  @Input() mediaType:string;
+  @Input() link:string;
 
   private message:string;
 
   ngOnInit(){
-
- //   this.userService.getUser().then() // check whether user signed in or not.
-    
     this.createService.getCategories().then(categories => this.categories = categories);
     this.createService.getTimeInfos().then(times => this.timeInfo = times);    
   }
@@ -68,11 +67,11 @@ export class CreateFormComponent implements OnInit{
         value_1 : ''+this.date1,
         value_2 : ''+this.date2,
       }
+      if (this.mediaType == "link")
+      form.image = this.link;
+
 
       this.createService.createListory(form);
     }
-
-
   }
-
 }

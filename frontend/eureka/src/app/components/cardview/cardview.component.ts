@@ -16,11 +16,10 @@ export class CardViewComponent implements OnInit{
     private listoryService: ListoryService
   ){}
 
-  private cards: Card[];
-
+  @Input() cards: Card[];
 
   ngOnInit(){
-    this.listoryService.getCards().then(cards => this.cards = cards);
+    if (this.cards == null)
+      this.listoryService.getCards().then(cards => this.cards = cards);
   }
-
 }

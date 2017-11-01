@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
+import { UserService } from './user.service';
 import { Headers, Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { Card } from '../components/cardview/card';
@@ -9,59 +10,77 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ListoryService {
-    private headers = new Headers({'Content-Type': 'application/json'});
-    
-    private listoryUrl = '/api/listory';
-    private listoryIdUrl = '/api/listory/:id';
-    
-    constructor(private http: Http) { }
+  private headers = new Headers({ 'Content-Type': 'application/json' });
 
-    getListory(id): Promise<Listory> {
-      return new Promise<Listory>(resolve => {
+  private listoryUrl = '/api/listory';
+  private listoryIdUrl = '/api/listory/:id';
+
+  constructor(
+    private http: Http,
+    private userService: UserService
+  ) { }
+
+  getListory(id): Promise<Listory> {
+    return new Promise<Listory>(resolve => {
       this.http.get(this.listoryIdUrl.replace(':id', id))
-      .toPromise()
-      .then((resp) => {
-          var listory:Listory = resp.json();
+        .toPromise()
+        .then((resp) => {
+          var listory: Listory = resp.json();
           resolve(listory);
+        });
+    });
+  }
+
+  deleteListory(id) {
+    return new Promise<void>((resolve) => {
+      this.userService.getUser().then((user) => {
+        this.headers.append('Authorization', user.token);
+        
+        if (user && user.token) {
+          this.http.delete(this.listoryIdUrl.replace(':id', id), {
+            headers: this.headers
+          }).toPromise().then(() => resolve())
+        } else {
+          resolve();
+        }
       });
     });
-    }
+  }
 
-    getCards(): Promise<Card[]> {
-        return new Promise(resolve => {
-            
-            this.http.get(this.listoryUrl)
-            .toPromise()
-            .then((resp) => {
+  getCards(): Promise<Card[]> {
+    return new Promise(resolve => {
 
-              var listories:Listory[] = resp.json() as Listory[];
-              console.log(listories);
-              
-              var result: Card[] = [];
+      this.http.get(this.listoryUrl)
+        .toPromise()
+        .then((resp) => {
 
-              for (var listoryId in listories)
-              {
-                var listory = listories[listoryId];
+          var listories: Listory[] = resp.json() as Listory[];
+          console.log(listories);
 
-                result.push({
-                  id: listory.listoryId,
-                  title: listory.name,
-                  description:  listory.description.substr(0, 150),
-                  owner: listory.owner.name,
-                  lastUpdate: listory.createdAt,
-                  image: listory.image
-                });
-              }
+          var result: Card[] = [];
 
-              resolve(result);
+          for (var listoryId in listories) {
+            var listory = listories[listoryId];
+
+            result.push({
+              id: listory.listoryId,
+              title: listory.name,
+              description: listory.description.substr(0, 150),
+              owner: listory.owner.name,
+              lastUpdate: listory.createdAt,
+              image: listory.image
             });
-    });
-    }
+          }
 
-      private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-      }
-      
-    
+          resolve(result);
+        });
+    });
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+
+
 }
