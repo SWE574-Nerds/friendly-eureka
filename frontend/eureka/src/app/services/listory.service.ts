@@ -10,8 +10,6 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ListoryService {
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-
   private listoryUrl = '/api/listory';
   private listoryIdUrl = '/api/listory/:id';
 
@@ -33,12 +31,10 @@ export class ListoryService {
 
   deleteListory(id) {
     return new Promise<void>((resolve) => {
-      this.userService.getUser().then((user) => {
-        this.headers.append('Authorization', user.token);
-        
+      this.userService.getUser().then((user) => {        
         if (user && user.token) {
           this.http.delete(this.listoryIdUrl.replace(':id', id), {
-            headers: this.headers
+            headers: this.createHeaders(user.token)
           }).toPromise().then(() => resolve())
         } else {
           resolve();
@@ -80,6 +76,15 @@ export class ListoryService {
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
+  }
+
+
+
+  private createHeaders(token: string): Headers{
+    var headers = new Headers({'Content-Type': 'application/json'});
+    if (token)
+      headers.append('Authorization', token);
+    return headers;
   }
 
 
