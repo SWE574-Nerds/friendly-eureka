@@ -27,12 +27,14 @@
     "express": "^4.16.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "popper.js": "^1.12.6",
     "rxjs": "^5.4.2",
     "tether": "^1.4.0",
+    "tooltip.js": "^1.1.6",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.9",
+    "@angular/cli": "^1.4.9",
     "@angular/compiler-cli": "^4.2.4",
     "@angular/language-service": "^4.2.4",
     "@types/jasmine": "~2.5.53",
