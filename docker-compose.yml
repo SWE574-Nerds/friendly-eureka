@@ -26,6 +26,8 @@ services:
      - "3000:3000"
     volumes:
      - ./frontend/eureka:/code
+    environment:
+      BACKEND_URL: "pyapp"
 
   postgres:
     image: "postgres"

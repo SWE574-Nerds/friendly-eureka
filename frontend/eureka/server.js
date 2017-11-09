@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Api endpoints
-proxy.pipeTo(app, '/api/*', 'http://127.0.0.1:8000');
+proxy.pipeTo(app, '/api/*', 'http://' + (process.env.BACKEND_URL || '127.0.0.1') + ':8000');
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
@@ -31,7 +31,7 @@ app.get('*', (req, res) => {
  * Get port from environment and store in Express.
  */
 const port = process.env.PORT || '3000';
-app.set('port', port);
+const host = "0.0.0.0";
 
 /**
  * Create HTTP server.
@@ -41,4 +41,7 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, "0.0.0.0", 511, () => console.log(`API running on localhost:${port}`));
+
+
+app.listen(port, host);
+console.log("Running on http://"+host+" +:"+port );
