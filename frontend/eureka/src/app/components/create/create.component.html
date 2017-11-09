@@ -34,7 +34,7 @@
 
         <div *ngIf="mediaType === 'link'" class="input-group mb-2 mr-sm-2 mb-sm-0">
             <div class="input-group-addon">Image URL</div>
-            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Link">
+            <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
         </div>
         <div *ngIf="mediaType === 'disk'">
             <label class="custom-file">

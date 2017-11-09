@@ -1,5 +1,6 @@
 version: '2'
 services:
+
   pyapp:
     build:
       context: ./backend/eureka
@@ -17,6 +18,16 @@ services:
     depends_on:
     - "postgres"
 
+
+  ngapp:
+    build:
+      context: ./frontend/eureka
+    ports:
+     - "3000:3000"
+    volumes:
+     - ./frontend/eureka:/code
+    environment:
+      BACKEND_URL: "pyapp"
 
   postgres:
     image: "postgres"

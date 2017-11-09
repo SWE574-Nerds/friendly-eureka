@@ -12,9 +12,7 @@ import 'rxjs/add/operator/toPromise';
 import { UserService } from './user.service';
 
 @Injectable()
-export class CreateService {
-    private headers = new Headers({'Content-Type': 'application/json'});
-    
+export class CreateService {    
     private categoryUrl = '/api/category';
     private timeInfo = '/api/time';
     private create = '/api/listory/create';
@@ -46,11 +44,8 @@ export class CreateService {
                 return;
             }
 
-            this.headers.append('Authorization', user.token);
-
-            
             this.http.post(this.create, form, {
-                headers: this.headers
+                headers: this.createHeaders(user.token)
               })
             .toPromise()
             .then((resp) => {
@@ -78,6 +73,13 @@ export class CreateService {
       private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
+      }
+
+      private createHeaders(token: string): Headers{
+        var headers = new Headers({'Content-Type': 'application/json'});
+        if (token)
+            headers.append('Authorization', token);
+        return headers;
       }
       
     

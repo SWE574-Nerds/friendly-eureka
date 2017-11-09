@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ListoryService } from '../../services/listory.service';
 import { Listory } from '../../services/Listory';
-
+import { User } from '../../services/user';
+import { UserService } from '../../services/user.service';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -17,9 +18,13 @@ import 'rxjs/add/operator/switchMap';
 export class DetailComponent implements OnInit {
 constructor(
   private route: ActivatedRoute,
+  private router: Router,
   private location: Location,
-  private listoryService: ListoryService
+  private listoryService: ListoryService,
+  private  userService: UserService
 ) {}
+
+private user: User = new User();
 
 private listory: Listory;
 /*{
@@ -46,6 +51,17 @@ private listory: Listory;
     this.route.paramMap
       .switchMap((params: ParamMap) => this.listoryService.getListory(+params.get('id')))
       .subscribe(listory => this.listory = listory);
+
+      this.userService.getUser().then(user => {
+        this.user = user;
+      });
+  }
+
+  deleteListory(listoryId): void{
+    console.log(listoryId);
+    this.listoryService.deleteListory(listoryId).then(()=>{
+      this.router.navigate(['/all']);      
+    });
   }
 
 
