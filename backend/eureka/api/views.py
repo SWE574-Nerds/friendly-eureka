@@ -3,9 +3,12 @@ from django.contrib.auth import authenticate
 
 from api.dto.RegisterForm import RegisterForm
 from api.dto.ListoryForm import ListoryForm
+from api.dto.AnnotationForm import AnnotationForm, AnnotationBodyForm
+
 from api.validators.RegisterFormValidator import RegisterFormValidator
 from api.validators.LoginFormValidator import LoginFormValidator
 from api.validators.ListoryFormValidator import ListoryFormValidator
+from api.validators.AnnotationFormValidator import AnnotationFormValidator
 from api.dto.LoginForm import LoginForm
 from api.services.TokenService import TokenService
 from api.middleware.AuthMiddleware import AuthMiddleware
@@ -122,6 +125,7 @@ def api_create_listory(request):
             }, status=status.HTTP_200_OK)
     #    except:
     #        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -276,4 +280,32 @@ def get_category_types(request):
         response.append({'name': category.name, 'id': category.pk})
 
     return Response(response, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+def api_annotation(request, id):
+ #   if request.method == 'GET':
+ #       return api_get_annotation(request, id)
+    if request.method == 'POST':
+        return api_post_annotation(request, id)
+ #   if request.method == 'DELETE':
+ #       return api_delete_annotation(request, id)
+
+
+
+@decorator_from_middleware(AuthMiddleware)
+def api_post_annotation(request, id):
+
+    form = AnnotationForm(request.data)
+    validator = AnnotationFormValidator()
+
+    errors = validator.validate(form)
+
+    if len(errors) > 0:
+        return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        return Response("ok", status=status.HTTP_200_OK)
+
+
+
 
