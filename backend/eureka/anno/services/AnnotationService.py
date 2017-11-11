@@ -61,5 +61,6 @@ class AnnotationService(object):
         return anno, hash
 
 
+    def getAnnotationsOfListory(self, listoryId):
 
-
+        return Annotation.objects.filter(listory_id__exact=listoryId)

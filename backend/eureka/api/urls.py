@@ -13,6 +13,7 @@ urlpatterns = [
 
     url(r'^listory/create/$', api_create_listory, name='api_create_listory'),
     url(r'^listory/(?P<id>\w{0,50})/$', api_listory, name='api_listory'),
+    url(r'^listory/(?P<id>\w{0,50})/annotations/$', api_get_annos_listory, name='api_get_annos_listory'),
     url(r'^listory/$', get_all_listories, name='get_all_listories'),
 
     url(r'^annotation/(?P<id>[0-9a-z]{0,256})/$', api_annotation, name='api_annotation'),

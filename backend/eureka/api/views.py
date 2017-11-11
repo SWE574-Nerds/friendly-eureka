@@ -329,5 +329,18 @@ def api_post_annotation(request, id):
         return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def api_get_annos_listory(request, id):
+
+    annoSevice = AnnotationService()
+    annotations = annoSevice.getAnnotationsOfListory(id)
+
+    resp = []
+
+    for annotation in annotations:
+        resp.append(annoSevice.getAnnotationJSONLD(annotation.storeKey))
+
+    return Response(resp, status=status.HTTP_200_OK)
+
 
 
