@@ -203,6 +203,29 @@ paths:
           description: "Deleted listory"
         405:
           description: "Incorrect id"  
+  /listory/{id}/annotations:
+    get:
+      tags:
+      - "listory"
+      summary: "Get annotations of a listory item"
+      operationId: "listoryGetAnnos"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AnnotationJSONLD'
+          description: "Retrieved listory annotation details"
+        405:
+          description: "Incorrect id"
   /listory/{id}/follow:
     get:
       summary: "Follow a listory item"
@@ -555,15 +578,18 @@ definitions:
     description: "Annotation information also with the JSON-LD object"
     properties:
       json: 
-        type: object
-        description: annotation in JSON-LD
+        $ref: '#/definitions/AnnotationJSONLD'
       author: 
         $ref: '#/definitions/RegisterResponse'
         description: "The user which created this annotation"
       createdAt: 
         type: string
         description: "The date at which the annotation was created"
-          
+      body:
+        $ref: '#/definitions/AnnotationBodyRequest'
+  AnnotationJSONLD:
+    type: object
+    description: "Annotation in JSON-LD standard format"
 securityDefinitions:
   Bearer:
     type: apiKey

@@ -714,9 +714,7 @@ margin-bottom: 20px;
   "type" : "object",
   "properties" : {
     "json" : {
-      "type" : "object",
-      "description" : "annotation in JSON-LD",
-      "properties" : { }
+      "$ref" : "#/definitions/AnnotationJSONLD"
     },
     "author" : {
       "description" : "The user which created this annotation",
@@ -725,9 +723,16 @@ margin-bottom: 20px;
     "createdAt" : {
       "type" : "string",
       "description" : "The date at which the annotation was created"
+    },
+    "body" : {
+      "$ref" : "#/definitions/AnnotationBodyRequest"
     }
   },
   "description" : "Annotation information also with the JSON-LD object"
+};
+            defs.AnnotationJSONLD = {
+  "type" : "object",
+  "description" : "Annotation in JSON-LD standard format"
 };
             defs.AnnotationRequest = {
   "type" : "object",
@@ -1007,6 +1012,9 @@ margin-bottom: 20px;
                     </li>
                     <li data-group="Listory" data-name="listoryGet" class="">
                       <a href="#api-Listory-listoryGet">listoryGet</a>
+                    </li>
+                    <li data-group="Listory" data-name="listoryGetAnnos" class="">
+                      <a href="#api-Listory-listoryGetAnnos">listoryGetAnnos</a>
                     </li>
                     <li data-group="Listory" data-name="listoryUpdate" class="">
                       <a href="#api-Listory-listoryUpdate">listoryUpdate</a>
@@ -4746,6 +4754,309 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Listory-listoryGetAnnos">
+                      <article id="api-Listory-listoryGetAnnos-0" data-group="User" data-name="listoryGetAnnos" data-version="0">
+                        <div class="pull-left">
+                          <h1>listoryGetAnnos</h1>
+                          <p>Get annotations of a listory item</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/listory/{id}/annotations</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Listory-listoryGetAnnos-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Listory-listoryGetAnnos-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Listory-listoryGetAnnos-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Listory-listoryGetAnnos-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Listory-listoryGetAnnos-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost/api/v1//listory/{id}/annotations"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ListoryApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ListoryApiExample {
+
+    public static void main(String[] args) {
+        
+        ListoryApi apiInstance = new ListoryApi();
+        String id = id_example; // String | The listory id
+        try {
+            array[AnnotationJSONLD] result = apiInstance.listoryGetAnnos(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ListoryApi#listoryGetAnnos");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ListoryApi;
+
+public class ListoryApiExample {
+
+    public static void main(String[] args) {
+        ListoryApi apiInstance = new ListoryApi();
+        String id = id_example; // String | The listory id
+        try {
+            array[AnnotationJSONLD] result = apiInstance.listoryGetAnnos(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ListoryApi#listoryGetAnnos");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *id = id_example; // The listory id
+
+ListoryApi *apiInstance = [[ListoryApi alloc] init];
+
+// Get annotations of a listory item
+[apiInstance listoryGetAnnosWith:id
+              completionHandler: ^(array[AnnotationJSONLD] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
+
+var api = new EurekaLivingHistoryApi.ListoryApi()
+
+var id = id_example; // {String} The listory id
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.listoryGetAnnos(id, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class listoryGetAnnosExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ListoryApi();
+            var id = id_example;  // String | The listory id
+
+            try
+            {
+                // Get annotations of a listory item
+                array[AnnotationJSONLD] result = apiInstance.listoryGetAnnos(id);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ListoryApi.listoryGetAnnos: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ListoryApi();
+$id = id_example; // String | The listory id
+
+try {
+    $result = $api_instance->listoryGetAnnos($id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ListoryApi->listoryGetAnnos: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ListoryApi;
+
+my $api_instance = WWW::SwaggerClient::ListoryApi->new();
+my $id = id_example; # String | The listory id
+
+eval { 
+    my $result = $api_instance->listoryGetAnnos(id => $id);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ListoryApi->listoryGetAnnos: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listoryGetAnnos-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ListoryApi()
+id = id_example # String | The listory id
+
+try: 
+    # Get annotations of a listory item
+    api_response = api_instance.listory_get_annos(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ListoryApi->listoryGetAnnos: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_listoryGetAnnos_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The listory id
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Retrieved listory annotation details </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-listoryGetAnnos-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-listoryGetAnnos-200-schema">
+                                  <div id='responses-listoryGetAnnos-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Retrieved listory annotation details",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/AnnotationJSONLD"
+    }
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-listoryGetAnnos-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-listoryGetAnnos-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-listoryGetAnnos-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 405 - Incorrect id </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Listory-listoryUpdate">
                       <article id="api-Listory-listoryUpdate-0" data-group="User" data-name="listoryUpdate" data-version="0">
                         <div class="pull-left">
@@ -6366,7 +6677,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-11-13T14:39:49.524Z
+              Generated 2017-11-13T15:12:28.541Z
             </div>
           </div>
       </div>
