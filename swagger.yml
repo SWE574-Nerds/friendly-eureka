@@ -552,7 +552,17 @@ definitions:
         description: "String body of the annotation"
   AnnotationDetails:
     type: "object"
-    description: "Annotation in JSON-LD format"
+    description: "Annotation information also with the JSON-LD object"
+    properties:
+      json: 
+        type: object
+        description: annotation in JSON-LD
+      author: 
+        $ref: '#/definitions/RegisterResponse'
+        description: "The user which created this annotation"
+      createdAt: 
+        type: string
+        description: "The date at which the annotation was created"
           
 securityDefinitions:
   Bearer:

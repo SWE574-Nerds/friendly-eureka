@@ -712,7 +712,22 @@ margin-bottom: 20px;
 };
             defs.AnnotationDetails = {
   "type" : "object",
-  "description" : "Annotation in JSON-LD format"
+  "properties" : {
+    "json" : {
+      "type" : "object",
+      "description" : "annotation in JSON-LD",
+      "properties" : { }
+    },
+    "author" : {
+      "description" : "The user which created this annotation",
+      "$ref" : "#/definitions/RegisterResponse"
+    },
+    "createdAt" : {
+      "type" : "string",
+      "description" : "The date at which the annotation was created"
+    }
+  },
+  "description" : "Annotation information also with the JSON-LD object"
 };
             defs.AnnotationRequest = {
   "type" : "object",
@@ -6351,7 +6366,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-11-13T10:37:18.338Z
+              Generated 2017-11-13T14:39:49.524Z
             </div>
           </div>
       </div>
