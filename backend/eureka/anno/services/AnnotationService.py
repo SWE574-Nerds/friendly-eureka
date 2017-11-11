@@ -22,9 +22,16 @@ class AnnotationService(object):
 
 
     def getAnnotationBody(self, storeKey):
-        annotation = Annotation.objects.get(storeKey__exact=storeKey)
+        annotation = self.getAnnotation(storeKey)
         return annotation.message
 
+
+
+    def getAnnotation(self, storeKey):
+        try:
+            return Annotation.objects.get(storeKey__exact=storeKey)
+        except:
+            return None
 
     def createBasicAnnotationJSONLD(self, body, listoryId):
 
@@ -40,14 +47,15 @@ class AnnotationService(object):
 
         return anno, hash
 
-    def createAnnotation(self, form):
+    def createAnnotation(self, form, user):
         anno, hash = self.createBasicAnnotationJSONLD(form.body, form.listory)
 
         self.redis.set(hash, json.dumps(anno))
 
         Annotation.objects.create( message=form.body.message,
                                    storeKey=hash,
-                                   listory=ListoryService.get_listory_by_id(form.listory)
+                                   listory=ListoryService.get_listory_by_id(form.listory),
+                                   author=user
         )
 
         return anno, hash

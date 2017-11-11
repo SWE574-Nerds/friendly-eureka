@@ -19,6 +19,7 @@ from api.validators.RegisterFormValidator import RegisterFormValidator
 from post.models import TimeInfo, Category
 from post.services import ListoryService
 from anno.services.AnnotationService import AnnotationService
+from api.utilities.AnnotationResponse import AnnotationResponse
 
 
 @api_view(['POST'])
@@ -303,9 +304,9 @@ def api_get_annotation(request, id):
 @api_view(['GET'])
 def api_get_annotation_body(request, id):
     annoSevice = AnnotationService()
-    something = annoSevice.getAnnotationBody(id)
+    something = annoSevice.getAnnotation(id)
     if something is not None:
-        return Response(something, status=status.HTTP_200_OK)
+        return Response(AnnotationResponse(id).value, status=status.HTTP_200_OK)
     else:
         return Response("Annotation not found", status=status.HTTP_404_NOT_FOUND)
 
@@ -323,9 +324,9 @@ def api_post_annotation(request, id):
         return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
         annoSevice = AnnotationService()
-        anno, hash = annoSevice.createAnnotation(form)
+        anno, hash = annoSevice.createAnnotation(form, request.api_user)
 
-        return Response(anno, status=status.HTTP_200_OK)
+        return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
 
 
 
