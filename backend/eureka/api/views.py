@@ -1,25 +1,26 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
-from api.dto.RegisterForm import RegisterForm
-from api.dto.ListoryForm import ListoryForm
-from api.validators.RegisterFormValidator import RegisterFormValidator
-from api.validators.LoginFormValidator import LoginFormValidator
-from api.validators.ListoryFormValidator import ListoryFormValidator
-from api.dto.LoginForm import LoginForm
-from api.services.TokenService import TokenService
-from api.middleware.AuthMiddleware import AuthMiddleware
-
-from post.models import TimeInfo, Category
-
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.utils.decorators import decorator_from_middleware
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from anno.dto.AnnotationForm import AnnotationForm
+from api.dto.ListoryForm import ListoryForm
+from api.dto.LoginForm import LoginForm
+from api.dto.RegisterForm import RegisterForm
+from api.middleware.AuthMiddleware import AuthMiddleware
+from api.services.TokenService import TokenService
+from api.validators.AnnotationFormValidator import AnnotationFormValidator
+from api.validators.ListoryFormValidator import ListoryFormValidator
+from api.validators.LoginFormValidator import LoginFormValidator
+from api.validators.RegisterFormValidator import RegisterFormValidator
+from post.models import TimeInfo, Category
 from post.services import ListoryService
+from anno.services.AnnotationService import AnnotationService
+from api.utilities.AnnotationResponse import AnnotationResponse
 
-from django.utils.decorators import decorator_from_middleware
-from django.db import IntegrityError
 
 @api_view(['POST'])
 def api_login(request):
@@ -122,6 +123,7 @@ def api_create_listory(request):
             }, status=status.HTTP_200_OK)
     #    except:
     #        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -276,4 +278,69 @@ def get_category_types(request):
         response.append({'name': category.name, 'id': category.pk})
 
     return Response(response, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'POST'])
+def api_annotation(request, id):
+    if request.method == 'GET':
+        return api_get_annotation(request, id)
+    if request.method == 'POST':
+        return api_post_annotation(request, id)
+ #   if request.method == 'DELETE':
+ #       return api_delete_annotation(request, id)
+
+
+
+
+def api_get_annotation(request, id):
+    annoSevice = AnnotationService()
+    something = annoSevice.getAnnotationJSONLD(id)
+    if something is not None:
+        return Response(something, status=status.HTTP_200_OK)
+    else:
+        return Response("Annotation not found", status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def api_get_annotation_body(request, id):
+    annoSevice = AnnotationService()
+    something = annoSevice.getAnnotation(id)
+    if something is not None:
+        return Response(AnnotationResponse(id).value, status=status.HTTP_200_OK)
+    else:
+        return Response("Annotation not found", status=status.HTTP_404_NOT_FOUND)
+
+
+
+@decorator_from_middleware(AuthMiddleware)
+def api_post_annotation(request, id):
+
+    form = AnnotationForm(request.data)
+    validator = AnnotationFormValidator()
+
+    errors = validator.validate(form)
+
+    if len(errors) > 0:
+        return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        annoSevice = AnnotationService()
+        anno, hash = annoSevice.createAnnotation(form, request.api_user)
+
+        return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def api_get_annos_listory(request, id):
+
+    annoSevice = AnnotationService()
+    annotations = annoSevice.getAnnotationsOfListory(id)
+
+    resp = []
+
+    for annotation in annotations:
+        resp.append(annoSevice.getAnnotationJSONLD(annotation.storeKey))
+
+    return Response(resp, status=status.HTTP_200_OK)
+
+
 

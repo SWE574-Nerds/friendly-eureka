@@ -29,6 +29,12 @@ services:
     environment:
       BACKEND_URL: "pyapp"
 
+
+  redis:
+    image: "redis:alpine"
+    ports:
+     - "6379:6379"
+
   postgres:
     image: "postgres"
     ports:

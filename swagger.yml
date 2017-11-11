@@ -39,7 +39,6 @@ paths:
           description: "Bad request"
         405:
           description: "Invalid input"
-
   /user/register:
     post:
       tags:
@@ -204,6 +203,29 @@ paths:
           description: "Deleted listory"
         405:
           description: "Incorrect id"  
+  /listory/{id}/annotations:
+    get:
+      tags:
+      - "listory"
+      summary: "Get annotations of a listory item"
+      operationId: "listoryGetAnnos"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AnnotationJSONLD'
+          description: "Retrieved listory annotation details"
+        405:
+          description: "Incorrect id"
   /listory/{id}/follow:
     get:
       summary: "Follow a listory item"
@@ -306,6 +328,55 @@ paths:
           description: "Bad Request - Resource occupied by listory"
         405:
           description: "Missing information"
+  /annotation/{id}:
+    get:
+      tags:
+      - "annotation"
+      summary: "Get annotations of a listory item"
+      operationId: "annoGet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AnnotationDetails"
+          description: "Retrieved listory annotations"
+        405:
+          description: "Incorrect id"
+    post:
+      tags:
+      - "annotation"
+      summary: "Create an annotation"
+      security:
+        - Bearer: []
+      operationId: "annoCreate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "listory"
+        schema:
+          $ref: '#/definitions/AnnotationRequest'
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AnnotationDetails"
+          description: "Created annotations"
+        405:
+          description: "Incorrect id / Incorrect form"  
   /time:
     get:
       tags:
@@ -488,7 +559,37 @@ definitions:
         type: "string"
       value_count:
         type: "string"
-          
+  AnnotationRequest:
+    type: "object"
+    properties:
+      listory: 
+        type: "string"
+        description: "The ID of the listory user want's to annotate"
+      body:
+        $ref: '#/definitions/AnnotationBodyRequest'
+  AnnotationBodyRequest:
+    type: "object"
+    properties:
+      message: 
+        type: "string"
+        description: "String body of the annotation"
+  AnnotationDetails:
+    type: "object"
+    description: "Annotation information also with the JSON-LD object"
+    properties:
+      json: 
+        $ref: '#/definitions/AnnotationJSONLD'
+      author: 
+        $ref: '#/definitions/RegisterResponse'
+        description: "The user which created this annotation"
+      createdAt: 
+        type: string
+        description: "The date at which the annotation was created"
+      body:
+        $ref: '#/definitions/AnnotationBodyRequest'
+  AnnotationJSONLD:
+    type: object
+    description: "Annotation in JSON-LD standard format"
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -498,4 +599,5 @@ securityDefinitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
+
 
