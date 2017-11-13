@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestRunners" project="friendlyeureka" tests="15" started="15" failures="0" errors="0" ignored="0">
+  <testsuite name="runner.TestRunners" time="2.646">
+    <testsuite name="Feature: Eureka login" time="2.646">
+      <testsuite name="Scenario Outline: Eureka login with valid credentials" time="2.647">
+        <testsuite name="Examples:" time="2.647">
+          <testsuite name="| selintestselin@gmail.com | test0test |" time="0.936">
+            <testcase name="Given I am on Eureka Website" classname="| selintestselin@gmail.com | test0test |" time="0.21"/>
+            <testcase name="When I enter username as &quot;selintestselin@gmail.com&quot;" classname="| selintestselin@gmail.com | test0test |" time="0.093"/>
+            <testcase name="And enter password as &quot;test0test&quot;" classname="| selintestselin@gmail.com | test0test |" time="0.176"/>
+            <testcase name="And click login button" classname="| selintestselin@gmail.com | test0test |" time="0.006"/>
+            <testcase name="Then I should be able to login successfully" classname="| selintestselin@gmail.com | test0test |" time="0.451"/>
+          </testsuite>
+          <testsuite name="| selintestselin@gmail.com | test0test1 |" time="0.69">
+            <testcase name="Given I am on Eureka Website" classname="| selintestselin@gmail.com | test0test1 |" time="0.129"/>
+            <testcase name="When I enter username as &quot;selintestselin@gmail.com&quot;" classname="| selintestselin@gmail.com | test0test1 |" time="0.084"/>
+            <testcase name="And enter password as &quot;test0test1&quot;" classname="| selintestselin@gmail.com | test0test1 |" time="0.179"/>
+            <testcase name="And click login button" classname="| selintestselin@gmail.com | test0test1 |" time="0.032"/>
+            <testcase name="Then I should be able to login successfully" classname="| selintestselin@gmail.com | test0test1 |" time="0.266"/>
+          </testsuite>
+          <testsuite name="| test@gmail.com | test |" time="0.646">
+            <testcase name="Given I am on Eureka Website" classname="| test@gmail.com | test |" time="0.103"/>
+            <testcase name="When I enter username as &quot;test@gmail.com&quot;" classname="| test@gmail.com | test |" time="0.07"/>
+            <testcase name="And enter password as &quot;test&quot;" classname="| test@gmail.com | test |" time="0.157"/>
+            <testcase name="And click login button" classname="| test@gmail.com | test |" time="0.005"/>
+            <testcase name="Then I should be able to login successfully" classname="| test@gmail.com | test |" time="0.311"/>
+          </testsuite>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testrun>

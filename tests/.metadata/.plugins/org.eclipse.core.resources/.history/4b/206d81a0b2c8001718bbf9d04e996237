@@ -1,0 +1,28 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class LoginPage {
+
+	@FindBy(className = "glyphicon-log-in")
+	private WebElement goToLoginPage;
+
+	@FindBy(css = "input[name=\"username\"]")
+	private WebElement usernameElement;
+
+	@FindBy(css = "input[name=\"password\"]")
+	private WebElement password;
+
+	private WebDriver driver;
+
+	public LoginPage(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void login(String username, String password) {
+		driver.findElement(usernameElement).sendKeys(password);// test0test
+	}
+}

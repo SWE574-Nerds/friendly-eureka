@@ -1,0 +1,52 @@
+package stepDefinition;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.FindBy;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
+
+public class LoginTest {
+
+	WebDriver driver;
+
+	// Elements
+
+	@Given("^I am on Eureka Website$")
+	public void i_am_on_Eureka_Website() throws Throwable {
+		ChromeDriverManager.getInstance().setup();
+		driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http://127.0.0.1:8000/");
+	}
+
+	@When("^I enter username as \"([^\"]*)\"$")
+	public void i_enter_username_as(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
+	}
+
+	@When("^enter password as \"([^\"]*)\"$")
+	public void enter_password_as(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
+	}
+
+	@Then("^I should be able to login successfully$")
+	public void i_should_be_able_to_login_successfully() throws Throwable {
+		driver.getPageSource().contains("Home");
+	}
+
+	@Then("^Application should be closed$")
+	public void application_should_be_closed() throws Throwable {
+		driver.quit();
+	}
+
+}

@@ -1,0 +1,14 @@
+package stepDefinition;
+
+public class AbstractStepDefinition {
+
+	protected static WebDriver driver;
+
+	protected WebDriver getDriver() {
+		if (driver == null) {
+			driver = new FirefoxDriver();
+		}
+		return driver;
+	}
+
+}
