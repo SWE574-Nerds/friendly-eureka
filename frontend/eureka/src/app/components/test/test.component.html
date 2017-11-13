@@ -1,0 +1,18 @@
+<div class="all"  [@onToggle]="toggle">
+
+
+    <div class="form-group">
+        <textarea [(ngModel)]="description" type="text" class="form-control" rows="10" placeholder="Your message here"></textarea>
+    </div>
+
+
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon">Image URL</div>
+        <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
+    </div>
+
+
+
+    <img (click)="toggleMenu()" src="./assets/img/dong.png" />
+    
+</div>
