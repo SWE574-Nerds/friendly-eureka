@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app/app.component';
@@ -22,6 +23,7 @@ import { BackgroundDirective } from './components/cardview/backgrounder.directiv
 import { CardComponent } from './components/cardview/card/card.component';
 import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
+import { TestComponent } from './components/test/test.component';
 
 import { SimpleStore } from '../app/app/SimpleStore';
 
@@ -39,10 +41,11 @@ import { SimpleStore } from '../app/app/SimpleStore';
     BackgroundDirective,
     CardComponent,
     CreateFormComponent,
-    DetailComponent
+    DetailComponent,
+    TestComponent
   ],
   imports: [
-    BrowserModule, FormsModule, AppRoutingModule, HttpModule
+    BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule
   ],
   providers: [ UserService, ListoryService, CreateService, SimpleStore],
   bootstrap: [AppComponent]

@@ -13,8 +13,7 @@ const routes: Routes = [
   { path: 'termsofservice',  component: TermsofserviceComponent },
   { path: 'all',  component: CardViewComponent },
   { path: 'create', component: CreateFormComponent },
-  { path: 'detail/:id', component: DetailComponent },
-  
+  { path: 'detail/:id', component: DetailComponent },  
 ];
  
 @NgModule({
