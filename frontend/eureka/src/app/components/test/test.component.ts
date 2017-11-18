@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../services/user';
+import { Listory } from '../../services/Listory';
+import { Directive, ElementRef, Input } from '@angular/core';
 
 
 import {
@@ -33,6 +35,8 @@ import {
   ]
 })
 export class TestComponent {
+
+  @Input() listory: Listory;
 
   public toggle = 'out';
 

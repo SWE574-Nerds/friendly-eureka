@@ -18,6 +18,7 @@ import { CardViewComponent } from './components/cardview/cardview.component';
 import { UserService } from './services/user.service';
 import { ListoryService } from './services/listory.service';
 import { CreateService } from './services/create.service';
+import { AnnotationService } from './services/annotation.service';
 
 import { BackgroundDirective } from './components/cardview/backgrounder.directive';
 import { CardComponent } from './components/cardview/card/card.component';
@@ -47,7 +48,7 @@ import { SimpleStore } from '../app/app/SimpleStore';
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule
   ],
-  providers: [ UserService, ListoryService, CreateService, SimpleStore],
+  providers: [ UserService, ListoryService, CreateService, AnnotationService, SimpleStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

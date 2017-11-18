@@ -30,6 +30,8 @@
     <div *ngIf="user && user.token && user.name == listory.owner.name">
             <button type="button" class="btn btn-danger" (click)="deleteListory(listory.listoryId)" >Delete</button>            
     </div>
+
+    <test [listory]="listory" ></test>    
 </div>
 
 <div *ngIf="!listory">
@@ -41,4 +43,3 @@
 </div>
 
 
-<test></test>
