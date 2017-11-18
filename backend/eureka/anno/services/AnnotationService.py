@@ -33,30 +33,63 @@ class AnnotationService(object):
         except:
             return None
 
-    def createBasicAnnotationJSONLD(self, body, listoryId):
+    def createPlainTextAnnotationJSONLD(self, body, listoryId):
 
         hash = body.hash()
 
         anno = {
-          "@context": "http://www.w3.org/ns/anno.jsonld",
-          "id": hash,
-          "type": "Annotation",
-          "body": ANNO_GET_PATH.replace("{id}", hash),
-          "target": VIEW_PATH.replace("{id}", listoryId)
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "id": hash,
+            "type": "Annotation",
+            #   "body": ANNO_GET_PATH.replace("{id}", hash),
+            "body": {
+                "type": "TextualBody",
+                "value": body.message,
+                "format": "text/plain",
+            },
+            "target": VIEW_PATH.replace("{id}", listoryId)
         }
 
         return anno, hash
 
-    def createAnnotation(self, form, user):
-        anno, hash = self.createBasicAnnotationJSONLD(form.body, form.listory)
+    def createHighlightAnnotationJSONLD(self, body, listoryId):
+
+        hash = body.hash()
+
+        anno = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "id": hash,
+            "type": "Annotation",
+            "target": VIEW_PATH.replace("{id}", listoryId)
+        }
+
+        return anno, hash
+
+
+    def createTextAnnotation(self, form, user):
+        anno, hash = self.createPlainTextAnnotationJSONLD(form.body, form.listory)
 
         self.redis.set(hash, json.dumps(anno))
 
-        Annotation.objects.create( message=form.body.message,
-                                   storeKey=hash,
-                                   listory=ListoryService.get_listory_by_id(form.listory),
-                                   author=user
-        )
+        Annotation.objects.create(message=form.body.message,
+        storeKey = hash,
+        listory = ListoryService.get_listory_by_id(
+        form.listory),
+        author = user);
+
+        return anno, hash
+
+
+    def createHighlightAnnotation(self, form, user):
+        anno, hash = self.createHighlightAnnotationJSONLD(form.body, form.listory)
+
+        self.redis.set(hash, json.dumps(anno))
+
+        Annotation.objects.create(message=form.body.message,
+        storeKey = hash,
+        listory = ListoryService.get_listory_by_id(
+        form.listory),
+        author = user);
 
         return anno, hash
 

@@ -6,8 +6,6 @@ services:
       context: ./backend/eureka
     ports:
      - "8000:8000"
-    volumes:
-     - ./backend/eureka:/code
     environment:
       DOCKER_CONTAINER: "true"
       POSTGRES_PASS: postgres
@@ -24,8 +22,6 @@ services:
       context: ./frontend/eureka
     ports:
      - "3000:3000"
-    volumes:
-     - ./frontend/eureka:/code
     environment:
       BACKEND_URL: "pyapp"
 
@@ -50,5 +46,3 @@ services:
       context: ./backend/image
     ports:
      - "8001:5000"
-    volumes:
-     - ./backend/image:/code

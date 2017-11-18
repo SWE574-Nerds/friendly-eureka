@@ -280,18 +280,9 @@ def get_category_types(request):
     return Response(response, status=status.HTTP_200_OK)
 
 
-@api_view(['GET', 'POST'])
-def api_annotation(request, id):
-    if request.method == 'GET':
-        return api_get_annotation(request, id)
-    if request.method == 'POST':
-        return api_post_annotation(request, id)
- #   if request.method == 'DELETE':
- #       return api_delete_annotation(request, id)
 
 
-
-
+@api_view(['GET'])
 def api_get_annotation(request, id):
     annoSevice = AnnotationService()
     something = annoSevice.getAnnotationJSONLD(id)
@@ -312,8 +303,9 @@ def api_get_annotation_body(request, id):
 
 
 
+@api_view(['POST'])
 @decorator_from_middleware(AuthMiddleware)
-def api_post_annotation(request, id):
+def api_post_annotation(request, id, type):
 
     form = AnnotationForm(request.data)
     validator = AnnotationFormValidator()
@@ -323,8 +315,15 @@ def api_post_annotation(request, id):
     if len(errors) > 0:
         return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
+        anno = None;
+        hash = None;
         annoSevice = AnnotationService()
-        anno, hash = annoSevice.createAnnotation(form, request.api_user)
+        if type == "text":
+            anno, hash = annoSevice.createTextAnnotation(form, request.api_user)
+        elif type == "highlight":
+            anno, hash = annoSevice.createHighlightAnnotation(form, request.api_user)
+
+
 
         return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
 

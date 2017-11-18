@@ -16,8 +16,10 @@ urlpatterns = [
     url(r'^listory/(?P<id>\w{0,50})/annotations/$', api_get_annos_listory, name='api_get_annos_listory'),
     url(r'^listory/$', get_all_listories, name='get_all_listories'),
 
-    url(r'^annotation/(?P<id>[0-9a-z]{0,256})/$', api_annotation, name='api_annotation'),
     url(r'^annotation/(?P<id>[0-9a-z]{0,256})/body/$', api_get_annotation_body, name='api_get_annotation_body'),
+
+    url(r'^annotation/(?P<id>[0-9a-z]{0,256})/$', api_get_annotation, name='api_get_annotation'),
+    url(r'^annotation/(?P<id>[0-9a-z]{0,256})/(?P<type>[0-9a-z]{0,256})/$', api_post_annotation, name='api_post_annotation'),
 
     url(r'^time/$', get_time_types, name='get_time_types'),
     url(r'^category/$', get_category_types, name='get_category_types'),
