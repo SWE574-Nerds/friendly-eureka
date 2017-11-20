@@ -11,7 +11,7 @@ import { Annotation } from './Annotation';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class ListoryService {
+export class AnnotationService {
   private listoryUrl = '/api/listory';
   private listoryIdUrl = '/api/listory/:id/annotations';
 
