@@ -3,7 +3,10 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../services/user';
 import { Listory } from '../../services/Listory';
 import { Directive, ElementRef, Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 
+import { AnnotationService } from '../../services/annotation.service';
+import { Annotation } from '../../services/Annotation';
 
 import {
   trigger,
@@ -34,14 +37,25 @@ import {
     ])
   ]
 })
-export class TestComponent {
+export class TestComponent implements OnInit {
 
   @Input() listory: Listory;
-
+  @Input() annotations: object[] = [];  
   public toggle = 'out';
 
+  constructor(
+    private annotationService : AnnotationService
+  ){}
 
   toggleMenu(){
     this.toggle = this.toggle === 'in' ? 'out' : 'in';
+  }
+
+  ngOnInit(){
+    this.annotationService.getAnnotationsOfListory(this.listory.listoryId).then((annotations) => {
+      console.log(annotations);
+      this.annotations = annotations;
+      console.log(this.annotations);
+    });
   }
 }

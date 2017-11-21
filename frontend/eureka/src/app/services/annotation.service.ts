@@ -25,7 +25,7 @@ export class AnnotationService {
       this.http.get(this.listoryIdUrl.replace(':id', id))
         .toPromise()
         .then((resp) => {
-          var listory: Annotation[] = resp.json();
+          var listory: Annotation[] = resp.json() as Annotation[];
           resolve(listory);
         });
     });

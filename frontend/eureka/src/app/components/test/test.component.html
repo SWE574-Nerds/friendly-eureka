@@ -14,5 +14,9 @@
 
 
     <img (click)="toggleMenu()" src="./assets/img/dong.png" />
+
+    <ul>
+        <li *ngFor="let anno of annotations">{{anno.id}}</li>
+    </ul>
     
 </div>
