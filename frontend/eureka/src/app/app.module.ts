@@ -24,7 +24,7 @@ import { BackgroundDirective } from './components/cardview/backgrounder.directiv
 import { CardComponent } from './components/cardview/card/card.component';
 import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { TestComponent } from './components/test/test.component';
+import { AnnotationSliderComponent } from './components/annotationSlider/annotationslider.component';
 
 import { SimpleStore } from '../app/app/SimpleStore';
 
@@ -43,7 +43,7 @@ import { SimpleStore } from '../app/app/SimpleStore';
     CardComponent,
     CreateFormComponent,
     DetailComponent,
-    TestComponent
+    AnnotationSliderComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule

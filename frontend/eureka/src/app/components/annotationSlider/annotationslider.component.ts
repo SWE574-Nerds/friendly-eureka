@@ -19,9 +19,9 @@ import {
 
 
 @Component({
-  selector: 'test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css'],
+  selector: 'annotationSlider',
+  templateUrl: './annotationslider.component.html',
+  styleUrls: ['./annotationslider.component.css'],
 
 
   animations: [
@@ -37,7 +37,7 @@ import {
     ])
   ]
 })
-export class TestComponent implements OnInit {
+export class AnnotationSliderComponent implements OnInit {
 
   @Input() listory: Listory;
   @Input() annotations: object[] = [];  
