@@ -30,4 +30,13 @@ export class AnnotationService {
         });
     });
   }
+
+  getAnnotationOwner(ownerIRI): Promise<object> {
+    const userId = ownerIRI.replace(/.+user\/?/g, "");
+    console.log(userId);
+    return new Promise<object>(resolve => {
+      this.userService.getUserInfo(userId).then((user)=>{ resolve(user); });
+    });
+    
+  }
 }

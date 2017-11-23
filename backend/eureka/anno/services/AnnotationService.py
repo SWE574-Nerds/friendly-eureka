@@ -41,7 +41,7 @@ class AnnotationService(object):
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "id": hash,
             "type": "Annotation",
-            #   "body": ANNO_GET_PATH.replace("{id}", hash),
+            "creator": "", # Will be set later
             "body": {
                 "type": "TextualBody",
                 "value": body.message,
@@ -59,6 +59,7 @@ class AnnotationService(object):
         anno = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "id": hash,
+            "creator": "", # Will be set later
             "type": "Annotation",
             "target": VIEW_PATH.replace("{id}", listoryId)
         }
@@ -68,6 +69,8 @@ class AnnotationService(object):
 
     def createTextAnnotation(self, form, user):
         anno, hash = self.createPlainTextAnnotationJSONLD(form.body, form.listory)
+
+        anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
 
         self.redis.set(hash, json.dumps(anno))
 

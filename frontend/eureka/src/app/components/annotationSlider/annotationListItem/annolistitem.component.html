@@ -1,11 +1,11 @@
 <div id="all">
-        <p *ngIf="annotation.body.type == 'TextualBody'">
-            {{annotation.body.value}}
-        </p>
+    <p class="textualBody" *ngIf="annotation.body && (annotation.body.type == 'TextualBody')">
+        {{annotation.body.value}}
+    </p>
 
     <p *ngIf="!annotation.body">
-            No content.
-        </p>
+        No content.
+    </p>
 
-        <p id="author">onatbas</p>
+    <p id="author">{{author.name}}</p>
 </div>

@@ -27,19 +27,29 @@ export class AnnotationListComponent implements OnInit {
 
     @Input() annotation: Annotation = {
         body : {
-            value: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            value: "",
             type: "TextualBody",
             format: "text/plain"
         },
-        id : "123123",
+        id : "0",
         target : "this",
-        type : "werer"
+        creator: ""
     };
+
+    @Input() author: object = {
+      name : ""
+    } 
 
   constructor(
     private annotationService : AnnotationService
   ){}
 
   ngOnInit(){
+    if (this.annotation.creator !== "")
+    {
+      this.annotationService.getAnnotationOwner(this.annotation.creator).then((author)=>{
+        this.author = author;
+      });
+    }
   }
 }

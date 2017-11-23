@@ -14,6 +14,7 @@ export class UserService {
     private user: User = new User();
 
     private registerUrl = '/api/user/register';
+    private userInfo = '/api/user/:id';
     private loginUrl = '/api/user/login';
     
     constructor(
@@ -27,21 +28,34 @@ export class UserService {
 
         this.store.delete('user');
     }
-
+    
     getUser(): Promise<User> {
         return new Promise(resolve => {
             if (! this.user || ! this.user.token){
                 let candidateUser = this.store.get('user');
                 if (candidateUser != null)
-                 this.user = candidateUser;
+                    this.user = candidateUser;
 
-                 console.log('Read = ' + candidateUser);
-                 
+                    console.log('Read = ' + candidateUser);
+                    
 
             }
-       setTimeout(() => resolve(this.user), 0);
+        setTimeout(() => resolve(this.user), 0);
     });
     }
+
+        
+
+    getUserInfo(userId): Promise<User> {
+        return new Promise<User>((resolve)=>{
+            this.http.get(this.userInfo.replace(":id", userId))
+            .toPromise()
+            .then((resp) => {
+                resolve(resp.json() as User);
+            });
+        });
+    }
+
 
     register(email: string, password: string, username: string): Promise<User> {
             return new Promise(resolve => {

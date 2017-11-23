@@ -12,7 +12,13 @@
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     border: 1px solid #f0f0f0;
     border-radius: 4px;
-    padding: 30px;
+    padding: 30px;    
+  }
+
+  #scroll{
+    overflow: auto;    
+    height: 100%;
+    position: absolute;
   }
 
   img{
