@@ -25,7 +25,7 @@ import { CardComponent } from './components/cardview/card/card.component';
 import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { AnnotationSliderComponent } from './components/annotationSlider/annotationslider.component';
-
+import { AnnotationListComponent } from './components/annotationSlider/annotationListItem/annolistitem.component';
 import { SimpleStore } from '../app/app/SimpleStore';
 
 
@@ -43,7 +43,8 @@ import { SimpleStore } from '../app/app/SimpleStore';
     CardComponent,
     CreateFormComponent,
     DetailComponent,
-    AnnotationSliderComponent
+    AnnotationSliderComponent,
+    AnnotationListComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule
