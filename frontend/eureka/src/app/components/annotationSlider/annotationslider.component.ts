@@ -7,6 +7,7 @@ import { OnInit } from '@angular/core';
 
 import { AnnotationService } from '../../services/annotation.service';
 import { Annotation } from '../../services/Annotation';
+import { AnnotationSelector } from '../../services/AnnotationSelector';
 
 import {
   trigger,
@@ -43,6 +44,8 @@ export class AnnotationSliderComponent implements OnInit {
   @Input() annotations: object[] = [];  
   public toggle = 'out';
   @Input() mediaType = "text";
+  @Input() description = "";
+  @Input() link = "";
 
   constructor(
     private annotationService : AnnotationService
@@ -66,7 +69,21 @@ export class AnnotationSliderComponent implements OnInit {
      this.mediaType = type;
   }
 
-  onSubmit(){
-    
+  onSubmit() {
+
+    var annotationSelector = new AnnotationSelector();
+    annotationSelector.fullPage = true;
+
+    annotationSelector.mediaType = this.mediaType;
+
+    if (this.mediaType === "text") {
+        annotationSelector.description = this.description;
+    }else if (this.mediaType === "image") {
+      annotationSelector.link = this.link;
+    }else if (this.mediaType === "video") {
+      annotationSelector.link = this.link;
+    }
+
+    this.annotationService.createAnnotation(annotationSelector);
   }
 }

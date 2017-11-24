@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Card } from '../components/cardview/card';
 import { Listory } from './Listory';
 import { Annotation } from './Annotation';
+import { AnnotationSelector } from './AnnotationSelector';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -37,6 +38,9 @@ export class AnnotationService {
     return new Promise<object>(resolve => {
       this.userService.getUserInfo(userId).then((user)=>{ resolve(user); });
     });
-    
+  }
+
+  createAnnotation(selector: AnnotationSelector){
+    console.log(selector);
   }
 }
