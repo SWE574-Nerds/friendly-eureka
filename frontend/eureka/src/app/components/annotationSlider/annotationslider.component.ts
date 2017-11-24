@@ -55,13 +55,16 @@ export class AnnotationSliderComponent implements OnInit {
     this.toggle = this.toggle === 'in' ? 'out' : 'in';
   }
 
-  ngOnInit(){
-    if (this.listory)
-    this.annotationService.getAnnotationsOfListory(this.listory.listoryId).then((annotations) => {
-      console.log(annotations);
-      this.annotations = annotations;
-      console.log(this.annotations);
-    });
+  ngOnInit() {
+    this.updateAnnotations();
+  }
+
+  updateAnnotations(){
+    if (this.listory) {
+      this.annotationService.getAnnotationsOfListory(this.listory.listoryId).then((annotations) => {
+        this.annotations = annotations;
+      });
+    }
   }
 
   convertMediaType(type)
@@ -70,11 +73,18 @@ export class AnnotationSliderComponent implements OnInit {
   }
 
   onSubmit() {
-
     var annotationSelector = new AnnotationSelector();
     annotationSelector.fullPage = true;
-
+    annotationSelector.listoryId = ""+this.listory.listoryId;
     annotationSelector.mediaType = this.mediaType;
+
+    if (
+      (this.mediaType === "text" && this.description === "") ||
+      (this.mediaType === "image" && this.link === "") ||
+      (this.mediaType === "video" && this.link === "")
+    ){
+      annotationSelector.highlight = true;
+    }
 
     if (this.mediaType === "text") {
         annotationSelector.description = this.description;
@@ -84,6 +94,8 @@ export class AnnotationSliderComponent implements OnInit {
       annotationSelector.link = this.link;
     }
 
-    this.annotationService.createAnnotation(annotationSelector);
+    this.annotationService.createAnnotation(annotationSelector).then(()=>{
+      this.updateAnnotations();
+    });
   }
 }

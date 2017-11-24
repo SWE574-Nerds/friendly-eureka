@@ -8,7 +8,7 @@ import hashlib
 class AnnotationBodyForm(object):
     def __init__(self, body):
         if body is not None:
-            self.message = body.get('message') or None
+            self.message = body.get('message') or ""
 
     def __str__(self):
         return "{message:" + self.message + "}"

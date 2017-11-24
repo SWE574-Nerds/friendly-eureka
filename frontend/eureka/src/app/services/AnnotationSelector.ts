@@ -5,4 +5,6 @@ export class AnnotationSelector {
     public link: string;
     public highlight: Boolean;
 
+    public listoryId: string;
+
 }

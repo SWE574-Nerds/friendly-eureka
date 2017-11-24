@@ -7,6 +7,7 @@ import { Card } from '../components/cardview/card';
 import { Listory } from './Listory';
 import { Annotation } from './Annotation';
 import { AnnotationSelector } from './AnnotationSelector';
+import { AnnotationCreateResult } from './AnnotationCreateResult';
 
 
 import 'rxjs/add/operator/toPromise';
@@ -15,6 +16,9 @@ import 'rxjs/add/operator/toPromise';
 export class AnnotationService {
   private listoryUrl = '/api/listory';
   private listoryIdUrl = '/api/listory/:id/annotations';
+
+  private textAnnotationURL = '/api/annotation/:listoryId/text';
+  private highlightAnnotationURL = '/api/annotation/:listoryId/highlight';
 
   constructor(
     private http: Http,
@@ -32,15 +36,59 @@ export class AnnotationService {
     });
   }
 
-  getAnnotationOwner(ownerIRI): Promise<object> {
+  getAnnotationOwner(ownerIRI): Promise<object> {
     const userId = ownerIRI.replace(/.+user\/?/g, "");
     console.log(userId);
     return new Promise<object>(resolve => {
-      this.userService.getUserInfo(userId).then((user)=>{ resolve(user); });
+      this.userService.getUserInfo(userId).then((user) => { resolve(user); });
     });
   }
 
-  createAnnotation(selector: AnnotationSelector){
-    console.log(selector);
+  createAnnotation(selector: AnnotationSelector): Promise<AnnotationCreateResult > {
+
+    return new Promise<AnnotationCreateResult>((resolve) => {
+      this.userService.getUser().then((user) => {
+
+
+        var body = {
+          listory: selector.listoryId,
+          body: {
+            message: ""
+          }
+        };
+
+        if (selector.highlight) {
+          this.http.post(this.highlightAnnotationURL.replace(":listoryId", selector.listoryId), body, {
+            headers: this.createHeaders(user.token)
+          })
+            .toPromise()
+            .then((resp) => {
+              var result = new AnnotationCreateResult();
+              resolve(result);
+            });
+        } else if (selector.mediaType === "text") {
+
+          body.body.message = selector.description
+
+          this.http.post(this.textAnnotationURL.replace(":listoryId", selector.listoryId), body, {
+            headers: this.createHeaders(user.token)
+          })
+            .toPromise()
+            .then((resp) => {
+              var result = new AnnotationCreateResult();
+              resolve(result);
+            });
+        }
+      });
+    });
   }
+
+  private createHeaders(token: string): Headers {
+    var headers = new Headers({ 'Content-Type': 'application/json' });
+    if (token)
+      headers.append('Authorization', token);
+
+    return headers;
+  }
+
 }

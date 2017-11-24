@@ -86,6 +86,8 @@ class AnnotationService(object):
     def createHighlightAnnotation(self, form, user):
         anno, hash = self.createHighlightAnnotationJSONLD(form.body, form.listory)
 
+        anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
+
         self.redis.set(hash, json.dumps(anno))
 
         Annotation.objects.create(message=form.body.message,
