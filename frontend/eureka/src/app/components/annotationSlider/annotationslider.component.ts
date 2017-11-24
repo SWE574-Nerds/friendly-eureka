@@ -42,6 +42,7 @@ export class AnnotationSliderComponent implements OnInit {
   @Input() listory: Listory;
   @Input() annotations: object[] = [];  
   public toggle = 'out';
+  @Input() mediaType = "text";
 
   constructor(
     private annotationService : AnnotationService
@@ -52,10 +53,20 @@ export class AnnotationSliderComponent implements OnInit {
   }
 
   ngOnInit(){
+    if (this.listory)
     this.annotationService.getAnnotationsOfListory(this.listory.listoryId).then((annotations) => {
       console.log(annotations);
       this.annotations = annotations;
       console.log(this.annotations);
     });
+  }
+
+  convertMediaType(type)
+  {
+     this.mediaType = type;
+  }
+
+  onSubmit(){
+    
   }
 }

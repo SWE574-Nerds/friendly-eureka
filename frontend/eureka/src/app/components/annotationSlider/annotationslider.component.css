@@ -12,17 +12,31 @@
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     border: 1px solid #f0f0f0;
     border-radius: 4px;
-    padding: 30px;    
   }
 
   #scroll{
     overflow: auto;    
     height: 100%;
+    width: 100%;
     position: absolute;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
   img{
     position: relative;
     top: 50%;
-    left: -48px;
+    left: -18px;
+  }
+
+  .radio-inline{
+    color: #343434;
+  }
+
+  .create{
+    margin: 6px;
+  }
+
+  textarea{
+    height: 150px;
   }
