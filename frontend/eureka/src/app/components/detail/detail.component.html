@@ -30,6 +30,10 @@
     <div *ngIf="user && user.token && user.name == listory.owner.name">
             <button type="button" class="btn btn-danger" (click)="deleteListory(listory.listoryId)" >Delete</button>            
     </div>
+
+    <annotationSlider [listory]="listory" ></annotationSlider>    
+    
+
 </div>
 
 <div *ngIf="!listory">
@@ -38,7 +42,9 @@
             <span class="badge badge-primary">History item not found</span>
         </p>
     </div>
+
+    <annotationSlider [listory]="listory" ></annotationSlider>    
+    
 </div>
 
 
-<test></test>

@@ -6,6 +6,7 @@ import { TermsofserviceComponent } from './components/termsofservice-screen/term
 import { CardViewComponent } from './components/cardview/cardview.component';
 import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
+import { AnnotationListComponent } from './components/annotationSlider/annotationListItem/annolistitem.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'all',  component: CardViewComponent },
   { path: 'create', component: CreateFormComponent },
   { path: 'detail/:id', component: DetailComponent },  
+  { path: 'test', component: AnnotationListComponent }
+
 ];
  
 @NgModule({

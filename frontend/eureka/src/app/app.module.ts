@@ -18,13 +18,14 @@ import { CardViewComponent } from './components/cardview/cardview.component';
 import { UserService } from './services/user.service';
 import { ListoryService } from './services/listory.service';
 import { CreateService } from './services/create.service';
+import { AnnotationService } from './services/annotation.service';
 
 import { BackgroundDirective } from './components/cardview/backgrounder.directive';
 import { CardComponent } from './components/cardview/card/card.component';
 import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { TestComponent } from './components/test/test.component';
-
+import { AnnotationSliderComponent } from './components/annotationSlider/annotationslider.component';
+import { AnnotationListComponent } from './components/annotationSlider/annotationListItem/annolistitem.component';
 import { SimpleStore } from '../app/app/SimpleStore';
 
 
@@ -42,12 +43,13 @@ import { SimpleStore } from '../app/app/SimpleStore';
     CardComponent,
     CreateFormComponent,
     DetailComponent,
-    TestComponent
+    AnnotationSliderComponent,
+    AnnotationListComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule
   ],
-  providers: [ UserService, ListoryService, CreateService, SimpleStore],
+  providers: [ UserService, ListoryService, CreateService, AnnotationService, SimpleStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

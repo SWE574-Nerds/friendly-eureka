@@ -1,0 +1,46 @@
+#all{
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    background-color: #faf8f6;
+    font-size: 10px;
+    padding-top: 5px;
+    margin: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    
+}
+
+#dialog-window {
+    height: 200px;
+    border: 1px black solid;
+  }
+ 
+p{
+    font-size: 13px;
+    color: #696969;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.textualBody::before{
+    content: "“";
+}
+
+.textualBody::after{
+    content: "”";
+}
+
+#author::before{
+    content: "Added by ";
+}
+#author::after{
+    content: "";
+}
+
+#author{
+    font-size: 10px;
+    font-style: normal;
+    color: #ababab;
+    text-align: right;
+}

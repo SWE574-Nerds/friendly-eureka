@@ -10,6 +10,7 @@ module.exports = {
             if (req.headers['authorization'])
                 headers.authorization = req.headers['authorization'];
 
+                console.log(req.method, url, req.baseUrl);
             request({
             method: req.method,
             url: url + req.baseUrl + '/',
@@ -17,6 +18,7 @@ module.exports = {
             body:  req.body,
             json: true
             }, function (error, response, body) {
+                console.log(body);
                 res.status(error ? 500 : response.statusCode).send(body);
             });
         });

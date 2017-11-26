@@ -1,0 +1,52 @@
+<div class="all" [@onToggle]="toggle">
+    <div id="scroll">
+    
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                        <li class="nav-item">
+                          <a class="nav-link" (click)="convertMediaType('text')">Text</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" (click)="convertMediaType('image')">Image</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" (click)="convertMediaType('video')">Video</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+
+        <div *ngIf="mediaType == 'text'" class="form-group">
+            <textarea [(ngModel)]="description" type="text" class="form-control" rows="10" placeholder="Your message here"></textarea>
+        </div>
+
+
+        <div *ngIf="mediaType == 'image'" class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">Image URL</div>
+                <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
+            </div>
+
+            
+        <div *ngIf="mediaType == 'video'" class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon">Video URL</div>
+                <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
+            </div>
+
+            
+        <button (click)="onSubmit()" type="submit" class="create btn btn-primary">
+                Create
+            </button>
+
+            <hr>
+
+
+        <ul>
+            <li *ngFor="let anno of annotations">
+                <annolistitem [annotation]="anno"></annolistitem>
+            </li>
+        </ul>
+    </div>
+
+    <img (click)="toggleMenu()" src="./assets/img/dong.png" />
+</div>
