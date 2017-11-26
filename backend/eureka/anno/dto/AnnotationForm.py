@@ -9,9 +9,10 @@ class AnnotationBodyForm(object):
     def __init__(self, body):
         if body is not None:
             self.message = body.get('message') or ""
+            self.link = body.get('link') or ""
 
     def __str__(self):
-        return "{message:" + self.message + "}"
+        return "{message:" + self.message + ", link:" + self.link + "}"
 
 
     def hash(self):

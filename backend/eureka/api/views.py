@@ -322,10 +322,11 @@ def api_post_annotation(request, id, type):
             anno, hash = annoSevice.createTextAnnotation(form, request.api_user)
         elif type == "highlight":
             anno, hash = annoSevice.createHighlightAnnotation(form, request.api_user)
+        elif type == "image":
+            anno, hash = annoSevice.createImageAnnotation(form, request.api_user)
 
 
-
-        return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
+    return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

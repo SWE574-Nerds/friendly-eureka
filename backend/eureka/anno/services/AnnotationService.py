@@ -15,10 +15,10 @@ class AnnotationService(object):
 
 
     def getAnnotationJSONLD(self, storeKey):
- #       try:
+        try:
             return json.loads(self.redis.get(storeKey))
- #       except:
-#            return None
+        except:
+            return None
 
 
     def getAnnotationBody(self, storeKey):
@@ -32,6 +32,36 @@ class AnnotationService(object):
             return Annotation.objects.get(storeKey__exact=storeKey)
         except:
             return None
+
+
+    def createImageAnnotationJSONLD(self, body, listoryId):
+
+        hash = body.hash()
+
+        anno = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "id": hash,
+            "type": "Annotation",
+            "creator": "",  # Will be set later
+            "body": [],
+            "target": VIEW_PATH.replace("{id}", listoryId)
+        }
+
+        if body.message:
+            anno["body"].append({
+                "type": "TextualBody",
+                "value": body.message,
+                "format": "text/plain",
+            })
+        if body.link:
+            anno["body"].append({
+                "type": "Image",
+                "value": body.link,
+                "format": "image/png",
+            })
+
+        return anno, hash
+
 
     def createPlainTextAnnotationJSONLD(self, body, listoryId):
 
@@ -65,6 +95,23 @@ class AnnotationService(object):
         }
 
         return anno, hash
+
+
+    def createImageAnnotation(self, form, user):
+        anno, hash = self.createImageAnnotationJSONLD(form.body, form.listory)
+
+        anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
+
+        self.redis.set(hash, json.dumps(anno))
+
+        Annotation.objects.create(message=form.body.message,
+        storeKey = hash,
+        listory = ListoryService.get_listory_by_id(
+        form.listory),
+        author = user);
+
+        return anno, hash
+
 
 
     def createTextAnnotation(self, form, user):
