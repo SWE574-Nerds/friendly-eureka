@@ -349,13 +349,43 @@ paths:
           description: "Retrieved listory annotations"
         405:
           description: "Incorrect id"
+  /annotation/{id}/text:
     post:
       tags:
       - "annotation"
       summary: "Create an annotation"
       security:
         - Bearer: []
-      operationId: "annoCreate"
+      operationId: "annoCreateText"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "The listory id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "listory"
+        schema:
+          $ref: '#/definitions/AnnotationRequest'
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AnnotationDetails"
+          description: "Created annotations"
+        405:
+          description: "Incorrect id / Incorrect form" 
+  /annotation/{id}/image:
+    post:
+      tags:
+      - "annotation"
+      summary: "Create an annotation"
+      security:
+        - Bearer: []
+      operationId: "annoCreateImage"
       consumes:
       - "application/json"
       produces:
@@ -573,6 +603,9 @@ definitions:
       message: 
         type: "string"
         description: "String body of the annotation"
+      link: 
+        type: "string"
+        description: "Link to image/video (ADD ONLY IF IMAGE OR VIDEO)"
   AnnotationDetails:
     type: "object"
     description: "Annotation information also with the JSON-LD object"

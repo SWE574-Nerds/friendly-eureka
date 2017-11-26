@@ -707,6 +707,10 @@ margin-bottom: 20px;
     "message" : {
       "type" : "string",
       "description" : "String body of the annotation"
+    },
+    "link" : {
+      "type" : "string",
+      "description" : "Link to image/video (ADD ONLY IF IMAGE OR VIDEO)"
     }
   }
 };
@@ -973,8 +977,11 @@ margin-bottom: 20px;
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
                   <li class="nav-header" data-group="Annotation"><a href="#api-Annotation">API Methods - Annotation</a></li>
-                    <li data-group="Annotation" data-name="annoCreate" class="">
-                      <a href="#api-Annotation-annoCreate">annoCreate</a>
+                    <li data-group="Annotation" data-name="annoCreateImage" class="">
+                      <a href="#api-Annotation-annoCreateImage">annoCreateImage</a>
+                    </li>
+                    <li data-group="Annotation" data-name="annoCreateText" class="">
+                      <a href="#api-Annotation-annoCreateText">annoCreateText</a>
                     </li>
                     <li data-group="Annotation" data-name="annoGet" class="">
                       <a href="#api-Annotation-annoGet">annoGet</a>
@@ -1054,10 +1061,10 @@ margin-bottom: 20px;
         <div id="sections">
                 <section id="api-Annotation">
                   <h1>Annotation</h1>
-                    <div id="api-Annotation-annoCreate">
-                      <article id="api-Annotation-annoCreate-0" data-group="User" data-name="annoCreate" data-version="0">
+                    <div id="api-Annotation-annoCreateImage">
+                      <article id="api-Annotation-annoCreateImage-0" data-group="User" data-name="annoCreateImage" data-version="0">
                         <div class="pull-left">
-                          <h1>annoCreate</h1>
+                          <h1>annoCreateImage</h1>
                           <p>Create an annotation</p>
                         </div>
                         <div class="pull-right"></div>
@@ -1066,29 +1073,29 @@ margin-bottom: 20px;
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/annotation/{id}</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/annotation/{id}/image</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Annotation-annoCreate-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Annotation-annoCreate-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Annotation-annoCreate-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Annotation-annoCreate-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Annotation-annoCreateImage-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Annotation-annoCreateImage-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Annotation-annoCreateImage-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateImage-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Annotation-annoCreate-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST -H "Authorization: [[apiKey]]" "http://localhost/api/v1//annotation/{id}"</code></pre>
+                          <div class="tab-pane active" id="examples-Annotation-annoCreateImage-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST -H "Authorization: [[apiKey]]" "http://localhost/api/v1//annotation/{id}/image"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Annotation-annoCreate-0-java">
+                          <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -1112,17 +1119,17 @@ public class AnnotationApiExample {
         String id = id_example; // String | The listory id
         AnnotationRequest listory = ; // AnnotationRequest | 
         try {
-            AnnotationDetails result = apiInstance.annoCreate(id, listory);
+            AnnotationDetails result = apiInstance.annoCreateImage(id, listory);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AnnotationApi#annoCreate");
+            System.err.println("Exception when calling AnnotationApi#annoCreateImage");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Annotation-annoCreate-0-android">
+                          <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AnnotationApi;
 
 public class AnnotationApiExample {
@@ -1132,20 +1139,20 @@ public class AnnotationApiExample {
         String id = id_example; // String | The listory id
         AnnotationRequest listory = ; // AnnotationRequest | 
         try {
-            AnnotationDetails result = apiInstance.annoCreate(id, listory);
+            AnnotationDetails result = apiInstance.annoCreateImage(id, listory);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling AnnotationApi#annoCreate");
+            System.err.println("Exception when calling AnnotationApi#annoCreateImage");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Annotation-annoCreate-0-groovy">
+  <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Annotation-annoCreate-0-objc">
+                            <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
 
 // Configure API key authorization: (authentication scheme: Bearer)
@@ -1159,7 +1166,7 @@ AnnotationRequest *listory = ; //  (optional)
 AnnotationApi *apiInstance = [[AnnotationApi alloc] init];
 
 // Create an annotation
-[apiInstance annoCreateWith:id
+[apiInstance annoCreateImageWith:id
     listory:listory
               completionHandler: ^(AnnotationDetails output, NSError* error) {
                             if (output) {
@@ -1172,7 +1179,7 @@ AnnotationApi *apiInstance = [[AnnotationApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Annotation-annoCreate-0-javascript">
+                            <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
 var defaultClient = EurekaLivingHistoryApi.ApiClient.instance;
 
@@ -1197,14 +1204,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.annoCreate(id, opts, callback);
+api.annoCreateImage(id, opts, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Annotation-annoCreate-0-angular">
+                            <!--<div class="tab-pane" id="examples-Annotation-annoCreateImage-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Annotation-annoCreate-0-csharp">
+                            <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -1213,7 +1220,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class annoCreateExample
+    public class annoCreateImageExample
     {
         public void main()
         {
@@ -1230,12 +1237,12 @@ namespace Example
             try
             {
                 // Create an annotation
-                AnnotationDetails result = apiInstance.annoCreate(id, listory);
+                AnnotationDetails result = apiInstance.annoCreateImage(id, listory);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AnnotationApi.annoCreate: " + e.Message );
+                Debug.Print("Exception when calling AnnotationApi.annoCreateImage: " + e.Message );
             }
         }
     }
@@ -1243,7 +1250,7 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Annotation-annoCreate-0-php">
+                            <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -1257,15 +1264,15 @@ $id = id_example; // String | The listory id
 $listory = ; // AnnotationRequest | 
 
 try {
-    $result = $api_instance->annoCreate($id, $listory);
+    $result = $api_instance->annoCreateImage($id, $listory);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling AnnotationApi->annoCreate: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling AnnotationApi->annoCreateImage: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Annotation-annoCreate-0-perl">
+                            <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::AnnotationApi;
@@ -1280,15 +1287,15 @@ my $id = id_example; # String | The listory id
 my $listory = WWW::SwaggerClient::Object::AnnotationRequest->new(); # AnnotationRequest | 
 
 eval { 
-    my $result = $api_instance->annoCreate(id => $id, listory => $listory);
+    my $result = $api_instance->annoCreateImage(id => $id, listory => $listory);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling AnnotationApi->annoCreate: $@\n";
+    warn "Exception when calling AnnotationApi->annoCreateImage: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Annotation-annoCreate-0-python">
+                            <div class="tab-pane" id="examples-Annotation-annoCreateImage-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -1307,10 +1314,10 @@ listory =  # AnnotationRequest |  (optional)
 
 try: 
     # Create an annotation
-    api_response = api_instance.anno_create(id, listory=listory)
+    api_response = api_instance.anno_create_image(id, listory=listory)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling AnnotationApi->annoCreate: %s\n" % e)</code></pre>
+    print("Exception when calling AnnotationApi->annoCreateImage: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -1326,7 +1333,7 @@ except ApiException as e:
 <td>
 
 
-    <div id="d2e199_annoCreate_id">
+    <div id="d2e199_annoCreateImage_id">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -1379,12 +1386,12 @@ $(document).ready(function() {
   }
 
   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_annoCreate_listory');
+  var result = $('#d2e199_annoCreateImage_listory');
   result.empty();
   result.append(view.render());
 });
 </script>
-<div id="d2e199_annoCreate_listory"></div>
+<div id="d2e199_annoCreateImage_listory"></div>
 </td>
 </tr>
 
@@ -1397,14 +1404,14 @@ $(document).ready(function() {
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-annoCreate-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-annoCreateImage-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-annoCreate-200-schema">
-                                  <div id='responses-annoCreate-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-annoCreateImage-200-schema">
+                                  <div id='responses-annoCreateImage-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1425,14 +1432,407 @@ $(document).ready(function() {
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-annoCreate-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-annoCreate-200-schema-200');
+                                        $('#responses-annoCreateImage-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-annoCreateImage-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-annoCreate-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-annoCreateImage-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 405 - Incorrect id / Incorrect form </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Annotation-annoCreateText">
+                      <article id="api-Annotation-annoCreateText-0" data-group="User" data-name="annoCreateText" data-version="0">
+                        <div class="pull-left">
+                          <h1>annoCreateText</h1>
+                          <p>Create an annotation</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/annotation/{id}/text</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Annotation-annoCreateText-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Annotation-annoCreateText-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Annotation-annoCreateText-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Annotation-annoCreateText-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Annotation-annoCreateText-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST -H "Authorization: [[apiKey]]" "http://localhost/api/v1//annotation/{id}/text"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Annotation-annoCreateText-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AnnotationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AnnotationApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        
+        // Configure API key authorization: Bearer
+        ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+        Bearer.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //Bearer.setApiKeyPrefix("Token");
+
+        AnnotationApi apiInstance = new AnnotationApi();
+        String id = id_example; // String | The listory id
+        AnnotationRequest listory = ; // AnnotationRequest | 
+        try {
+            AnnotationDetails result = apiInstance.annoCreateText(id, listory);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AnnotationApi#annoCreateText");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Annotation-annoCreateText-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AnnotationApi;
+
+public class AnnotationApiExample {
+
+    public static void main(String[] args) {
+        AnnotationApi apiInstance = new AnnotationApi();
+        String id = id_example; // String | The listory id
+        AnnotationRequest listory = ; // AnnotationRequest | 
+        try {
+            AnnotationDetails result = apiInstance.annoCreateText(id, listory);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AnnotationApi#annoCreateText");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Annotation-annoCreateText-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Annotation-annoCreateText-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: Bearer)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"Authorization"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"Authorization"];
+
+String *id = id_example; // The listory id
+AnnotationRequest *listory = ; //  (optional)
+
+AnnotationApi *apiInstance = [[AnnotationApi alloc] init];
+
+// Create an annotation
+[apiInstance annoCreateTextWith:id
+    listory:listory
+              completionHandler: ^(AnnotationDetails output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Annotation-annoCreateText-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
+var defaultClient = EurekaLivingHistoryApi.ApiClient.instance;
+
+// Configure API key authorization: Bearer
+var Bearer = defaultClient.authentications['Bearer'];
+Bearer.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.apiKeyPrefix['Authorization'] = "Token"
+
+var api = new EurekaLivingHistoryApi.AnnotationApi()
+
+var id = id_example; // {String} The listory id
+
+var opts = { 
+  'listory':  // {AnnotationRequest} 
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.annoCreateText(id, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Annotation-annoCreateText-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Annotation-annoCreateText-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class annoCreateTextExample
+    {
+        public void main()
+        {
+            
+            // Configure API key authorization: Bearer
+            Configuration.Default.ApiKey.Add("Authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("Authorization", "Bearer");
+
+            var apiInstance = new AnnotationApi();
+            var id = id_example;  // String | The listory id
+            var listory = new AnnotationRequest(); // AnnotationRequest |  (optional) 
+
+            try
+            {
+                // Create an annotation
+                AnnotationDetails result = apiInstance.annoCreateText(id, listory);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AnnotationApi.annoCreateText: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Annotation-annoCreateText-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: Bearer
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+$api_instance = new Swagger\Client\Api\AnnotationApi();
+$id = id_example; // String | The listory id
+$listory = ; // AnnotationRequest | 
+
+try {
+    $result = $api_instance->annoCreateText($id, $listory);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AnnotationApi->annoCreateText: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Annotation-annoCreateText-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AnnotationApi;
+
+# Configure API key authorization: Bearer
+$WWW::SwaggerClient::Configuration::api_key->{'Authorization'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::SwaggerClient::Configuration::api_key_prefix->{'Authorization'} = "Bearer";
+
+my $api_instance = WWW::SwaggerClient::AnnotationApi->new();
+my $id = id_example; # String | The listory id
+my $listory = WWW::SwaggerClient::Object::AnnotationRequest->new(); # AnnotationRequest | 
+
+eval { 
+    my $result = $api_instance->annoCreateText(id => $id, listory => $listory);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AnnotationApi->annoCreateText: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Annotation-annoCreateText-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Bearer
+swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = swagger_client.AnnotationApi()
+id = id_example # String | The listory id
+listory =  # AnnotationRequest |  (optional)
+
+try: 
+    # Create an annotation
+    api_response = api_instance.anno_create_text(id, listory=listory)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AnnotationApi->annoCreateText: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_annoCreateText_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The listory id
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">listory </td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "listory",
+  "required" : false,
+  "schema" : {
+    "$ref" : "#/definitions/AnnotationRequest"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_annoCreateText_listory');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_annoCreateText_listory"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Created annotations </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-annoCreateText-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-annoCreateText-200-schema">
+                                  <div id='responses-annoCreateText-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Created annotations",
+  "schema" : {
+    "$ref" : "#/definitions/AnnotationDetails"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-annoCreateText-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-annoCreateText-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-annoCreateText-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -6677,7 +7077,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-11-13T15:12:28.541Z
+              Generated 2017-11-26T19:05:13.707Z
             </div>
           </div>
       </div>
