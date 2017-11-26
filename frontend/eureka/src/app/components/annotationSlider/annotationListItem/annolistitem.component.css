@@ -44,3 +44,8 @@ p{
     color: #ababab;
     text-align: right;
 }
+
+.Image{
+    width: 100%;
+    height: auto;
+}

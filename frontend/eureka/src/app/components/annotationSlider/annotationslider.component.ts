@@ -89,8 +89,10 @@ export class AnnotationSliderComponent implements OnInit {
     if (this.mediaType === "text") {
         annotationSelector.description = this.description;
     }else if (this.mediaType === "image") {
+      annotationSelector.description = this.description;
       annotationSelector.link = this.link;
     }else if (this.mediaType === "video") {
+      annotationSelector.description = this.description;
       annotationSelector.link = this.link;
     }
 

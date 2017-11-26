@@ -1,11 +1,18 @@
 <div id="all">
-    <p class="textualBody" *ngIf="annotation.body && (annotation.body.type == 'TextualBody')">
-        {{annotation.body.value}}
-    </p>
+        <div *ngFor="let body of bodies">
+            <p class="textualBody" *ngIf="body && (body.type == 'TextualBody')">
+                {{body.value}}
+            </p>
 
-    <p *ngIf="!annotation.body">
-        No content.
-    </p>
+            <img class="Image" *ngIf="body && (body.type == 'Image')" src="{{body.value}}" />
 
-    <p id="author">{{author.name}}</p>
+            <iframe *ngIf="body && (body.type == 'Video')" width="100%" height="auto" src={{body.value}} frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div *ngIf="!bodies">
+            <p>No content</p>
+        </div>
+
+        <p id="author">{{author.name}}</p>
+
 </div>

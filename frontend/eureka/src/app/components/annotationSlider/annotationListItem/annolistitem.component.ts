@@ -16,8 +16,6 @@ import {
 } from '@angular/animations';
 import { Annotation } from '../../../services/Annotation';
 
-
-
 @Component({
   selector: 'annolistitem',
   templateUrl: './annolistitem.component.html',
@@ -26,19 +24,17 @@ import { Annotation } from '../../../services/Annotation';
 export class AnnotationListComponent implements OnInit {
 
     @Input() annotation: Annotation = {
-        body : {
-            value: "",
-            type: "TextualBody",
-            format: "text/plain"
-        },
+        body : null,
         id : "0",
-        target : "this",
+        target : "",
         creator: ""
     };
 
     @Input() author: object = {
       name : ""
     } 
+
+    @Input() bodies: object[] = null;
 
   constructor(
     private annotationService : AnnotationService
@@ -49,6 +45,11 @@ export class AnnotationListComponent implements OnInit {
     {
       this.annotationService.getAnnotationOwner(this.annotation.creator).then((author)=>{
         this.author = author;
+        if (Array.isArray(this.annotation.body)){
+          this.bodies = this.annotation.body;
+        }else if (this.annotation.body){
+          this.bodies = [ this.annotation.body ];
+        }
       });
     }
   }

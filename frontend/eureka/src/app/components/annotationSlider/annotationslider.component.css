@@ -39,4 +39,6 @@
 
   textarea{
     height: 150px;
+    display: block;
+    margin-bottom: 10px;
   }

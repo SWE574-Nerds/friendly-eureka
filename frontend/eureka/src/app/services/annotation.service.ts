@@ -19,6 +19,7 @@ export class AnnotationService {
 
   private textAnnotationURL = '/api/annotation/:listoryId/text';
   private highlightAnnotationURL = '/api/annotation/:listoryId/highlight';
+  private imageAnnotationURL = '/api/annotation/:listoryId/image';
 
   constructor(
     private http: Http,
@@ -49,16 +50,17 @@ export class AnnotationService {
     return new Promise<AnnotationCreateResult>((resolve) => {
       this.userService.getUser().then((user) => {
 
-
-        var body = {
-          listory: selector.listoryId,
-          body: {
-            message: ""
-          }
-        };
-
         if (selector.highlight) {
-          this.http.post(this.highlightAnnotationURL.replace(":listoryId", selector.listoryId), body, {
+          var body_highlight = {
+            listory: selector.listoryId,
+            body: {
+              message: ""
+            }
+          };
+
+          console.log(selector);
+
+          this.http.post(this.highlightAnnotationURL.replace(":listoryId", selector.listoryId), body_highlight, {
             headers: this.createHeaders(user.token)
           })
             .toPromise()
@@ -67,10 +69,31 @@ export class AnnotationService {
               resolve(result);
             });
         } else if (selector.mediaType === "text") {
+          var body_text = {
+            listory: selector.listoryId,
+            body: {
+              message: selector.description
+            }
+          };
 
-          body.body.message = selector.description
+          this.http.post(this.textAnnotationURL.replace(":listoryId", selector.listoryId), body_text, {
+            headers: this.createHeaders(user.token)
+          })
+            .toPromise()
+            .then((resp) => {
+              var result = new AnnotationCreateResult();
+              resolve(result);
+            });
+        } else if (selector.mediaType === "image") {
+          var body_image = {
+            listory: selector.listoryId,
+            body: {
+              message: selector.description,
+              link: selector.link
+            }
+          };
 
-          this.http.post(this.textAnnotationURL.replace(":listoryId", selector.listoryId), body, {
+          this.http.post(this.imageAnnotationURL.replace(":listoryId", selector.listoryId), body_image, {
             headers: this.createHeaders(user.token)
           })
             .toPromise()
