@@ -93,7 +93,7 @@ def api_create_listory(request):
 
     form = ListoryForm(request.data)
     validator = ListoryFormValidator()
-
+    
     errors = validator.validate(form)
 
     if len(errors):
@@ -103,6 +103,19 @@ def api_create_listory(request):
             api_user = request.api_user
             listoryId = ListoryService.create_listory(form, api_user)
             listory = ListoryService.get_listory_by_id(listoryId)
+
+            marker_set = listory.marker_set.all()
+
+            markers = []
+            for marker in marker_set:
+                markers.append({
+                   "lat": marker.lat,
+                    "long" : marker.long,
+                    "mag" : marker.mag,
+                    "name" : marker.name,
+                    "color" : marker.color
+                });
+
             return Response({
                 'name' : listory.title,
                 'description' : listory.content,
@@ -112,6 +125,7 @@ def api_create_listory(request):
                     'name': api_user.username,
                     'userId': api_user.pk
                 },
+                "markers" : markers,
                 "time" : {
                     "name": listory.timeInfoGroup.timeInfo.name,
                     "units" : listory.timeInfoGroup.timeInfo.value_type,
@@ -152,8 +166,6 @@ def api_update_listory(request, id):
         return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
         try:
-
-
             if form.name is not None:
                 listory.title = form.name
             if form.description is not None:
@@ -187,12 +199,26 @@ def api_update_listory(request, id):
 
 def api_get_listory(request, id):
     listory = ListoryService.get_listory_by_id(id)
+
+    marker_set = listory.marker_set.all()
+
+    markers = []
+    for marker in marker_set:
+        markers.append({
+            "lat": marker.lat,
+            "long": marker.long,
+            "mag": marker.mag,
+            "name": marker.name,
+            "color": marker.color
+        });
+
     if listory is not None:
         return Response({
             'name': listory.title,
             'description': listory.content,
             'image': listory.image,
             'listoryId': listory.pk,
+            'markers' : markers,
             'owner': {
                 'name': listory.user.username,
                 'userId': listory.user.pk

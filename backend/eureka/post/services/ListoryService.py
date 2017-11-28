@@ -1,4 +1,5 @@
 from post.models import Post
+from post.models import Marker
 from post.models import TimeInfoGroup, TimeInfo, Category
 from api.dto.ListoryForm import *
 
@@ -14,6 +15,17 @@ def create_listory(listoryForm, owner):
         listory = Post.objects.create(image=listoryForm.image, user=owner, content=listoryForm.description, title=listoryForm.name, timeInfoGroup=timeInfoGroup, category=category)
 
         listory.save()
+
+        for marker in listoryForm.markers:
+            obj = Marker.objects.create(lat=marker.get("lat"),
+                                    long=marker.get("long"),
+                                    mag=marker.get("mag") or 200,
+                                    name=marker.get("name") or "",
+                                    color=marker.get("color") or "#ff0aaa",
+                                  listory=listory
+                                  );
+            obj.save();
+
         return listory.pk
    # except :
     #     return ""
