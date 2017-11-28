@@ -19,6 +19,7 @@ import { UserService } from './services/user.service';
 import { ListoryService } from './services/listory.service';
 import { CreateService } from './services/create.service';
 import { AnnotationService } from './services/annotation.service';
+import { SimpleStore } from '../app/app/SimpleStore';
 
 import { BackgroundDirective } from './components/cardview/backgrounder.directive';
 import { CardComponent } from './components/cardview/card/card.component';
@@ -26,8 +27,8 @@ import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { AnnotationSliderComponent } from './components/annotationSlider/annotationslider.component';
 import { AnnotationListComponent } from './components/annotationSlider/annotationListItem/annolistitem.component';
-import { SimpleStore } from '../app/app/SimpleStore';
-
+import { MapsComponent } from './components/maps/maps.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -44,10 +45,13 @@ import { SimpleStore } from '../app/app/SimpleStore';
     CreateFormComponent,
     DetailComponent,
     AnnotationSliderComponent,
-    AnnotationListComponent
+    AnnotationListComponent,
+    MapsComponent
   ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule
+    BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule, AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCJ4TFKjFJ7RN-J4dC_GSWy09mYlQZ6m5w'
+    })
   ],
   providers: [ UserService, ListoryService, CreateService, AnnotationService, SimpleStore],
   bootstrap: [AppComponent]
