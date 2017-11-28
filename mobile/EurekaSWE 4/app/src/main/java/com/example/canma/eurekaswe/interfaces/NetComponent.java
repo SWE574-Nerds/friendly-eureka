@@ -4,6 +4,8 @@ import com.example.canma.eurekaswe.LoginActivity;
 import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.fragments.LoginSignIn;
 import com.example.canma.eurekaswe.fragments.LoginSignUp;
+import com.example.canma.eurekaswe.fragments.MainCreate;
+import com.example.canma.eurekaswe.fragments.MainList;
 import com.example.canma.eurekaswe.modules.AppModule;
 import com.example.canma.eurekaswe.modules.NetModule;
 
@@ -19,5 +21,7 @@ public interface NetComponent {
     void inject(LoginActivity activity);
     void inject(LoginSignUp fragment);
     void inject(LoginSignIn fragment);
+    void inject(MainList fragment);
+    void inject(MainCreate fragment);
     // void inject(MyService service);
 }

@@ -1,12 +1,13 @@
 package com.example.canma.eurekaswe;
 
 import android.app.Application;
-import android.support.multidex.MultiDexApplication;
+
 
 import com.example.canma.eurekaswe.interfaces.DaggerNetComponent;
 import com.example.canma.eurekaswe.interfaces.NetComponent;
 import com.example.canma.eurekaswe.modules.AppModule;
 import com.example.canma.eurekaswe.modules.NetModule;
+import com.tumblr.remember.Remember;
 
 /**
 
@@ -22,6 +23,9 @@ public class EurekaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        Remember.init(getApplicationContext(), "com.example.canma.eurekaswe");
 
         mNetComponent = DaggerNetComponent.builder()
                 // list of modules that are part of this component need to be created here too

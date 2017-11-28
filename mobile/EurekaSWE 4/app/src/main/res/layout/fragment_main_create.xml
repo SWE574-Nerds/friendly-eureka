@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+
+   <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_edit_text"
+        android:layout_marginTop="10dp"
+        android:layout_margin="4dp"
+        android:hint="title here!"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose"
+        android:maxLines="1"
+        android:lines="1"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/detail_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/title_edit_text"
+        android:hint="detail here!"
+        android:maxLines="4"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose" />
+
+    <EditText
+        android:id="@+id/link_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail_edit_text"
+        android:hint="link here!"
+        android:inputType="textUri"
+        android:lines="1"
+        android:maxLines="1"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_edit_text"
+        android:hint="location here!"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose"
+        android:maxLines="1"
+        android:lines="1"
+        android:layout_below="@+id/link_edit_text"
+ />
+
+
+    <Spinner
+        android:id="@+id/categoryspinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location_edit_text"
+
+        android:layout_marginBottom="15dp" />
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@+id/categoryspinner"
+    >
+
+
+
+    <Spinner
+        android:id="@+id/datespinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp" />
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date1"
+        android:hint="date 1"
+        android:layout_marginLeft="10dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="date 2"
+        android:id="@+id/date2"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>
+
+
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create!"
+        android:background="@color/alice_blue"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/create_b"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
