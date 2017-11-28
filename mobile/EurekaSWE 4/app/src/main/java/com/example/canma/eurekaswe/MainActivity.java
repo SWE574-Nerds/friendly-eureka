@@ -11,16 +11,38 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import com.example.canma.eurekaswe.data.CategoryFormat;
+import com.example.canma.eurekaswe.data.CellData;
+import com.example.canma.eurekaswe.data.TimeFormat;
+import com.example.canma.eurekaswe.fragments.LoginWelcome;
+import com.example.canma.eurekaswe.fragments.MainCreate;
+import com.example.canma.eurekaswe.fragments.MainList;
+import com.example.canma.eurekaswe.interfaces.calls.CategoryApi;
+import com.example.canma.eurekaswe.interfaces.calls.TimeApi;
+import com.tumblr.remember.Remember;
+
+import java.security.PublicKey;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+
+    public static List<TimeFormat> timef;
+
+    public static List<CategoryFormat> catf;
 
     @Inject
     @Named("regular")
@@ -39,7 +61,16 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.fab)
     public void fabClick(){
 
-        Snackbar.make(coordinatorLayout, "Hello", Snackbar.LENGTH_LONG).show();
+
+
+        android.support.v4.app.FragmentManager manager= getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
+
+
+        MainCreate mainCreate= new MainCreate();
+        transaction.replace(R.id.fragment_container,mainCreate);
+        transaction.addToBackStack("create");
+        transaction.commit();
 
 
 
@@ -55,6 +86,22 @@ public class MainActivity extends AppCompatActivity {
 
         ((EurekaApplication) getApplication()).getNetComponent().inject(this);
         ButterKnife.bind(this);
+
+
+formatlariCek();
+
+
+        android.support.v4.app.FragmentManager manager= getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
+
+
+        MainList mainList= new MainList();
+
+        transaction.replace(R.id.fragment_container,mainList);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
 
 
     }
@@ -80,4 +127,75 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+    public void formatlariCek(){
+
+        final TimeApi timeApi= retrofit.create(TimeApi.class);
+
+        CategoryApi categoryApi =retrofit.create(CategoryApi.class);
+
+        String auth= Remember.getString("token","oops");
+
+        Call<List<TimeFormat>>  callTime=timeApi.list("application/json", auth);
+
+        Call<List<CategoryFormat>>  callCategory=categoryApi.list("application/json", auth);
+        callTime.enqueue(new Callback<List<TimeFormat>>() {
+            @Override
+            public void onResponse(Call<List<TimeFormat>> call, Response<List<TimeFormat>> response) {
+
+
+                if(response.isSuccessful()){
+
+
+                    timef=response.body();
+
+
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<TimeFormat>> call, Throwable t) {
+
+            }
+        });
+
+        callCategory.enqueue(new Callback<List<CategoryFormat>>() {
+            @Override
+            public void onResponse(Call<List<CategoryFormat>> call, Response<List<CategoryFormat>> response) {
+
+
+
+
+                if(response.isSuccessful()){
+
+
+
+                    catf=response.body();
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoryFormat>> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
+
+
+    }
+
 }
