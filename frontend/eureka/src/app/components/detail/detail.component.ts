@@ -26,11 +26,18 @@ constructor(
 private user: User = new User();
 
 private listory: Listory;
+private markersConfig = {
+  editable: false,
+  markers: []
+};
 
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.listoryService.getListory(+params.get('id')))
-      .subscribe(listory => this.listory = listory);
+      .subscribe((listory) => {
+        this.listory = listory;
+        this.markersConfig.markers = this.listory.markers;
+      });
 
       this.userService.getUser().then(user => {
         this.user = user;

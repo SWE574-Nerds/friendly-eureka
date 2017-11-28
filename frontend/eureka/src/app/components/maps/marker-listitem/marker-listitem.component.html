@@ -1,4 +1,4 @@
-<div class="row spanning">
+<div *ngIf="editable" class="row spanning">
     <div class="col-2">
 
         <button type="submit" class=" btn btn-danger btn-add-new" (click)="deleteMarker()">
@@ -7,6 +7,11 @@
     </div>
     <div class="col-10">
 
-        <input type="text" class=" form-control" placeholder="Name (optional)" value="{{marker.name}}" />
+        <input type="text" class="form-control" placeholder="Name (optional)" [(ngModel)]="marker.name" />
     </div>
+</div>
+
+
+<div class="row spanning" *ngIf="!editable" >
+        <input class="form-control" type="text" placeholder="" [(ngModel)]="marker.name" disabled>        
 </div>

@@ -3,6 +3,7 @@ import { CreateService } from '../../services/create.service';
 import { UserService } from '../../services/user.service';
 import { Category } from '../../services/Category';
 import { TimeInfo } from '../../services/TimeInfo';
+import { Marker } from '../maps/Marker';
 import { CreateForm } from '../../services/CreateForm';
 
 import { WelcomeForm } from '../../components/welcome-screen/form';
@@ -19,6 +20,11 @@ export class CreateFormComponent implements OnInit{
     private userService: UserService
     
   ){}
+  
+  public mapsConfig = {
+    markers: [],
+    editable: true
+  }
 
   private categories: Category[] = [ {id:"1", name: "Cars"} ];
   private timeInfo: TimeInfo[] = [
@@ -40,6 +46,14 @@ export class CreateFormComponent implements OnInit{
   ngOnInit(){
     this.createService.getCategories().then(categories => this.categories = categories);
     this.createService.getTimeInfos().then(times => this.timeInfo = times);    
+
+
+    setInterval(()=>{
+      
+          this.mapsConfig.markers.forEach((item)=>{
+            console.log(item);
+          });
+          }, 500);
   }
 
   onSubmit(){
@@ -62,6 +76,7 @@ export class CreateFormComponent implements OnInit{
       form.category = this.selectedCategory.id;
       form.name = this.title;
       form.description = this.description;
+      form.markers = this.mapsConfig.markers;
       form.timeInfo = {
         id: this.selectedTime.id,
         value_1 : ''+this.date1,

@@ -1,3 +1,4 @@
+import { Marker } from '../components/maps/Marker';
 export class CreateForm
 {
     name:string;
@@ -8,5 +9,6 @@ export class CreateForm
         id:string;
         value_1:string;
         value_2:string;
-    }
+    };
+    markers:Marker[];
 }

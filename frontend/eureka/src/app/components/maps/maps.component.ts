@@ -1,5 +1,5 @@
 import { Marker } from './Marker';
-import { NgModule, Component ,OnInit} from '@angular/core';
+import { NgModule, Component ,OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'maps',
@@ -7,26 +7,40 @@ import { NgModule, Component ,OnInit} from '@angular/core';
   templateUrl: './maps.component.html'
 })
 export class MapsComponent implements OnInit{
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  lat: number = 41.0027927;
+  lng: number = 29.0157484;
 
-  private markers: Marker[] = [
-    {lat: 51.1, long: 7.05, mag:10000 ,color:"#ffaafa", id:"135245", name:"dalay"},
-    {lat: 51.2, long: 7, mag:20000, color:"#ffaafa" ,id:"23452646", name:"lmaa"},
-  ];
+  @Input() config = {
+    editable: false,
+    markers: []
+  };
 
 
   ngOnInit(){
+    if (this.config.markers.length > 0)
+    {
+      var lat = 0;
+      var long = 0;
+      this.config.markers.forEach((marker)=>{ lat += marker.lat; long += marker.long  });
+      lat /= this.config.markers.length;
+      long /= this.config.markers.length;
+
+      this.lat = lat;
+      this.lng = long;
+    }
   }
+
   onCenterChange(whatever, marker){
-    console.log(whatever);
     marker.lat = whatever.lat;
     marker.long = whatever.lng;
   }
 
   addNewCircle(){
     var newMarker : Marker = new Marker();
-    this.markers.forEach(element => {
+    newMarker.color = "#ffa0a0";
+    
+    if (this.config.markers.length > 0){
+      this.config.markers.forEach(element => {
       newMarker.lat += element.lat;
       newMarker.long += element.long;
       newMarker.mag += element.mag;
@@ -34,16 +48,21 @@ export class MapsComponent implements OnInit{
       newMarker.name = "";
     });
     
-    newMarker.lat /= this.markers.length;
-    newMarker.long /= this.markers.length;
-    newMarker.mag /= this.markers.length;
+    newMarker.lat /= this.config.markers.length;
+    newMarker.long /= this.config.markers.length;
+    newMarker.mag /= this.config.markers.length;
+    }else{
+      newMarker.lat = this.lat;
+      newMarker.long = this.lng;
+      newMarker.mag = 200;
+    }
     
-    this.markers.push(newMarker);
+    this.config.markers.push(newMarker);
   }
 
   onCircleDelete(marker:Marker){
-    var index = this.markers.indexOf(marker);
+    var index = this.config.markers.indexOf(marker);
     if (index > -1)
-      this.markers.splice(index, 1);
+      this.config.markers.splice(index, 1);
   }
 }

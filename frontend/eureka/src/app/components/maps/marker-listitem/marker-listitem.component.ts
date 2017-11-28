@@ -9,10 +9,9 @@ import { Marker } from '../Marker';
 export class MarkerListItem{
     @Input() marker:Marker;
     @Input() public name: string;
+    @Input() public editable: Boolean = false;
 
-
-    @Output() deleter = new EventEmitter<Marker>();
-    
+    @Output() deleter = new EventEmitter<Marker>();    
 
     deleteMarker(){
         this.deleter.emit(this.marker);
