@@ -1,6 +1,7 @@
 package com.example.canma.eurekaswe.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,11 +21,13 @@ import android.widget.Toast;
 
 import com.example.canma.eurekaswe.EurekaApplication;
 import com.example.canma.eurekaswe.LoginActivity;
+import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.R;
 import com.example.canma.eurekaswe.data.ResponseLogin;
 import com.example.canma.eurekaswe.data.ResponseRegister;
 import com.example.canma.eurekaswe.interfaces.calls.LoginApi;
 import com.example.canma.eurekaswe.interfaces.calls.RegisterApi;
+import com.tumblr.remember.Remember;
 
 import org.json.JSONObject;
 
@@ -47,11 +50,12 @@ public class LoginSignIn extends  Fragment {
 
     View view = null;
 
-
-
     LoginActivity loginActivity;
+
+
     @BindView(R.id.email)
     EditText email;
+
     @BindView(R.id.username)
     EditText username;
     @BindView(R.id.password)
@@ -78,13 +82,13 @@ public class LoginSignIn extends  Fragment {
 
 
 
-        if(email.getText().length()>0 &&
+        if(
                 username.getText().length()>0&&
                 password.getText().length()>0
                ) {
 
 
-tryLogin(username.getText().toString(),password.getText().toString(),email.getText().toString());
+tryLogin(username.getText().toString(),password.getText().toString());
 
 
 
@@ -145,6 +149,8 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
 
         unbinder = ButterKnife.bind(this, view);
 
+
+        email.setVisibility(View.GONE);
         reenter.setVisibility(View.GONE);
 
         buttonSignUp.setText("sign in");
@@ -174,7 +180,7 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
 
 
 
-    public void tryLogin(String name,String password, String mail){
+    public void tryLogin(String name,String password){
 
 
         LoginApi loginApi = retrofit.create(LoginApi.class);
@@ -182,7 +188,7 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
 
         map.put("name", name);
         map.put("password", password);
-        map.put("mail", mail);
+
 
         Log.d("TEST-REQUEST",(new JSONObject(map)).toString());
 
@@ -202,7 +208,16 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
                    Log.d("NAME-RESPONSE: ",r.name);
                     Log.d("UserId-RESPONSE: ",""+r.userId);
 
+
+
+
                     Toast.makeText(getActivity(), r.token, Toast.LENGTH_SHORT).show();
+
+
+                    Remember.putString("uid",""+ r.userId);
+                    Remember.putString("token", r.token);
+
+
 
                     AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
                     alertDialog.setTitle("LOGIN BASARILI");
@@ -211,6 +226,10 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
+
+                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                                    startActivity(intent);
+
                                 }
                             });
                     alertDialog.show();
