@@ -1,7 +1,8 @@
 export class Marker{
-    public lat: number;
-    public long: number;
-    public mag: number;
-    public color: string;
-    public id:string;
+    public lat: number = 0;
+    public long: number = 0;
+    public mag: number = 0;
+    public color: string = "0";
+    public id:string = "0";
+    public name:string = "";
 }

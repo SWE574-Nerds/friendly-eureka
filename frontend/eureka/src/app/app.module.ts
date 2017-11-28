@@ -28,6 +28,7 @@ import { DetailComponent } from './components/detail/detail.component';
 import { AnnotationSliderComponent } from './components/annotationSlider/annotationslider.component';
 import { AnnotationListComponent } from './components/annotationSlider/annotationListItem/annolistitem.component';
 import { MapsComponent } from './components/maps/maps.component';
+import { MarkerListItem } from './components/maps/marker-listitem/marker-listitem.component';
 import { AgmCoreModule } from '@agm/core';
 
 
@@ -46,7 +47,8 @@ import { AgmCoreModule } from '@agm/core';
     DetailComponent,
     AnnotationSliderComponent,
     AnnotationListComponent,
-    MapsComponent
+    MapsComponent,
+    MarkerListItem
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule, AgmCoreModule.forRoot({

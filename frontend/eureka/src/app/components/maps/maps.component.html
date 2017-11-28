@@ -1,9 +1,20 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-circle *ngFor="let marker of markers" 
-    [(latitude)]="marker.lat" 
-    [circleDraggable]="true"
-    [editable]="true"
-    [(longitude)]="marker.long" [(radius)]="marker.mag"
-    [fillColor]="marker.color" [fillOpacity]="0.5"
-    [strokeColor]="marker.color" [strokeOpacity]="1" (centerChange)="onCenterChange($event, marker)"></agm-circle>
-</agm-map>
+<div class="card">
+
+
+    <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-circle *ngFor="let marker of markers" [(latitude)]="marker.lat" [circleDraggable]="true" [editable]="true" [(longitude)]="marker.long"
+            [(radius)]="marker.mag" [fillColor]="marker.color" [fillOpacity]="0.5" [strokeColor]="marker.color" [strokeOpacity]="1"
+            (centerChange)="onCenterChange($event, marker)"></agm-circle>
+    </agm-map>
+
+    <div class="card-block">
+
+
+        <button type="submit" class="btn btn-success btn-add-new" (click)="addNewCircle()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+
+        <marker-listitem *ngFor="let marker of markers" [marker]="marker" (deleter)="onCircleDelete($event)"></marker-listitem>
+
+    </div>
+</div>

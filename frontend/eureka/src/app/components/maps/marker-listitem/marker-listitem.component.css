@@ -1,8 +1,6 @@
-
-agm-map {
-height: 300px;
-}
-
 .btn-add-new{
     border-radius: 25px;
+}
+.spanning{
+    margin-top: 10px;
 }
