@@ -800,6 +800,12 @@ margin-bottom: 20px;
       "type" : "integer",
       "description" : "The category id"
     },
+    "markers" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Marker"
+      }
+    },
     "timeInfo" : {
       "$ref" : "#/definitions/TimeInfoForm"
     }
@@ -827,6 +833,12 @@ margin-bottom: 20px;
     "listoryId" : {
       "type" : "string",
       "description" : "The id/identifier of the listory item"
+    },
+    "markers" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Marker"
+      }
     },
     "category" : {
       "type" : "string",
@@ -868,6 +880,31 @@ margin-bottom: 20px;
     },
     "token" : {
       "type" : "string"
+    }
+  }
+};
+            defs.Marker = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "the name provided for the marker item"
+    },
+    "lat" : {
+      "type" : "number",
+      "description" : "Latitude for the marker."
+    },
+    "long" : {
+      "type" : "number",
+      "description" : "Longitude for the marker."
+    },
+    "mag" : {
+      "type" : "number",
+      "description" : "Magnitude for the marker. (in meters)"
+    },
+    "color" : {
+      "type" : "string",
+      "description" : "color for the marker. in CSS3 or hexadecimal"
     }
   }
 };
@@ -7077,7 +7114,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-11-26T19:05:13.707Z
+              Generated 2017-11-28T12:47:19.051Z
             </div>
           </div>
       </div>
