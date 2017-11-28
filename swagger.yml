@@ -530,6 +530,10 @@ definitions:
       category:
         type: "integer"
         description: "The category id"
+      markers:
+        type: array
+        items:
+          $ref: '#/definitions/Marker'
       timeInfo:
         $ref: '#/definitions/TimeInfoForm'
       
@@ -552,6 +556,10 @@ definitions:
       listoryId:
         type: "string"
         description: "The id/identifier of the listory item"
+      markers:
+        type: array
+        items:
+          $ref: '#/definitions/Marker'
       category:
         type: "string"
         description: "The category name"
@@ -623,6 +631,24 @@ definitions:
   AnnotationJSONLD:
     type: object
     description: "Annotation in JSON-LD standard format"
+  Marker:
+    type: object
+    properties:
+      name:
+        type: string
+        description: the name provided for the marker item
+      lat:
+        type: number
+        description: Latitude for the marker.
+      long:
+        type: number
+        description: Longitude for the marker.
+      mag:
+        type: number
+        description: Magnitude for the marker. (in meters)
+      color: 
+        type: string
+        description: color for the marker. in CSS3 or hexadecimal
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -632,5 +658,3 @@ securityDefinitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
-
-

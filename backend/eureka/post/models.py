@@ -22,6 +22,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Post(models.Model):
     user = models.ForeignKey('auth.User', verbose_name='Writer', related_name='posts')
     title = models.CharField(max_length=120, verbose_name='Title')
@@ -52,3 +53,12 @@ class Post(models.Model):
         ordering = ['-publishing_date']
 
 
+
+
+class Marker(models.Model):
+    lat = models.FloatField(verbose_name="latitude")
+    long = models.FloatField(verbose_name="longitude")
+    color = models.TextField(verbose_name="color")
+    mag = models.FloatField(verbose_name="magnitude")
+    name = models.TextField(verbose_name="name")
+    listory = models.ForeignKey(Post, on_delete=models.CASCADE)

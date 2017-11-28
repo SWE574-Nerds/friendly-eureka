@@ -1,3 +1,5 @@
+import { Marker } from '../components/maps/Marker';
+
 export class Listory {
     name:string;
     description:string;
@@ -15,6 +17,7 @@ export class Listory {
         units:string;
         values:number[];
     }
+    markers: Marker[];
 
 }
 

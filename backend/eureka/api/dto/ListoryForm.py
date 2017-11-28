@@ -18,3 +18,4 @@ class ListoryForm(object):
         self.image = post.get('image') or None
         self.timeInfo = ListoryTimeInfoForm(post.get('timeInfo')) or None
         self.category_id = post.get('category') or None
+        self.markers = post.get("markers") or None

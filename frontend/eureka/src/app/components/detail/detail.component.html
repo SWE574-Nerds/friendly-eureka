@@ -1,7 +1,6 @@
 <div class="card cardcanvas" *ngIf="listory">
     <div class="card-block">
 
-
         <p class="category">
             <span class="badge badge-primary">{{listory.category}}</span>
         </p>
@@ -20,10 +19,9 @@
             <p class="year-component">
                 <span class="badge badge-info">Author</span> {{listory.owner.name}}</p>
             <p class="year-component">
-                <span class="badge badge-default">Created at</span> {{listory.createdAt}}</p>
-
+                <span class="badge badge-default">Created at</span> {{listory.createdAt}}</p>                
         </div>
-
+        
         <p class="card-text">{{listory.description}}</p>
     </div>
 
@@ -32,9 +30,10 @@
     </div>
 
     <annotationSlider [listory]="listory" ></annotationSlider>    
-    
-
 </div>
+
+<maps *ngIf="listory && listory.markers"  [config]="markersConfig"></maps>
+
 
 <div *ngIf="!listory">
     <div class="card-block">
