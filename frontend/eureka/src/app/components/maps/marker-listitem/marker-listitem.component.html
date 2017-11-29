@@ -6,12 +6,13 @@
         </button>
     </div>
     <div class="col-10">
-
-        <input type="text" class="form-control" placeholder="Name (optional)" [(ngModel)]="marker.name" />
-    </div>
+            <input type="text" class="form-control" placeholder="Name (optional)" *ngIf="marker" [(ngModel)]="marker.name" />
+            <input type="text" class="form-control" placeholder="Name (optional)" *ngIf="polyline" [(ngModel)]="polyline.name" />
+        </div>
 </div>
 
 
 <div class="row spanning" *ngIf="!editable" >
-        <input class="form-control" type="text" placeholder="" [(ngModel)]="marker.name" disabled>        
-</div>
+        <input class="form-control" type="text" placeholder="" *ngIf="marker" [(ngModel)]="marker.name" disabled>        
+        <input class="form-control" type="text" placeholder="" *ngIf="polyline" [(ngModel)]="polyline.name" disabled>        
+    </div>
