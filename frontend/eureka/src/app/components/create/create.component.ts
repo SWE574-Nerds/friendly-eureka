@@ -32,7 +32,7 @@ export class CreateFormComponent implements OnInit{
   ];
 
   private selectedTime: TimeInfo;
-  private tags: string[] = [];
+  private tags = [];
   @Input() date1: number;
   @Input() date2: number;
   @Input() description: string;
@@ -55,6 +55,7 @@ export class CreateFormComponent implements OnInit{
   }
 
   onSubmit(){
+
     if (!this.title || this.title.length < 5){
       this.message = "Title can't be less than 5 characters";
     }else if (!this.description || this.description.length < 10){
@@ -71,7 +72,9 @@ export class CreateFormComponent implements OnInit{
       this.message = "";
 
       var form = new CreateForm();
-      form.tags = this.tags;
+      form.tags = [];
+      this.tags.forEach(element=>form.tags.push(element.value));
+      
       form.name = this.title;
       form.description = this.description;
       form.markers = this.mapsConfig.markers;

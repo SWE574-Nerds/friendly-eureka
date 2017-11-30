@@ -270,7 +270,7 @@ def api_delete_listory(request, id):
 
 @api_view(['GET'])
 def get_all_listories(request):
-    listories = ListoryService.get_listories(max_count=10)
+    listories = ListoryService.get_listories(max_count=100)
     response = []
 
     for listory in listories:
@@ -279,6 +279,7 @@ def get_all_listories(request):
         tag_set = listory.category.all()
         for tag in tag_set:
             tags.append({"name" : tag.name, "id" : tag.pk})
+
 
         response.append({
             'name': listory.title,
