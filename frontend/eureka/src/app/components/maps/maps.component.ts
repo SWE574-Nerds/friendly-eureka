@@ -1,5 +1,7 @@
 import { Marker } from './Marker';
+import { Polyline, Point } from './Polyline';
 import { NgModule, Component ,OnInit, Input} from '@angular/core';
+import { MouseEvent } from '@agm/core/services/google-maps-types';
 
 @Component({
   selector: 'maps',
@@ -12,8 +14,11 @@ export class MapsComponent implements OnInit{
 
   @Input() config = {
     editable: false,
-    markers: []
+    markers: [],
+    polylines: []
   };
+
+  private currentlyEditingLine: Polyline;
 
 
   ngOnInit(){
@@ -36,6 +41,9 @@ export class MapsComponent implements OnInit{
   }
 
   addNewCircle(){
+
+    console.log(this.config);
+
     var newMarker : Marker = new Marker();
     newMarker.color = "#ffa0a0";
     
@@ -60,9 +68,38 @@ export class MapsComponent implements OnInit{
     this.config.markers.push(newMarker);
   }
 
+
+  addNewPolyline(){
+    this.currentlyEditingLine = new Polyline();
+    this.currentlyEditingLine.color = "#ffa0a0";
+    this.currentlyEditingLine.points = [];
+  }
+
+  onClick(e){
+    if (this.currentlyEditingLine)
+    {
+      this.currentlyEditingLine.points.push({lat: e.coords.lat, long: e.coords.lng});
+    }
+  }
+
   onCircleDelete(marker:Marker){
     var index = this.config.markers.indexOf(marker);
     if (index > -1)
       this.config.markers.splice(index, 1);
+  }
+
+  acceptPolyline(){
+    this.config.polylines.push(this.currentlyEditingLine);
+    this.currentlyEditingLine = null;
+  }
+
+  cancelPolyline(){
+    this.currentlyEditingLine = null;    
+  }
+
+  onDeletePolyline(polyline:Polyline){
+    var index = this.config.polylines.indexOf(polyline);
+    if (index > -1)
+      this.config.polylines.splice(index, 1);
   }
 }

@@ -1,25 +1,66 @@
 <div class="card">
-    <agm-map [latitude]="lat" [longitude]="lng">
-        <agm-circle *ngFor="let marker of config.markers"
-            [(latitude)]="marker.lat"
-            [circleDraggable]="config.editable" 
-            [editable]="config.editable"
-            [(longitude)]="marker.long"
-            [(radius)]="marker.mag"
-            [fillColor]="marker.color"
-            [fillOpacity]="0.5"
-            [strokeColor]="marker.color"
-            [strokeOpacity]="1"
-            (centerChange)="onCenterChange($event, marker)"></agm-circle>
+    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onClick($event)">
+        <agm-circle *ngFor="let marker of config.markers" [(latitude)]="marker.lat" [circleDraggable]="config.editable" [editable]="config.editable"
+            [(longitude)]="marker.long" [(radius)]="marker.mag" [fillColor]="marker.color" [fillOpacity]="0.5" [strokeColor]="marker.color"
+            [strokeOpacity]="1" (centerChange)="onCenterChange($event, marker)"></agm-circle>
+
+
+
+            <agm-polyline *ngFor="let polyline of config.polylines" [strokeColor]="'#ffaa0a'">
+                    <agm-polyline-point *ngFor="let point of polyline.points"
+                    [latitude]="point.lat" [longitude]="point.long"></agm-polyline-point>
+                </agm-polyline>
+
+
+
+        <agm-polyline *ngIf="currentlyEditingLine" [strokeColor]="'#ff0000'">
+                <agm-polyline-point *ngFor="let point of currentlyEditingLine.points"
+                [latitude]="point.lat" [longitude]="point.long"></agm-polyline-point>
+            </agm-polyline>
+
+
     </agm-map>
 
     <div class="card-block">
 
-        <button *ngIf="config.editable" type="submit" class="btn btn-success btn-add-new" (click)="addNewCircle()">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
 
-        <marker-listitem *ngFor="let marker of config.markers" [editable]="config.editable" [marker]="marker" (deleter)="onCircleDelete($event)"></marker-listitem>
 
+
+        <div class="row">
+            <div class="col">
+                <button *ngIf="config.editable" type="submit" class="btn btn-success btn-add-new" (click)="addNewCircle()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+
+                <marker-listitem *ngFor="let marker of config.markers" [editable]="config.editable" [marker]="marker" (deleter)="onCircleDelete($event)"></marker-listitem>
+            </div>
+            <div class="col">
+                <div *ngIf="!currentlyEditingLine">
+                    <button *ngIf="config.editable" type="submit" class="btn btn-success btn-add-new" (click)="addNewPolyline()">
+                        <i class="fa fa-compass" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div *ngIf="currentlyEditingLine">
+                    <button *ngIf="config.editable" type="submit" class="btn btn-success btn-add-new" (click)="acceptPolyline()">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </button>
+                    <button *ngIf="config.editable" type="submit" class="btn btn-danger btn-add-new" (click)="cancelPolyline()">
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                    </button>
+
+                    <div *ngIf="currentlyEditingLine">
+                            <div *ngIf="currentlyEditingLine.points.length === 0">
+                                    <p>You have no starting point. Start by clicking on the map.</p>
+                            </div>
+                            <div  *ngIf="currentlyEditingLine.points.length !== 0">
+                                                               
+                            </div>
+                        </div>
+                </div>
+
+                <marker-listitem *ngFor="let polyline of config.polylines" [editable]="config.editable" [polyline]="polyline" (deleterPolyline)="onDeletePolyline($event)"></marker-listitem>
+                
+            </div>
+        </div>
     </div>
 </div>

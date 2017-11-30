@@ -28,6 +28,7 @@ private user: User = new User();
 private listory: Listory;
 private markersConfig = {
   editable: false,
+  polylines: [],
   markers: []
 };
 
@@ -37,6 +38,7 @@ private markersConfig = {
       .subscribe((listory) => {
         this.listory = listory;
         this.markersConfig.markers = this.listory.markers;
+        this.markersConfig.polylines = this.listory.polylines;
       });
 
       this.userService.getUser().then(user => {

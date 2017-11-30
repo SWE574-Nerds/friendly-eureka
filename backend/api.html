@@ -781,6 +781,19 @@ margin-bottom: 20px;
     }
   }
 };
+            defs.LatLngPoint = {
+  "type" : "object",
+  "properties" : {
+    "lat" : {
+      "type" : "number",
+      "description" : "Latitude for the marker."
+    },
+    "long" : {
+      "type" : "number",
+      "description" : "Longitude for the marker."
+    }
+  }
+};
             defs.Listory = {
   "type" : "object",
   "properties" : {
@@ -801,6 +814,12 @@ margin-bottom: 20px;
       "description" : "The tags",
       "items" : {
         "type" : "string"
+      }
+    },
+    "polylines" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Polyline"
       }
     },
     "markers" : {
@@ -841,6 +860,12 @@ margin-bottom: 20px;
       "type" : "array",
       "items" : {
         "$ref" : "#/definitions/Marker"
+      }
+    },
+    "polylines" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Polyline"
       }
     },
     "tags" : {
@@ -911,6 +936,26 @@ margin-bottom: 20px;
     "color" : {
       "type" : "string",
       "description" : "color for the marker. in CSS3 or hexadecimal"
+    }
+  }
+};
+            defs.Polyline = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "The name given to the line."
+    },
+    "color" : {
+      "type" : "string",
+      "description" : "Color of the line"
+    },
+    "points" : {
+      "type" : "array",
+      "description" : "Consecutive set of points which defines the line.",
+      "items" : {
+        "$ref" : "#/definitions/LatLngPoint"
+      }
     }
   }
 };
@@ -7120,7 +7165,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-11-30T17:13:44.563Z
+              Generated 2017-11-30T20:12:13.906Z
             </div>
           </div>
       </div>

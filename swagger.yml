@@ -532,7 +532,10 @@ definitions:
         description: "The tags"
         items:
           type: string
-          
+      polylines:
+        type: array
+        items:
+          $ref: '#/definitions/Polyline'
       markers:
         type: array
         items:
@@ -563,6 +566,10 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Marker'
+      polylines:
+        type: array
+        items:
+          $ref: '#/definitions/Polyline'
       tags:
         type: "array"
         description: "The tags"
@@ -654,6 +661,29 @@ definitions:
       color: 
         type: string
         description: color for the marker. in CSS3 or hexadecimal
+  LatLngPoint:
+    type: object
+    properties:
+      lat:
+        type: number
+        description: Latitude for the marker.
+      long:
+        type: number
+        description: Longitude for the marker.
+  Polyline:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name given to the line.
+      color:
+        type: string
+        description: Color of the line
+      points:
+        type: array
+        description: Consecutive set of points which defines the line.
+        items:
+          $ref: '#/definitions/LatLngPoint'
 securityDefinitions:
   Bearer:
     type: apiKey

@@ -6,3 +6,8 @@ height: 300px;
 .btn-add-new{
     border-radius: 25px;
 }
+
+
+.spanButSeperate{
+    display: table-cell;
+}
