@@ -116,6 +116,11 @@ def api_create_listory(request):
                     "color" : marker.color
                 });
 
+            tags = []
+            tag_set = listory.category.all()
+            for tag in tag_set:
+                tags.append({"name" : tag.name, "id" : tag.pk})
+
             return Response({
                 'name' : listory.title,
                 'description' : listory.content,
@@ -132,7 +137,7 @@ def api_create_listory(request):
                     "values" : [ listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2 ],
                     "count" : listory.timeInfoGroup.timeInfo.value_count
                 },
-                "category" : listory.category.name,
+                "tags" : tags,
                 'createdAt': None
             }, status=status.HTTP_200_OK)
     #    except:
@@ -176,6 +181,12 @@ def api_update_listory(request, id):
 
             listory.save()
 
+
+            tags = []
+            tag_set = listory.category.all()
+            for tag in tag_set:
+                tags.append({"name" : tag.name, "id" : tag.pk})
+
             return Response({
                  'name' : listory.title,
                 'description' : listory.content,
@@ -191,7 +202,7 @@ def api_update_listory(request, id):
                     "values" : [ listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2 ],
                     "count" : listory.timeInfoGroup.timeInfo.value_count
                 },
-                "category" : listory.category.name,
+                "tags": tags,
                 'createdAt': None
             }, status=status.HTTP_200_OK)
         except:
@@ -200,19 +211,25 @@ def api_update_listory(request, id):
 def api_get_listory(request, id):
     listory = ListoryService.get_listory_by_id(id)
 
-    marker_set = listory.marker_set.all()
-
-    markers = []
-    for marker in marker_set:
-        markers.append({
-            "lat": marker.lat,
-            "long": marker.long,
-            "mag": marker.mag,
-            "name": marker.name,
-            "color": marker.color
-        });
-
     if listory is not None:
+
+        marker_set = listory.marker_set.all()
+
+        markers = []
+        for marker in marker_set:
+            markers.append({
+                "lat": marker.lat,
+                "long": marker.long,
+                "mag": marker.mag,
+                "name": marker.name,
+                "color": marker.color
+            });
+
+        tags = []
+        tag_set = listory.category.all()
+        for tag in tag_set:
+            tags.append({"name" : tag.name, "id" : tag.pk})
+
         return Response({
             'name': listory.title,
             'description': listory.content,
@@ -229,7 +246,7 @@ def api_get_listory(request, id):
                 "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
                 "count": listory.timeInfoGroup.timeInfo.value_count
             },
-            "category": listory.category.name,
+            "tags": tags,
             'createdAt': None
         }, status=status.HTTP_200_OK)
     else:
@@ -257,6 +274,12 @@ def get_all_listories(request):
     response = []
 
     for listory in listories:
+
+        tags = []
+        tag_set = listory.category.all()
+        for tag in tag_set:
+            tags.append({"name" : tag.name, "id" : tag.pk})
+
         response.append({
             'name': listory.title,
             'description': listory.content,
@@ -272,7 +295,7 @@ def get_all_listories(request):
                 "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
                 "count": listory.timeInfoGroup.timeInfo.value_count
             },
-            "category": listory.category.name,
+            "tags": tags,
             'createdAt': None
         })
     return Response(response, status=status.HTTP_200_OK)
