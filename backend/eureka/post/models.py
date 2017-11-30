@@ -29,7 +29,7 @@ class Post(models.Model):
     image = models.TextField(verbose_name='Image')
     content = RichTextField(verbose_name='Content')
     image = models.TextField(verbose_name='Image')
-    category = models.ForeignKey(Category, verbose_name='Category', related_name='posts', blank=True)
+    category = models.ManyToManyField(Category, verbose_name='Category', related_name='posts', blank=True)
     timeInfoGroup = models.ForeignKey(TimeInfoGroup, verbose_name='TimeInfoGroup', blank=True)
     publishing_date = models.DateField(verbose_name='Date', auto_now_add=True)
 
