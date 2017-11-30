@@ -105,7 +105,6 @@ def api_create_listory(request):
             listory = ListoryService.get_listory_by_id(listoryId)
 
             marker_set = listory.marker_set.all()
-
             markers = []
             for marker in marker_set:
                 markers.append({
@@ -115,6 +114,19 @@ def api_create_listory(request):
                     "name" : marker.name,
                     "color" : marker.color
                 });
+
+            polyline_set = listory.polyline_set.all()
+            polylines = []
+            for polyline in polyline_set:
+                points = []
+                point_set = polyline.point_set.all()
+                for point in point_set:
+                    points.append({"lat": point.lat, "long" : point.long})
+                polylines.append({
+                    "name" : polyline.name,
+                    "color" : polyline.color,
+                    "points" : points
+                })
 
             tags = []
             tag_set = listory.category.all()
@@ -130,6 +142,7 @@ def api_create_listory(request):
                     'name': api_user.username,
                     'userId': api_user.pk
                 },
+                "polylines" : polylines,
                 "markers" : markers,
                 "time" : {
                     "name": listory.timeInfoGroup.timeInfo.name,
@@ -225,6 +238,20 @@ def api_get_listory(request, id):
                 "color": marker.color
             });
 
+
+        polyline_set = listory.polyline_set.all()
+        polylines = []
+        for polyline in polyline_set:
+            points = []
+            point_set = polyline.point_set.all()
+            for point in point_set:
+                points.append({"lat": point.lat, "long" : point.long})
+            polylines.append({
+                "name" : polyline.name,
+                "color" : polyline.color,
+                "points" : points
+            })
+
         tags = []
         tag_set = listory.category.all()
         for tag in tag_set:
@@ -235,6 +262,7 @@ def api_get_listory(request, id):
             'description': listory.content,
             'image': listory.image,
             'listoryId': listory.pk,
+            "polylines" : polylines,
             'markers' : markers,
             'owner': {
                 'name': listory.user.username,

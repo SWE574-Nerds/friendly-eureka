@@ -53,8 +53,6 @@ class Post(models.Model):
         ordering = ['-publishing_date']
 
 
-
-
 class Marker(models.Model):
     lat = models.FloatField(verbose_name="latitude")
     long = models.FloatField(verbose_name="longitude")
@@ -62,3 +60,13 @@ class Marker(models.Model):
     mag = models.FloatField(verbose_name="magnitude")
     name = models.TextField(verbose_name="name")
     listory = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+class Polyline(models.Model):
+    color = models.TextField(verbose_name="color")
+    name = models.TextField(verbose_name="name")
+    listory = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+class Point(models.Model):
+    lat = models.FloatField(verbose_name="latitude")
+    long = models.FloatField(verbose_name="longitude")
+    line = models.ForeignKey(Polyline, verbose_name="line")

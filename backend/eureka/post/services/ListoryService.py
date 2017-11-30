@@ -1,7 +1,6 @@
-from post.models import Post
-from post.models import Marker
+from post.models import Post, Marker, Point, Polyline
 from post.models import TimeInfoGroup, TimeInfo, Category
-from api.dto.ListoryForm import *
+from api.dto.ListoryForm import ListoryForm
 
 def create_listory(listoryForm, owner):
    # try:
@@ -30,6 +29,15 @@ def create_listory(listoryForm, owner):
             obj = Category.objects.get_or_create(name=tag)[0]
             obj.posts.add(listory)
             obj.save();
+
+
+        for polyline in listoryForm.polylines:
+            line = Polyline.objects.create(color=polyline.color, name=polyline.name, listory=listory)
+            line.save();
+
+            for point in polyline.points:
+                Point.objects.create(lat=point.lat, long=point.long, line=line).save()
+
 
         return listory.pk
    # except :
