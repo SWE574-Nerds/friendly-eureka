@@ -1,4 +1,5 @@
 import { Marker } from '../components/maps/Marker';
+import { Polyline } from '../components/maps/Polyline';
 export class CreateForm
 {
     name:string;
@@ -11,4 +12,5 @@ export class CreateForm
         value_2:string;
     };
     markers:Marker[];
+    polylines:Polyline[];
 }

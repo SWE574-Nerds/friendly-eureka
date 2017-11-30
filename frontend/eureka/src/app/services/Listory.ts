@@ -1,4 +1,5 @@
 import { Marker } from '../components/maps/Marker';
+import { Polyline } from '../components/maps/Polyline';
 import { Tag } from './Tag';
 
 export class Listory {
@@ -19,6 +20,7 @@ export class Listory {
         values:number[];
     }
     markers: Marker[];
+    polylines: Polyline[];
 
 }
 

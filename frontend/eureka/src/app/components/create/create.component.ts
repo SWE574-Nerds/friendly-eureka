@@ -23,6 +23,7 @@ export class CreateFormComponent implements OnInit{
   
   public mapsConfig = {
     markers: [],
+    polylines: [],
     editable: true
   }
 
@@ -78,6 +79,7 @@ export class CreateFormComponent implements OnInit{
       form.name = this.title;
       form.description = this.description;
       form.markers = this.mapsConfig.markers;
+      form.polylines = this.mapsConfig.polylines;
       form.timeInfo = {
         id: this.selectedTime.id,
         value_1 : ''+this.date1,
