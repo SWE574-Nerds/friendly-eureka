@@ -1,4 +1,5 @@
 import { Marker } from '../components/maps/Marker';
+import { Tag } from './Tag';
 
 export class Listory {
     name:string;
@@ -6,7 +7,7 @@ export class Listory {
     image:string;
     page:string;
     listoryId:string;
-    category:string;
+    tags:Tag[];
     owner:{
         name:string;
         userId:string;

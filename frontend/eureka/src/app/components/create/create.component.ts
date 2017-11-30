@@ -26,14 +26,13 @@ export class CreateFormComponent implements OnInit{
     editable: true
   }
 
-  private categories: Category[] = [ {id:"1", name: "Cars"} ];
   private timeInfo: TimeInfo[] = [
     {id: "1", name: "Years", value_name: "YEAR", value_count: "1"},
     {id: "1", name: "Years Range", value_name: "YEAR", value_count: "2"}
   ];
 
   private selectedTime: TimeInfo;
-  private selectedCategory: Category;
+  private tags: string[] = [];
   @Input() date1: number;
   @Input() date2: number;
   @Input() description: string;
@@ -44,7 +43,6 @@ export class CreateFormComponent implements OnInit{
   private message:string;
 
   ngOnInit(){
-    this.createService.getCategories().then(categories => this.categories = categories);
     this.createService.getTimeInfos().then(times => this.timeInfo = times);    
 
 
@@ -73,7 +71,7 @@ export class CreateFormComponent implements OnInit{
       this.message = "";
 
       var form = new CreateForm();
-      form.category = this.selectedCategory.id;
+      form.tags = this.tags;
       form.name = this.title;
       form.description = this.description;
       form.markers = this.mapsConfig.markers;

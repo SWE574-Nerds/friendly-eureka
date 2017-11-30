@@ -1,64 +1,54 @@
-
 <div class="centered">
-        <div>
-                <h4 style="font-weight: normal">Create your listory!</h4>
-            </div>
-            
-<div class="row">
+    <div>
+        <h4 style="font-weight: normal">Create your listory!</h4>
+    </div>
 
-    <div class="col-6">
+    <div class="row">
 
-
-
-        <div class="form-group">
-            <input [(ngModel)]="title" type="name" class="form-control" placeholder="Listory Title" />
-        </div>
-
-        <div class="form-group">
-            <textarea [(ngModel)]="description" type="text" class="form-control" rows="10" placeholder="Description"></textarea>
-        </div>
+        <div class="col-6">
 
 
 
-        <div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="mediaType" id="inlineRadio1" value="link"> Image from Link
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="mediaType" id="inlineRadio2" value="disk"> Image from Disk
-                </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input selected class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="mediaType" id="inlineRadio2"
-                        value="noImage"> No Image
-                </label>
+            <div class="form-group">
+                <input [(ngModel)]="title" type="name" class="form-control" placeholder="Listory Title" />
             </div>
 
-            <div *ngIf="mediaType === 'link'" class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon">Image URL</div>
-                <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
+            <div class="form-group">
+                <textarea [(ngModel)]="description" type="text" class="form-control" rows="10" placeholder="Description"></textarea>
             </div>
-            <div *ngIf="mediaType === 'disk'">
-                <label class="custom-file">
-                    <input type="file" id="file" class="custom-file-input">
-                    <span class="custom-file-control"></span>
-                </label>
+
+
+            <div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="mediaType" id="inlineRadio1" value="link"> Image from Link
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="mediaType" id="inlineRadio2" value="disk"> Image from Disk
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input selected class="form-check-input" type="radio" name="inlineRadioOptions" [(ngModel)]="mediaType" id="inlineRadio2"
+                            value="noImage"> No Image
+                    </label>
+                </div>
+
+                <div *ngIf="mediaType === 'link'" class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon">Image URL</div>
+                    <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
+                </div>
+                <div *ngIf="mediaType === 'disk'">
+                    <label class="custom-file">
+                        <input type="file" id="file" class="custom-file-input">
+                        <span class="custom-file-control"></span>
+                    </label>
+                </div>
+                <br>
             </div>
-            <br>
-        </div>
 
-        <select class="custom-select" [(ngModel)]="selectedCategory">
-            <!--   <option selected>Category</option> -->
-            <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
-
-        </select>
-
-
-        <div *ngIf="selectedCategory">
 
             <div>
                 <select class="custom-select" [(ngModel)]="selectedTime">
@@ -91,15 +81,12 @@
                         {{message}}
                     </div>
                 </div>
-
             </div>
+        </div>
 
+        <div class="col-6">
+            <maps [config]="mapsConfig"></maps>
         </div>
     </div>
-
-    <div class="col-6">
-        <maps [config]="mapsConfig"></maps>
-    </div>
-</div>
 
 </div>
