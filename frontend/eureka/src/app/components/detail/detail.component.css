@@ -49,6 +49,10 @@ img{
     font-style: italic;
 }
 
+.tag{
+    margin-left: 8px;
+}
+
 
 .info-block{
     padding: 10px;

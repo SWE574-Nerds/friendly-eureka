@@ -423,16 +423,16 @@ paths:
   /category:
     get:
       tags:
-      - "category"
-      summary: "Get category options"
-      operationId: "category"
+      - "tags"
+      summary: "Get tags"
+      operationId: "tags"
       produces:
       - "application/json"
       responses:
         200:
           schema:
             $ref: "#/definitions/CategoryArray"
-          description: "Retrieved category details"
+          description: "Retrieved tags details"
   
 definitions:
   AllListoryItems:
@@ -527,9 +527,12 @@ definitions:
       image:
         type: "string"
         description: "Link to image if applicable"
-      category:
-        type: "integer"
-        description: "The category id"
+      tags:
+        type: array
+        description: "The tags"
+        items:
+          type: string
+          
       markers:
         type: array
         items:
@@ -560,9 +563,11 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Marker'
-      category:
-        type: "string"
-        description: "The category name"
+      tags:
+        type: "array"
+        description: "The tags"
+        items:
+          $ref: '#/definitions/Category'
       owner:
         $ref: '#/definitions/RegisterResponse'
       createdAt:
@@ -580,10 +585,10 @@ definitions:
     properties:
       name:
         type: "string"
-        description : "Category name/label"
+        description : "Tag name/label."
       id:
         type: "integer"
-        description: "The id to be used in the rest calls."
+        description: "The id. (Not used, information only.)"
   TimeInfo:
     type: "object"
     properties:
