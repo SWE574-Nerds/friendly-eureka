@@ -4,7 +4,7 @@ export class CreateForm
     name:string;
     description:string;
     image:string;
-    category:string;
+    tags:string[];
     timeInfo:{
         id:string;
         value_1:string;

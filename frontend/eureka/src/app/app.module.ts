@@ -31,6 +31,8 @@ import { MapsComponent } from './components/maps/maps.component';
 import { MarkerListItem } from './components/maps/marker-listitem/marker-listitem.component';
 import { AgmCoreModule } from '@agm/core';
 
+import { TagInputModule } from 'ngx-chips';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +53,7 @@ import { AgmCoreModule } from '@agm/core';
     MarkerListItem
   ],
   imports: [
-    BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule, AgmCoreModule.forRoot({
+    TagInputModule, BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCJ4TFKjFJ7RN-J4dC_GSWy09mYlQZ6m5w'
     })
   ],

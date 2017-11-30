@@ -6,15 +6,15 @@ from api.dto.ListoryForm import *
 def create_listory(listoryForm, owner):
    # try:
         info = TimeInfo.objects.get(pk=listoryForm.timeInfo.id)
-        category = Category.objects.get(pk=listoryForm.category_id)
         timeInfoGroup = TimeInfoGroup.objects.create(
             timeInfo=info,
             timeValue1=listoryForm.timeInfo.value1 or 0,
             timeValue2=listoryForm.timeInfo.value2 or 0
         )
-        listory = Post.objects.create(image=listoryForm.image, user=owner, content=listoryForm.description, title=listoryForm.name, timeInfoGroup=timeInfoGroup, category=category)
+        listory = Post.objects.create(image=listoryForm.image, user=owner, content=listoryForm.description, title=listoryForm.name, timeInfoGroup=timeInfoGroup)
 
         listory.save()
+
 
         for marker in listoryForm.markers:
             obj = Marker.objects.create(lat=marker.get("lat"),
@@ -22,8 +22,13 @@ def create_listory(listoryForm, owner):
                                     mag=marker.get("mag") or 200,
                                     name=marker.get("name") or "",
                                     color=marker.get("color") or "#ff0aaa",
-                                  listory=listory
-                                  );
+                                    listory=listory
+                                    );
+            obj.save();
+
+        for tag in listoryForm.tags:
+            obj = Category.objects.get_or_create(name=tag)[0]
+            obj.posts.add(listory)
             obj.save();
 
         return listory.pk

@@ -2,7 +2,9 @@
     <div class="card-block">
 
         <p class="category">
-            <span class="badge badge-primary">{{listory.category}}</span>
+            <span *ngFor="let tag of listory.tags" 
+            class="badge badge-primary tag">
+            {{tag.name}}</span>
         </p>
 
         <h4 class="card-title">{{listory.name}}</h4>

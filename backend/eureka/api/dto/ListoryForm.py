@@ -17,5 +17,9 @@ class ListoryForm(object):
         self.description = post.get('description') or None
         self.image = post.get('image') or None
         self.timeInfo = ListoryTimeInfoForm(post.get('timeInfo')) or None
-        self.category_id = post.get('category') or None
-        self.markers = post.get("markers") or None
+        self.tags = []
+        self.markers = post.get("markers") or []
+
+        tag_set = post.get('tags') or []
+        for tag in tag_set:
+            self.tags.append(tag)

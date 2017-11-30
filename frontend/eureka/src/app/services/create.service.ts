@@ -23,18 +23,6 @@ export class CreateService {
         private router: Router
     ) { }
 
-    getCategories(): Promise<Category[]> {
-        return new Promise(resolve => {
-        
-        this.http.get(this.categoryUrl)
-        .toPromise()
-        .then((resp) => {
-            let categories:Category[] = resp.json() as Category[];
-            resolve(categories);
-         });
-        }).catch(this.handleError);
-    }
-
     createListory(form: CreateForm): Promise<Card>{
         return new Promise(resolve => {
             this.userService.getUser().then(user => {
