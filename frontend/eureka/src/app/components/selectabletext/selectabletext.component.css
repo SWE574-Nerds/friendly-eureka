@@ -1,21 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-body {
-  max-width: 50em;
-  margin: 0 auto;
-  padding: 1em;
-}
-.highlighted {
-  background-color: rgba(255, 255, 120, 0.5);
-  border: 0.1px solid rgba(255, 100, 0, 0.8);
-}
-#selectableText, #corpus {
-  display: inline-block;
-  max-width: 15em;
-  padding: 1em;
-  line-height: 1.4em;
-  font-size: 18px;
-  font-family: sans;
-  border: 1px solid lightgrey;
+.highlightedText {
+  background-color: #ff0000;
+  border: 1px solid #000000;
 }
