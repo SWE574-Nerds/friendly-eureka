@@ -19,6 +19,12 @@ export class Listory {
         units:string;
         values:number[];
     }
+    selector:{
+        start:number;
+        end:number;
+        type:string;
+        exact:string;
+    }
     markers: Marker[];
     polylines: Polyline[];
 

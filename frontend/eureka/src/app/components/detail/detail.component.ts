@@ -56,4 +56,5 @@ private markersConfig = {
   goBack(): void {
     this.location.back();
   }
+
 }

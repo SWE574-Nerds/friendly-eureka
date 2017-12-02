@@ -30,6 +30,7 @@ import { AnnotationListComponent } from './components/annotationSlider/annotatio
 import { MapsComponent } from './components/maps/maps.component';
 import { MarkerListItem } from './components/maps/marker-listitem/marker-listitem.component';
 import { AgmCoreModule } from '@agm/core';
+import { SelectableTextComponent } from './components/selectabletext/selectabletext.component';
 
 import { TagInputModule } from 'ngx-chips';
 
@@ -50,7 +51,8 @@ import { TagInputModule } from 'ngx-chips';
     AnnotationSliderComponent,
     AnnotationListComponent,
     MapsComponent,
-    MarkerListItem
+    MarkerListItem,
+    SelectableTextComponent
   ],
   imports: [
     TagInputModule, BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule, AgmCoreModule.forRoot({
