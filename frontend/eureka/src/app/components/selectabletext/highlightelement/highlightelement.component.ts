@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Directive, ElementRef, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { HighlightInfo } from './HighlightInfo';
+import { HighlightInfo } from '../HighlightInfo';
 
 @Component({
   selector: 'highlightelement',
@@ -10,5 +10,6 @@ import { HighlightInfo } from './HighlightInfo';
 })
 
 export class HighlightElementComponent {
-  @Input() text: HighlightInfo;
+  @Input() highlight: HighlightInfo;
+  @Input() text: string;
 }

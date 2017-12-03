@@ -1,7 +1,12 @@
 <div id="selectioncontent" (mouseup)="onSelect()">
 	<p id="selectableText">
-		<highlightelement *ngFor="let text of texts" [text]="text"></highlightelement>
+		<highlightelement [highlight]="elem.highlight" [text]="elem.text" *ngFor="let elem of texts"></highlightelement>
 	  </p>
 	<br>
 	<button id="execute" (click)="onClick()">Highlight</button>
 </div>
+
+
+
+
+<h1>{{selected}}</h1>
