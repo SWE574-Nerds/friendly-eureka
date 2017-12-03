@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../services/user';
 import { Listory } from '../../services/Listory';
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 import { AnnotationService } from '../../services/annotation.service';
 import { Annotation } from '../../services/Annotation';
 import { AnnotationSelector } from '../../services/AnnotationSelector';
+import { TextAnnotationPosition } from '../selectabletext/TextAnnotationPosition';
 
 import {
   trigger,
@@ -23,7 +24,6 @@ import {
   selector: 'annotationSlider',
   templateUrl: './annotationslider.component.html',
   styleUrls: ['./annotationslider.component.css'],
-
 
   animations: [
     trigger('onToggle', [
@@ -47,6 +47,10 @@ export class AnnotationSliderComponent implements OnInit {
   @Input() description = "";
   @Input() link = "";
 
+  @Input() textSelection: TextAnnotationPosition = null;
+
+  @Output() onChange:EventEmitter<TextAnnotationPosition> = new EventEmitter();
+  
   constructor(
     private annotationService : AnnotationService
   ){}
@@ -74,7 +78,11 @@ export class AnnotationSliderComponent implements OnInit {
 
   onSubmit() {
     var annotationSelector = new AnnotationSelector();
-    annotationSelector.fullPage = true;
+    annotationSelector.fullPage = this.textSelection.selection.length === 0;
+    annotationSelector.textSelector = this.textSelection.selection.length > 0;
+    annotationSelector.startsWith = this.textSelection.startsWith;
+    annotationSelector.endsWith = this.textSelection.endsWith;
+    annotationSelector.selection = this.textSelection.selection;
     annotationSelector.listoryId = ""+this.listory.listoryId;
     annotationSelector.mediaType = this.mediaType;
 
@@ -98,6 +106,7 @@ export class AnnotationSliderComponent implements OnInit {
 
     this.annotationService.createAnnotation(annotationSelector).then(()=>{
       this.updateAnnotations();
+      this.onChange.emit(this.textSelection);
     });
   }
 }

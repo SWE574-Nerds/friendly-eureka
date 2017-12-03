@@ -2,11 +2,5 @@
 	<p id="selectableText">
 		<highlightelement [highlight]="elem.highlight" [text]="elem.text" *ngFor="let elem of texts"></highlightelement>
 	  </p>
-	<br>
-	<button id="execute" (click)="onClick()">Highlight</button>
 </div>
-
-
-
-
-<h1>{{selected}}</h1>
+<annotationSlider [listory]="listory" (onChange)="onChange($event)" [(textSelection)]="textSelection"></annotationSlider>

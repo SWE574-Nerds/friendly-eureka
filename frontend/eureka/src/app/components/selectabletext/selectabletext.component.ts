@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../services/user';
 import { Listory } from '../../services/Listory';
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ListoryService } from '../../services/listory.service';
 import { HighlightInfo } from './HighlightInfo';
 import { TextAnnotationPosition } from './TextAnnotationPosition';
 import { IntersectionHelper } from './helpers/IntersectionHelper';
+import { AnnotationService } from '../../services/annotation.service';
+import { Annotation, Selector } from '../../services/Annotation';
+import { OnChanges } from '@angular/core';
+
 
 @Component({
   selector: 'selectabletext',
@@ -17,7 +21,8 @@ import { IntersectionHelper } from './helpers/IntersectionHelper';
 
 
 export class SelectableTextComponent implements OnInit {
-  @Input() text: string = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+  @Input() listory: Listory;
+  private text: string;
   @Input() selections: TextAnnotationPosition[] = [];
   @Input() highlights: HighlightInfo[] = [];
 
@@ -26,10 +31,13 @@ export class SelectableTextComponent implements OnInit {
   private NORM_CHAR = "`";
   private DIVIDER = /`+/g;
 
-  private textSelection:TextAnnotationPosition = null;
-  
+  @Input() textSelection:TextAnnotationPosition = new TextAnnotationPosition();
 
   public selected: string = "";
+
+  constructor(
+    public annotationService: AnnotationService    
+  ){}
 
   sortHighlights(a: HighlightInfo, b: HighlightInfo): number {
     const x = a.startAt;
@@ -49,7 +57,31 @@ export class SelectableTextComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.text = this.listory.description;
+    this.onChange(null);
+  }
+
+  onChange(e){
+    this.updateAnnotations();
     this.update();
+  }
+
+  updateAnnotations(){
+    this.annotationService.getAnnotationsOfListory(this.listory.listoryId).then((annos:Annotation[])=>{
+      this.selections = [];
+      annos.forEach((anno)=>{
+        if (anno.selector.length === 0) return;
+
+        var selection = new TextAnnotationPosition();
+        selection.selection = anno.selector[0].exact;
+        selection.startsWith = anno.selector[0].prefix;
+        selection.endsWith = anno.selector[0].suffix;
+        this.selections.push(selection);
+      });
+
+      this.update();
+      console.log(this.texts);
+    });
   }
 
   update() {
@@ -151,8 +183,6 @@ export class SelectableTextComponent implements OnInit {
 
 
   onSelect() {    
-    this.textSelection = new TextAnnotationPosition();
-
     var selection = window.getSelection();
 
     if (selection.focusNode === selection.anchorNode) {
@@ -203,7 +233,16 @@ export class SelectableTextComponent implements OnInit {
   }
 
   onClick() {
-    this.selections.push(this.textSelection);
+    this.selections.push({
+      startsWith: this.textSelection.startsWith,
+      endsWith: this.textSelection.endsWith,
+      selection: this.textSelection.selection,
+    });
+
+    this.textSelection.endsWith = "";
+    this.textSelection.startsWith = "";
+    this.textSelection.selection = "";
+    
     this.update();
   }
 

@@ -27,7 +27,8 @@ export class AnnotationListComponent implements OnInit {
         body : null,
         id : "0",
         target : "",
-        creator: ""
+        creator: "",
+        selector: []
     };
 
     @Input() author: object = {
