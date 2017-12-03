@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
-import { FormsModule }   from '@angular/forms'; 
+import { FormsModule } from '@angular/forms'; 
+import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -34,6 +35,7 @@ import { SelectableTextComponent } from './components/selectabletext/selectablet
 import { HighlightElementComponent } from './components/selectabletext/highlightelement/highlightelement.component';
 
 
+
 import { TagInputModule } from 'ngx-chips';
 
 
@@ -58,7 +60,7 @@ import { TagInputModule } from 'ngx-chips';
     HighlightElementComponent
   ],
   imports: [
-    TagInputModule, BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule, HttpModule, AgmCoreModule.forRoot({
+    TagInputModule, BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule,CommonModule, HttpModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCJ4TFKjFJ7RN-J4dC_GSWy09mYlQZ6m5w'
     })
   ],

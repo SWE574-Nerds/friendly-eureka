@@ -48,7 +48,7 @@
 
         <ul>
             <li *ngFor="let anno of annotations">
-                <annolistitem [annotation]="anno"></annolistitem>
+                <annolistitem [currentlyHighlightedAnnotation]="currentlyHighlightedAnnotation" [annotation]="anno"></annolistitem>
             </li>
         </ul>
     </div>

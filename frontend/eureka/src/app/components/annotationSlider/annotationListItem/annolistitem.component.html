@@ -1,18 +1,44 @@
-<div id="all">
-        <div *ngFor="let body of bodies">
-            <p class="textualBody" *ngIf="body && (body.type == 'TextualBody')">
-                {{body.value}}
-            </p>
-
-            <img class="Image" *ngIf="body && (body.type == 'Image')" src="{{body.value}}" />
-
-            <iframe *ngIf="body && (body.type == 'Video')" width="100%" height="auto" src={{body.value}} frameborder="0" allowfullscreen></iframe>
+<div *ngIf="!highlight">
+        
+        <div id="all" class="not-highlighted">
+                <div *ngFor="let body of bodies">
+                    <p class="textualBody" *ngIf="body && (body.type == 'TextualBody')">
+                        {{body.value}}
+                    </p>
+        
+                    <img class="Image" *ngIf="body && (body.type == 'Image')" src="{{body.value}}" />
+        
+                    <iframe *ngIf="body && (body.type == 'Video')" width="100%" height="auto" src={{body.value}} frameborder="0" allowfullscreen></iframe>
+                </div>
+        
+                <div *ngIf="!bodies">
+                    <p>No content</p>
+                </div>
+        
+                <p id="author">{{author.name}}</p>
         </div>
 
-        <div *ngIf="!bodies">
-            <p>No content</p>
-        </div>
 
-        <p id="author">{{author.name}}</p>
+</div>
+
+
+<div *ngIf="highlight">
+        <div id="all" class="highlighted">
+                <div *ngFor="let body of bodies">
+                    <p class="textualBody" *ngIf="body && (body.type == 'TextualBody')">
+                        {{body.value}}
+                    </p>
+        
+                    <img class="Image" *ngIf="body && (body.type == 'Image')" src="{{body.value}}" />
+        
+                    <iframe *ngIf="body && (body.type == 'Video')" width="100%" height="auto" src={{body.value}} frameborder="0" allowfullscreen></iframe>
+                </div>
+        
+                <div *ngIf="!bodies">
+                    <p>No content</p>
+                </div>
+        
+                <p id="author">{{author.name}}</p>
+        </div>
 
 </div>

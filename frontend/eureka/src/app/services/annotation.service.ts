@@ -99,8 +99,21 @@ export class AnnotationService {
             body: {
               message: selector.description,
               link: selector.link
-            }
+            },
+            selector: null
           };
+
+
+          if (selector.textSelector)
+          {
+            body_image.selector = {
+              text: {
+                startsWith: selector.startsWith,
+                endsWith: selector.endsWith,
+                selection: selector.selection
+              }
+            };
+          }
 
           this.http.post(this.imageAnnotationURL.replace(":listoryId", selector.listoryId), body_image, {
             headers: this.createHeaders(user.token)

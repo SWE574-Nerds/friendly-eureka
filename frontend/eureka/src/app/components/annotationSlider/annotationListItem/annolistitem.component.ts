@@ -3,7 +3,7 @@ import { UserService } from '../../../services/user.service';
 import { User } from '../../../services/user';
 import { Listory } from '../../../services/Listory';
 import { Directive, ElementRef, Input } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { OnInit, OnChanges } from '@angular/core';
 
 import { AnnotationService } from '../../../services/annotation.service';
 
@@ -15,41 +15,66 @@ import {
   transition
 } from '@angular/animations';
 import { Annotation } from '../../../services/Annotation';
+import { TextAnnotationPosition } from '../../selectabletext/TextAnnotationPosition';
 
 @Component({
   selector: 'annolistitem',
   templateUrl: './annolistitem.component.html',
   styleUrls: ['./annolistitem.component.css'],
 })
+
+@Directive({ selector: '[ngClass]' })
 export class AnnotationListComponent implements OnInit {
 
-    @Input() annotation: Annotation = {
-        body : null,
-        id : "0",
-        target : "",
-        creator: "",
-        selector: []
-    };
+  @Input() currentlyHighlightedAnnotation: Annotation;
 
-    @Input() author: object = {
-      name : ""
-    } 
+  @Input() annotation: Annotation = {
+    body: null,
+    id: "0",
+    target: "",
+    creator: "",
+    selector: []
+  };
 
-    @Input() bodies: object[] = null;
+  @Input() author: object = {
+    name: ""
+  }
+
+  @Input() bodies: object[] = null;
+
+  ngOnChanges(e) {
+    console.log("CHANGEEE");
+    if (this.currentlyHighlightedAnnotation)
+    if (this.annotation)
+    this.highlight = this.currentlyHighlightedAnnotation.id === this.annotation.id;
+    
+
+    console.log(this.highlight);
+  }
+
+  private highlight: boolean = false;
 
   constructor(
-    private annotationService : AnnotationService
-  ){}
+    private annotationService: AnnotationService
+  ) { }
 
-  ngOnInit(){
-    if (this.annotation.creator !== "")
-    {
-      this.annotationService.getAnnotationOwner(this.annotation.creator).then((author)=>{
+  ngOnInit() {
+/*
+    setInterval(() => {
+      console.log(this.currentlyHighlightedAnnotation);
+      console.log(this.annotation);
+      console.log("*************");
+    }, 1000);*/
+
+
+
+    if (this.annotation.creator !== "") {
+      this.annotationService.getAnnotationOwner(this.annotation.creator).then((author) => {
         this.author = author;
-        if (Array.isArray(this.annotation.body)){
+        if (Array.isArray(this.annotation.body)) {
           this.bodies = this.annotation.body;
-        }else if (this.annotation.body){
-          this.bodies = [ this.annotation.body ];
+        } else if (this.annotation.body) {
+          this.bodies = [this.annotation.body];
         }
       });
     }

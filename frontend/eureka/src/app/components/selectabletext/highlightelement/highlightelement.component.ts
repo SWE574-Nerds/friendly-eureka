@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Input, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { HighlightInfo } from '../HighlightInfo';
 
@@ -12,4 +12,11 @@ import { HighlightInfo } from '../HighlightInfo';
 export class HighlightElementComponent {
   @Input() highlight: HighlightInfo;
   @Input() text: string;
+
+  @Output() onHighlight: EventEmitter<HighlightInfo> = new EventEmitter();
+
+  click(){
+    console.log("highlight tıklantı");
+    this.onHighlight.emit(this.highlight);
+  }
 }

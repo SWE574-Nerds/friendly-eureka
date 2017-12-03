@@ -34,9 +34,9 @@ class AnnotationService(object):
             return None
 
 
-    def createImageAnnotationJSONLD(self, body, listoryId):
+    def createImageAnnotationJSONLD(self, form:AnnotationForm, listoryId):
 
-        hash = body.hash()
+        hash = form.body.hash()
 
         anno = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -44,22 +44,34 @@ class AnnotationService(object):
             "type": "Annotation",
             "creator": "",  # Will be set later
             "body": [],
+            "selector" : [],
             "target": VIEW_PATH.replace("{id}", listoryId)
         }
 
-        if body.message:
+        if form.body.message:
             anno["body"].append({
                 "type": "TextualBody",
-                "value": body.message,
+                "value": form.body.message,
                 "format": "text/plain",
             })
-        if body.link:
+        if form.body.link:
             anno["body"].append({
                 "type": "Image",
-                "value": body.link,
+                "value": form.body.link,
                 "format": "image/png",
             })
 
+
+        selector = form.selector
+        if (selector is not None):
+            textSelector = selector["text"]
+            anno["selector"].append({
+                "exact": textSelector.selection,
+                "prefix": textSelector.startsWith,
+                "suffix": textSelector.endsWith,
+                "type": "TextQuote"
+
+            });
         return anno, hash
 
 
@@ -110,7 +122,7 @@ class AnnotationService(object):
 
 
     def createImageAnnotation(self, form, user):
-        anno, hash = self.createImageAnnotationJSONLD(form.body, form.listory)
+        anno, hash = self.createImageAnnotationJSONLD(form, form.listory)
 
         anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
 

@@ -33,6 +33,8 @@ export class SelectableTextComponent implements OnInit {
 
   @Input() textSelection:TextAnnotationPosition = new TextAnnotationPosition();
 
+  public currentlyHighlightedAnnotation: Annotation;
+
   public selected: string = "";
 
   constructor(
@@ -61,6 +63,15 @@ export class SelectableTextComponent implements OnInit {
     this.onChange(null);
   }
 
+  onHighlight(elem:HighlightInfo){
+    if (elem.annotations.length === 1)
+    {
+      console.log("id passing " + elem.annotations[0].annotation.id);
+      this.currentlyHighlightedAnnotation = elem.annotations[0].annotation;
+    }
+
+  }
+
   onChange(e){
     this.updateAnnotations();
     this.update();
@@ -76,6 +87,7 @@ export class SelectableTextComponent implements OnInit {
         selection.selection = anno.selector[0].exact;
         selection.startsWith = anno.selector[0].prefix;
         selection.endsWith = anno.selector[0].suffix;
+        selection.annotation = anno;
         this.selections.push(selection);
       });
 
@@ -230,20 +242,6 @@ export class SelectableTextComponent implements OnInit {
       this.textSelection.startsWith = this.selection.originalText.substr(0, startIndex);
       this.textSelection.endsWith = this.selection.originalText.substr(startIndex + selectionText.length);
     }
-  }
-
-  onClick() {
-    this.selections.push({
-      startsWith: this.textSelection.startsWith,
-      endsWith: this.textSelection.endsWith,
-      selection: this.textSelection.selection,
-    });
-
-    this.textSelection.endsWith = "";
-    this.textSelection.startsWith = "";
-    this.textSelection.selection = "";
-    
-    this.update();
   }
 
 }

@@ -48,6 +48,7 @@ export class AnnotationSliderComponent implements OnInit {
   @Input() link = "";
 
   @Input() textSelection: TextAnnotationPosition = null;
+  @Input() currentlyHighlightedAnnotation: TextAnnotationPosition;
 
   @Output() onChange:EventEmitter<TextAnnotationPosition> = new EventEmitter();
   
