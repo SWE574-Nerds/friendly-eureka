@@ -65,3 +65,8 @@ img{
     border-radius: 3px;
     display: inline-block;
 }
+
+.highlighted {
+    background-color: rgba(255, 242, 120, 0.5);
+    border: 0.1px solid rgba(0, 26, 255, 0.8);
+  }

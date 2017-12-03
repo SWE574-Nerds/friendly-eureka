@@ -25,6 +25,8 @@ constructor(
 
 private user: User = new User();
 
+private selections = [];
+
 private listory: Listory;
 private markersConfig = {
   editable: false,
@@ -56,4 +58,5 @@ private markersConfig = {
   goBack(): void {
     this.location.back();
   }
+
 }

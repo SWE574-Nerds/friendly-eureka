@@ -42,3 +42,23 @@
     display: block;
     margin-bottom: 10px;
   }
+
+  .selection{
+    color: #000000;
+    font-family: "courier";
+    text-align: center;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    margin: 30px;
+    padding: 30px;
+  }
+
+  .follower{
+    color: #575757;
+  }
+
+  .main{
+    color: #000000;
+    font-weight: bold;
+    font-size: 2em;
+  }

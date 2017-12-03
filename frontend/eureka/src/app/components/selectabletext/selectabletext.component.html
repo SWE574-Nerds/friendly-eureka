@@ -1,0 +1,6 @@
+<div id="selectioncontent" (mouseup)="onSelect()">
+	<p id="selectableText">
+		<highlightelement [highlight]="elem.highlight" [text]="elem.text" *ngFor="let elem of texts"></highlightelement>
+	  </p>
+</div>
+<annotationSlider [listory]="listory" (onChange)="onChange($event)" [(textSelection)]="textSelection"></annotationSlider>

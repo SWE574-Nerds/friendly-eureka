@@ -1,5 +1,7 @@
 <div class="all" [@onToggle]="toggle">
     <div id="scroll">
+
+            <p  class="selection"><span class="main">{{textSelection.selection}}</span></p>
     
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="collapse navbar-collapse" id="navbarNav">
@@ -17,6 +19,7 @@
                     </div>
                   </nav>
 
+                  
         <div *ngIf="mediaType == 'text'" class="form-group">
                 <div><textarea [(ngModel)]="description" type="text" class="form-control" rows="10" placeholder="Your message here"></textarea></div>             
         </div>

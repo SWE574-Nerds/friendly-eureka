@@ -39,7 +39,6 @@ export class AnnotationService {
 
   getAnnotationOwner(ownerIRI): Promise<object> {
     const userId = ownerIRI.replace(/.+user\/?/g, "");
-    console.log(userId);
     return new Promise<object>(resolve => {
       this.userService.getUserInfo(userId).then((user) => { resolve(user); });
     });
@@ -58,8 +57,6 @@ export class AnnotationService {
             }
           };
 
-          console.log(selector);
-
           this.http.post(this.highlightAnnotationURL.replace(":listoryId", selector.listoryId), body_highlight, {
             headers: this.createHeaders(user.token)
           })
@@ -73,8 +70,20 @@ export class AnnotationService {
             listory: selector.listoryId,
             body: {
               message: selector.description
-            }
+            },
+            selector: null
           };
+
+          if (selector.textSelector)
+          {
+            body_text.selector = {
+              text: {
+                startsWith: selector.startsWith,
+                endsWith: selector.endsWith,
+                selection: selector.selection
+              }
+            };
+          }
 
           this.http.post(this.textAnnotationURL.replace(":listoryId", selector.listoryId), body_text, {
             headers: this.createHeaders(user.token)

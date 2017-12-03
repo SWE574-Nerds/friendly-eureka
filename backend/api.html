@@ -747,6 +747,29 @@ margin-bottom: 20px;
     },
     "body" : {
       "$ref" : "#/definitions/AnnotationBodyRequest"
+    },
+    "selector" : {
+      "$ref" : "#/definitions/AnnotationRequest_selector"
+    }
+  }
+};
+            defs.AnnotationRequest_selector = {
+  "properties" : {
+    "text" : {
+      "$ref" : "#/definitions/AnnotationRequest_selector_text"
+    }
+  }
+};
+            defs.AnnotationRequest_selector_text = {
+  "properties" : {
+    "startsWith" : {
+      "type" : "string"
+    },
+    "endsWith" : {
+      "type" : "string"
+    },
+    "selection" : {
+      "type" : "string"
     }
   }
 };
@@ -7165,7 +7188,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-11-30T20:12:13.906Z
+              Generated 2017-12-03T15:30:27.456Z
             </div>
           </div>
       </div>

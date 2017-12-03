@@ -24,14 +24,14 @@
                 <span class="badge badge-default">Created at</span> {{listory.createdAt}}</p>                
         </div>
         
-        <p class="card-text">{{listory.description}}</p>
+
+        <selectabletext class="card-text" [selections]="selections" [listory]="listory"></selectabletext>
+
     </div>
 
     <div *ngIf="user && user.token && user.name == listory.owner.name">
             <button type="button" class="btn btn-danger" (click)="deleteListory(listory.listoryId)" >Delete</button>            
     </div>
-
-    <annotationSlider [listory]="listory" ></annotationSlider>    
 </div>
 
 <maps *ngIf="listory && listory.markers"  [config]="markersConfig"></maps>
@@ -42,10 +42,6 @@
         <p class="category">
             <span class="badge badge-primary">History item not found</span>
         </p>
-    </div>
-
-    <annotationSlider [listory]="listory" ></annotationSlider>    
-    
+    </div>    
 </div>
-
 
