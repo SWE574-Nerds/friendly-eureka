@@ -617,6 +617,21 @@ definitions:
         description: "The ID of the listory user want's to annotate"
       body:
         $ref: '#/definitions/AnnotationBodyRequest'
+      selector:
+        type: object
+        properties:
+          text:
+            type: object
+            properties:
+              startsWith:
+                type: string
+              endsWith:
+                type: string
+              selection:
+                type: string
+            
+            
+            
   AnnotationBodyRequest:
     type: "object"
     properties:
