@@ -63,9 +63,9 @@ class AnnotationService(object):
         return anno, hash
 
 
-    def createPlainTextAnnotationJSONLD(self, body, listoryId):
+    def createPlainTextAnnotationJSONLD(self, form:AnnotationForm, listoryId):
 
-        hash = body.hash()
+        hash = form.body.hash()
 
         anno = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -74,11 +74,23 @@ class AnnotationService(object):
             "creator": "", # Will be set later
             "body": {
                 "type": "TextualBody",
-                "value": body.message,
+                "value": form.body.message,
                 "format": "text/plain",
             },
-            "target": VIEW_PATH.replace("{id}", listoryId)
+            "selector" : [],
+            "target": VIEW_PATH.replace("{id}", str(listoryId))
         }
+
+        selector = form.selector
+        if (selector is not None):
+            textSelector = selector["text"]
+            anno["selector"].append({
+                "exact": textSelector.selection,
+                "prefix": textSelector.startsWith,
+                "suffix": textSelector.endsWith,
+                "type": "TextQuote"
+
+            });
 
         return anno, hash
 
@@ -114,8 +126,8 @@ class AnnotationService(object):
 
 
 
-    def createTextAnnotation(self, form, user):
-        anno, hash = self.createPlainTextAnnotationJSONLD(form.body, form.listory)
+    def createTextAnnotation(self, form:AnnotationForm, user):
+        anno, hash = self.createPlainTextAnnotationJSONLD(form, form.listory)
 
         anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
 
