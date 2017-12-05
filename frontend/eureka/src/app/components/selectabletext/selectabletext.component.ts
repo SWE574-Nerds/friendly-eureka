@@ -63,13 +63,9 @@ export class SelectableTextComponent implements OnInit {
     this.onChange(null);
   }
 
-  onHighlight(elem:HighlightInfo){
-    if (elem.annotations.length === 1)
-    {
-      console.log("id passing " + elem.annotations[0].annotation.id);
-      this.currentlyHighlightedAnnotation = elem.annotations[0].annotation;
-    }
-
+  onHighlight(annotation:Annotation){
+      console.log("id passing " + annotation.id);
+      this.currentlyHighlightedAnnotation = annotation;
   }
 
   onChange(e){

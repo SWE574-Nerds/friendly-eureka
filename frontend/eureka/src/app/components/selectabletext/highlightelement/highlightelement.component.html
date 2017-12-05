@@ -1,1 +1,25 @@
-<span *ngIf="!highlight">{{text}}</span><span class="highlighted" (click)="click()" *ngIf="highlight">{{text}}</span>
+<span *ngIf="!highlight">{{text}}</span><span *ngIf="highlight && highlight.annotations.length === 1" class="highlighted" (click)="click(highlight.annotations[0].annotation)">{{text}}</span><span
+ class="highlightedMultiple" 
+ *ngIf="highlight && highlight.annotations.length > 1" 
+ [attr.data-target]="'#' + highlight.annotations[0].annotation.id"
+ data-toggle="modal">{{text}}</span>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade"  *ngIf="highlight && highlight.annotations.length > 1"  [attr.id]="highlight.annotations[0].annotation.id" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Pick one</h4>
+          </div>
+          <div class="modal-body">
+                <p class="list-group-item list-group-item-action" (click)=click(anno.annotation) *ngFor="let anno of highlight.annotations" >{{anno.selection}}</p>                
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  

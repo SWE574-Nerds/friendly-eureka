@@ -1,6 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import { Directive, ElementRef, Input, Output } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { Annotation } from '../../../services/Annotation';
 import { HighlightInfo } from '../HighlightInfo';
 
 @Component({
@@ -9,14 +10,21 @@ import { HighlightInfo } from '../HighlightInfo';
   styleUrls: [ './highlightelement.component.css' ]
 })
 
-export class HighlightElementComponent {
+export class HighlightElementComponent implements OnInit {
   @Input() highlight: HighlightInfo;
   @Input() text: string;
 
-  @Output() onHighlight: EventEmitter<HighlightInfo> = new EventEmitter();
+  private dataTarget: string;
 
-  click(){
+  @Output() onHighlight: EventEmitter<Annotation> = new EventEmitter();
+
+  ngOnInit(){
+    if (this.highlight && this.highlight.annotations.length > 0)
+    this.dataTarget = "#"+this.highlight.annotations[0].annotation.id;
+  }
+
+  click(annotation){
     console.log("highlight tıklantı");
-    this.onHighlight.emit(this.highlight);
+    this.onHighlight.emit(annotation);
   }
 }

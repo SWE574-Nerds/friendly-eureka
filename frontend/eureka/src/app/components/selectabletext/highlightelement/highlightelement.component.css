@@ -2,3 +2,8 @@
     border-bottom: 2px solid #9c280a;
     border-radius: 4px;
 }
+
+.highlightedMultiple{
+    border-bottom: 4px solid #68210f;
+    border-radius: 4px;
+}
