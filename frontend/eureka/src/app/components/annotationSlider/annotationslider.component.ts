@@ -64,6 +64,10 @@ export class AnnotationSliderComponent implements OnInit {
     this.updateAnnotations();
   }
 
+  onHighlightItemChanged(anno:Annotation){
+    this.toggle = "in";
+  }
+
   updateAnnotations(){
     if (this.listory) {
       this.annotationService.getAnnotationsOfListory(this.listory.listoryId).then((annotations) => {

@@ -3,17 +3,9 @@ import { UserService } from '../../../services/user.service';
 import { User } from '../../../services/user';
 import { Listory } from '../../../services/Listory';
 import { Directive, ElementRef, Input } from '@angular/core';
-import { OnInit, OnChanges } from '@angular/core';
+import { OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 
 import { AnnotationService } from '../../../services/annotation.service';
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
 import { Annotation } from '../../../services/Annotation';
 import { TextAnnotationPosition } from '../../selectabletext/TextAnnotationPosition';
 
@@ -36,6 +28,8 @@ export class AnnotationListComponent implements OnInit {
     selector: []
   };
 
+  @Output() onHighlight: EventEmitter<Annotation> = new EventEmitter();
+
   @Input() author: object = {
     name: ""
   }
@@ -43,12 +37,15 @@ export class AnnotationListComponent implements OnInit {
   @Input() bodies: object[] = null;
 
   ngOnChanges(e) {
-    console.log("CHANGEEE");
     if (this.currentlyHighlightedAnnotation)
     if (this.annotation)
-    this.highlight = this.currentlyHighlightedAnnotation.id === this.annotation.id;
+    if (this.currentlyHighlightedAnnotation.id === this.annotation.id){
+      this.highlight = true;
+      this.onHighlight.emit(this.annotation);
+    }else{
+      this.highlight = false;
+    }
     
-
     console.log(this.highlight);
   }
 
