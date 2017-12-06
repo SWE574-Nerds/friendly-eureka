@@ -1,0 +1,14 @@
+.img-circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.category{
+    float:right;     
+}
+
+.tag{
+    margin-left: 8px;
+}
+
