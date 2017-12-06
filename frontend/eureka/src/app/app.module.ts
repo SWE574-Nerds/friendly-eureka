@@ -37,6 +37,9 @@ import { HighlightElementComponent } from './components/selectabletext/highlight
 
 
 import { TagInputModule } from 'ngx-chips';
+import { SearchComponent } from './components/search/search.component';
+import { SearchService } from './services/search.service';
+import { SearchItemComponent } from './components/search/searchitem/searchitem.component';
 
 
 @NgModule({
@@ -57,14 +60,16 @@ import { TagInputModule } from 'ngx-chips';
     MapsComponent,
     MarkerListItem,
     SelectableTextComponent,
-    HighlightElementComponent
+    HighlightElementComponent,
+    SearchComponent,
+    SearchItemComponent
   ],
   imports: [
     TagInputModule, BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule,CommonModule, HttpModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCJ4TFKjFJ7RN-J4dC_GSWy09mYlQZ6m5w'
     })
   ],
-  providers: [ UserService, ListoryService, CreateService, AnnotationService, SimpleStore],
+  providers: [ SearchService, UserService, ListoryService, CreateService, AnnotationService, SimpleStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,5 @@
+import base64
+
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -66,6 +68,55 @@ def api_register(request):
         except IntegrityError as e:
             return Response("User exists", status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET'])
+def api_get_search(request):
+    keywords: [] = request.GET.getlist("keywords", []);
+    return search_by_keywords(keywords)
+
+
+@api_view(['GET'])
+def api_get_search_base64(request, encoded):
+    decodedSearchString = base64.b64decode(encoded).decode("utf-8", "strict")
+    keywords = decodedSearchString.split(",")
+    return search_by_keywords(keywords)
+
+
+def search_by_keywords(keywords):
+    if len(keywords) is 0:
+        return Response([], status=status.HTTP_204_NO_CONTENT)
+
+    listories = ListoryService.searchForKeywords(keywords)
+
+    response = []
+
+    for listory in listories:
+
+        tags = []
+        tag_set = listory.category.all()
+        for tag in tag_set:
+            tags.append({"name" : tag.name, "id" : tag.pk})
+
+
+        response.append({
+            'name': listory.title,
+            'description': listory.content,
+            'image': listory.image,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': listory.user.username,
+                'userId': listory.user.pk
+            },
+            "time": {
+                "name": listory.timeInfoGroup.timeInfo.name,
+                "units": listory.timeInfoGroup.timeInfo.value_type,
+                "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
+                "count": listory.timeInfoGroup.timeInfo.value_count
+            },
+            "tags": tags,
+            'createdAt': None
+        })
+    return Response(response, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def api_userinfo(request, id):

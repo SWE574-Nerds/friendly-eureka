@@ -1130,6 +1130,9 @@ margin-bottom: 20px;
                     <li data-group="Listory" data-name="listoryGetAnnos" class="">
                       <a href="#api-Listory-listoryGetAnnos">listoryGetAnnos</a>
                     </li>
+                    <li data-group="Listory" data-name="listorySearch" class="">
+                      <a href="#api-Listory-listorySearch">listorySearch</a>
+                    </li>
                     <li data-group="Listory" data-name="listoryUpdate" class="">
                       <a href="#api-Listory-listoryUpdate">listoryUpdate</a>
                     </li>
@@ -5313,6 +5316,304 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Listory-listorySearch">
+                      <article id="api-Listory-listorySearch-0" data-group="User" data-name="listorySearch" data-version="0">
+                        <div class="pull-left">
+                          <h1>listorySearch</h1>
+                          <p>Search through all living history items</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/listory/search</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Listory-listorySearch-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Listory-listorySearch-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Listory-listorySearch-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Listory-listorySearch-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Listory-listorySearch-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Listory-listorySearch-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Listory-listorySearch-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Listory-listorySearch-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Listory-listorySearch-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Listory-listorySearch-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Listory-listorySearch-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Listory-listorySearch-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "http://localhost/api/v1//listory/search?keywords="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Listory-listorySearch-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ListoryApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ListoryApiExample {
+
+    public static void main(String[] args) {
+        
+        ListoryApi apiInstance = new ListoryApi();
+        String keywords = keywords_example; // String | The keywords to search for. Multiple.
+        try {
+            AllListoryItems result = apiInstance.listorySearch(keywords);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ListoryApi#listorySearch");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Listory-listorySearch-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ListoryApi;
+
+public class ListoryApiExample {
+
+    public static void main(String[] args) {
+        ListoryApi apiInstance = new ListoryApi();
+        String keywords = keywords_example; // String | The keywords to search for. Multiple.
+        try {
+            AllListoryItems result = apiInstance.listorySearch(keywords);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ListoryApi#listorySearch");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Listory-listorySearch-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Listory-listorySearch-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *keywords = keywords_example; // The keywords to search for. Multiple. (optional)
+
+ListoryApi *apiInstance = [[ListoryApi alloc] init];
+
+// Search through all living history items
+[apiInstance listorySearchWith:keywords
+              completionHandler: ^(AllListoryItems output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listorySearch-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var EurekaLivingHistoryApi = require('eureka_living_history_api');
+
+var api = new EurekaLivingHistoryApi.ListoryApi()
+
+var opts = { 
+  'keywords': keywords_example // {String} The keywords to search for. Multiple.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.listorySearch(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Listory-listorySearch-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Listory-listorySearch-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class listorySearchExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ListoryApi();
+            var keywords = keywords_example;  // String | The keywords to search for. Multiple. (optional) 
+
+            try
+            {
+                // Search through all living history items
+                AllListoryItems result = apiInstance.listorySearch(keywords);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ListoryApi.listorySearch: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listorySearch-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ListoryApi();
+$keywords = keywords_example; // String | The keywords to search for. Multiple.
+
+try {
+    $result = $api_instance->listorySearch($keywords);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ListoryApi->listorySearch: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listorySearch-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ListoryApi;
+
+my $api_instance = WWW::SwaggerClient::ListoryApi->new();
+my $keywords = keywords_example; # String | The keywords to search for. Multiple.
+
+eval { 
+    my $result = $api_instance->listorySearch(keywords => $keywords);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ListoryApi->listorySearch: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Listory-listorySearch-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ListoryApi()
+keywords = keywords_example # String | The keywords to search for. Multiple. (optional)
+
+try: 
+    # Search through all living history items
+    api_response = api_instance.listory_search(keywords=keywords)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ListoryApi->listorySearch: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">keywords</td>
+<td>
+
+
+    <div id="d2e199_listorySearch_keywords">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        The keywords to search for. Multiple.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Found listory items </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-listorySearch-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-listorySearch-200-schema">
+                                  <div id='responses-listorySearch-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Found listory items",
+  "schema" : {
+    "$ref" : "#/definitions/AllListoryItems"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-listorySearch-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-listorySearch-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-listorySearch-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 405 - Invalid input / Validation error </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Listory-listoryUpdate">
                       <article id="api-Listory-listoryUpdate-0" data-group="User" data-name="listoryUpdate" data-version="0">
                         <div class="pull-left">
@@ -7188,7 +7489,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-12-03T15:30:27.456Z
+              Generated 2017-12-06T09:08:53.034Z
             </div>
           </div>
       </div>

@@ -1,0 +1,8 @@
+<form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="text" name="searchString" [(ngModel)]="searchString" (ngModelChange)="onSearchStringChange()" placeholder="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+
+  <div *ngIf="listories" class="list-group" id="search-results">
+      <searchitem *ngFor="let listory of listories" [listory]="listory"></searchitem>
+  </div>

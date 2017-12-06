@@ -118,6 +118,29 @@ paths:
           description: "Created successfully"
         405:
           description: "Invalid input / Validation error"      
+  /listory/search:
+    get:
+      parameters:
+      - in: query
+        name: keywords
+        type: string
+        description: The keywords to search for. Multiple.
+          
+      tags:
+      - "listory"
+      summary: "Search through all living history items"
+  
+      operationId: "listorySearch"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AllListoryItems"
+          description: "Found listory items"
+        405:
+          description: "Invalid input / Validation error"      
+
   /listory/:
     get:
       tags:
@@ -708,3 +731,4 @@ securityDefinitions:
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
+
