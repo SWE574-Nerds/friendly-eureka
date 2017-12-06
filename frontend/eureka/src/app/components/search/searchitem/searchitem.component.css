@@ -12,3 +12,9 @@
     margin-left: 8px;
 }
 
+
+.searchitem{
+z-index: 9999;
+position: relative;
+right: 50%;
+}
