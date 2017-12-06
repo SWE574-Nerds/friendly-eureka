@@ -68,6 +68,43 @@ def api_register(request):
 
 
 @api_view(['GET'])
+def api_get_search(request):
+    keywords: [] = request.GET.getlist("keywords", []);
+
+    listories = ListoryService.searchForKeywords(keywords)
+
+
+    response = []
+
+    for listory in listories:
+
+        tags = []
+        tag_set = listory.category.all()
+        for tag in tag_set:
+            tags.append({"name" : tag.name, "id" : tag.pk})
+
+
+        response.append({
+            'name': listory.title,
+            'description': listory.content,
+            'image': listory.image,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': listory.user.username,
+                'userId': listory.user.pk
+            },
+            "time": {
+                "name": listory.timeInfoGroup.timeInfo.name,
+                "units": listory.timeInfoGroup.timeInfo.value_type,
+                "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
+                "count": listory.timeInfoGroup.timeInfo.value_count
+            },
+            "tags": tags,
+            'createdAt': None
+        })
+    return Response(response, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
 def api_userinfo(request, id):
     try:
         user = User.objects.get(pk=id)
