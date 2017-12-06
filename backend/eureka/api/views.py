@@ -1,3 +1,5 @@
+import base64
+
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -70,9 +72,21 @@ def api_register(request):
 @api_view(['GET'])
 def api_get_search(request):
     keywords: [] = request.GET.getlist("keywords", []);
+    return search_by_keywords(keywords)
+
+
+@api_view(['GET'])
+def api_get_search_base64(request, encoded):
+    decodedSearchString = base64.b64decode(encoded).decode("utf-8", "strict")
+    keywords = decodedSearchString.split(",")
+    return search_by_keywords(keywords)
+
+
+def search_by_keywords(keywords):
+    if len(keywords) is 0:
+        return Response([], status=status.HTTP_204_NO_CONTENT)
 
     listories = ListoryService.searchForKeywords(keywords)
-
 
     response = []
 

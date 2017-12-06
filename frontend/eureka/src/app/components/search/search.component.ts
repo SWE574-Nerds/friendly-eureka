@@ -30,10 +30,15 @@ export class SearchComponent {
 
 
   searchFor(searchString){
+      if (searchString.length <= 3)
+      {
+        this.listories = [];
+      }else{
       this.searchService.searchFor(searchString).then((listories:Listory[])=>{
           console.log(listories);
         this.listories = listories;
       });
+    }
   }
 
 }
