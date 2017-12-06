@@ -5,13 +5,12 @@
  data-toggle="modal">{{text}}</span>
 
 
-
     <!-- Modal -->
     <div class="modal fade"  *ngIf="highlight && highlight.annotations.length > 1"  [attr.id]="highlight.annotations[0].annotation.id" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Pick one</h4>
+            <h4 class="modal-title">{{highlight.annotations.length + ' annotations'}}</h4>
           </div>
           <div class="modal-body">
                 <p class="list-group-item list-group-item-action" (click)=click(anno.annotation) *ngFor="let anno of highlight.annotations" >{{anno.selection}}</p>                
