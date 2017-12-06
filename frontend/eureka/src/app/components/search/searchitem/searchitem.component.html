@@ -1,4 +1,4 @@
-<div *ngIf="listory" class="searchitem list-group-item list-group-item-action">
+<div *ngIf="listory" class="searchitem list-group-item list-group-item-action" (click)="gotoItem()">
     
         <img src="{{listory.image}}" class="img-circle" />
 
