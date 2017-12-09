@@ -16,6 +16,7 @@ export class SearchItemComponent {
 
 
     gotoItem() {
+        console.log("Navigating to /detail" + this.listory.listoryId);
         this.router.navigate(['/detail', this.listory.listoryId]);
     }
 }
