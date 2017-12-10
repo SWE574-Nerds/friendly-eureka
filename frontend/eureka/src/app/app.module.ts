@@ -41,6 +41,10 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchService } from './services/search.service';
 import { SearchItemComponent } from './components/search/searchitem/searchitem.component';
 
+import { CloudinaryModule } from '@cloudinary/angular-4.x';
+import * as  Cloudinary from 'cloudinary-core';
+import { TestComponent } from './components/test/test.component';
+import { AgoBoxComponent } from './components/detail/agobox/agobox.component';
 
 @NgModule({
   declarations: [
@@ -62,12 +66,15 @@ import { SearchItemComponent } from './components/search/searchitem/searchitem.c
     SelectableTextComponent,
     HighlightElementComponent,
     SearchComponent,
-    SearchItemComponent
+    SearchItemComponent,
+    TestComponent,
+    AgoBoxComponent
   ],
   imports: [
     TagInputModule, BrowserModule, BrowserAnimationsModule, FormsModule, AppRoutingModule,CommonModule, HttpModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCJ4TFKjFJ7RN-J4dC_GSWy09mYlQZ6m5w'
-    })
+    }), 
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'onatbas'}),
   ],
   providers: [ SearchService, UserService, ListoryService, CreateService, AnnotationService, SimpleStore],
   bootstrap: [AppComponent]

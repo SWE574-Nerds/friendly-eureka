@@ -10,6 +10,7 @@ import { AnnotationListComponent } from './components/annotationSlider/annotatio
 import { MapsComponent } from './components/maps/maps.component';
 import { SelectableTextComponent } from './components/selectabletext/selectabletext.component';
 import { SearchComponent } from './components/search/search.component';
+import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path: 'all',  component: CardViewComponent },
   { path: 'create', component: CreateFormComponent },
   { path: 'detail/:id', component: DetailComponent },  
-  { path: 'test', component: SearchComponent }
+  { path: 'test', component: TestComponent }
 
 ];
  
