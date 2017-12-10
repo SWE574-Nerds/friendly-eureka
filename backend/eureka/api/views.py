@@ -18,10 +18,11 @@ from api.validators.AnnotationFormValidator import AnnotationFormValidator
 from api.validators.ListoryFormValidator import ListoryFormValidator
 from api.validators.LoginFormValidator import LoginFormValidator
 from api.validators.RegisterFormValidator import RegisterFormValidator
-from post.models import TimeInfo, Category
+from post.models import TimeInfo, Category, Post
 from post.services import ListoryService
 from anno.services.AnnotationService import AnnotationService
 from api.utilities.AnnotationResponse import AnnotationResponse
+from django.utils.dateformat import format
 
 
 @api_view(['POST'])
@@ -114,7 +115,7 @@ def search_by_keywords(keywords):
                 "count": listory.timeInfoGroup.timeInfo.value_count
             },
             "tags": tags,
-            'createdAt': None
+            'createdAt': format(listory.publishing_date, 'U')
         })
     return Response(response, status=status.HTTP_200_OK)
 
@@ -153,7 +154,7 @@ def api_create_listory(request):
  #       try:
             api_user = request.api_user
             listoryId = ListoryService.create_listory(form, api_user)
-            listory = ListoryService.get_listory_by_id(listoryId)
+            listory:Post = ListoryService.get_listory_by_id(listoryId)
 
             marker_set = listory.marker_set.all()
             markers = []
@@ -202,7 +203,7 @@ def api_create_listory(request):
                     "count" : listory.timeInfoGroup.timeInfo.value_count
                 },
                 "tags" : tags,
-                'createdAt': None
+                'createdAt': format(listory.publishing_date, 'U')
             }, status=status.HTTP_200_OK)
     #    except:
     #        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
@@ -267,7 +268,7 @@ def api_update_listory(request, id):
                     "count" : listory.timeInfoGroup.timeInfo.value_count
                 },
                 "tags": tags,
-                'createdAt': None
+                'createdAt': format(listory.publishing_date, 'U')
             }, status=status.HTTP_200_OK)
         except:
             return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
@@ -326,7 +327,7 @@ def api_get_listory(request, id):
                 "count": listory.timeInfoGroup.timeInfo.value_count
             },
             "tags": tags,
-            'createdAt': None
+            'createdAt': format(listory.publishing_date, 'U')
         }, status=status.HTTP_200_OK)
     else:
         return Response("Listory not found", status=status.HTTP_404_NOT_FOUND)
@@ -376,7 +377,7 @@ def get_all_listories(request):
                 "count": listory.timeInfoGroup.timeInfo.value_count
             },
             "tags": tags,
-            'createdAt': None
+            'createdAt': format(listory.publishing_date, 'U')
         })
     return Response(response, status=status.HTTP_200_OK)
 
