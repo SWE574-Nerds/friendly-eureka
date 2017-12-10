@@ -1,17 +1,23 @@
 package stepDefinition;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertThat;
+
+import org.junit.AfterClass;
+
+import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.WebDriver;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.HomePage;
+import static org.hamcrest.CoreMatchers.is;
 import pages.LoginPage;
 
 public class LoginSteps {
 
 	WebDriver driver;
-	LoginPage loginPage = null;
+	static LoginPage loginPage = null;
 	HomePage homePage = null;
 
 	public LoginSteps(SharedDriver driver) {
@@ -22,8 +28,12 @@ public class LoginSteps {
 
 	@Given("^I am on Eureka Website$")
 	public void i_am_on_Eureka_Website() throws Throwable {
-		loginPage.openEureka();
-		loginPage.goToLoginPage();
+
+	}
+
+	@When("^Already have an account")
+	public void i_already_have_ac_account() throws Throwable {
+		loginPage.goToAlreadyHaveAndAnAccount();
 	}
 
 	@When("^I enter username as \"([^\"]*)\"$")
@@ -41,14 +51,33 @@ public class LoginSteps {
 		loginPage.clickLoginButton();
 	}
 
-	@Then("^I should be able to login successfully and see my username as \"([^\"]*)\"$")
-	public void i_should_be_able_to_login_successfully_and_see_my_username_as(String username) throws Throwable {
-		Assert.assertEquals(username, homePage.getUsername());
+	@Then("^I should be able to login successfully")
+	public void i_should_be_able_to_login_successfully() throws Throwable {
+		assertThat(homePage.getSignOutButton(), is(notNullValue()));
 	}
 
-	@Then("^Application should be closed$")
-	public void application_should_be_closed() throws Throwable {
+	@Then("^I should NOT be able to login successfully")
+	public void i_should_not_be_able_to_login_successfully() throws Throwable {
+		assertThat(loginPage.getUsernameTextBox(), is(notNullValue()));
+	}
+
+
+	@Then("^I click logout")
+	public void i_click_logout() throws Throwable {
+		homePage.clickSignOutButton();
+	}
+
+	@Before
+	public static void setUp(){
+		loginPage.openEureka();
+	}
+
+	@AfterClass
+	public void tearDown()
+	{
 		driver.quit();
 	}
+
+
 
 }
