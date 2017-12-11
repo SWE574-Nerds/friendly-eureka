@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,21 +20,28 @@ public class LoginPage {
 	@FindBy(css = ".glyphicon-log-in")
 	private WebElement goToLoginPage;
 
-	@FindBy(css = "input[name=\"username\"]")
+	@FindBy(css = "input[type=\"username\"]")
 	private WebElement usernameElement;
 
-	@FindBy(css = "input[name=\"password\"]")
+	@FindBy(css = "input[type=\"password\"]")
 	private WebElement passwordElement;
 
-	@FindBy(css = "input[value=\"Login\"]")
+	@FindBy(css = "button[class=\"btn btn-primary\"]")
 	private WebElement loginButton;
 
 	@FindBy(css = "a[href=\"/accounts/register/\"]")
 	private WebElement createAnAccount;
 
+	@FindBy(css = "button[class=\"btn btn-link\"]")
+	private WebElement alreadyHaveAnAccount;
+
 	public LoginPage openEureka() {
-		driver.get("http://127.0.0.1:8000/");
+		driver.get("http://18.217.133.147:3000/welcome");
 		return this;
+	}
+
+	public void goToAlreadyHaveAndAnAccount() {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(alreadyHaveAnAccount)).click();
 	}
 
 	public void createAnAccount() {
@@ -42,6 +50,16 @@ public class LoginPage {
 
 	public void goToLoginPage() {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(goToLoginPage)).click();
+	}
+
+	public WebElement getUsernameTextBox() {
+		WebElement element = null;
+		try{
+			element = new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[type=\"username\"]")));}
+		catch(Exception ex){
+			return element;
+		}
+		return element;
 	}
 
 	public void enterUsername(String username) {
@@ -56,4 +74,5 @@ public class LoginPage {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(loginButton)).click();
 		return new HomePage(driver);
 	}
+
 }
