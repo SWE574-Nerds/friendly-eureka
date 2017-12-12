@@ -35,3 +35,11 @@ Now you can go to 127.0.0.1:8000
     $ docker-compose up -d 
 
 Now you can go to 127.0.0.1:8000
+
+
+Running Automated Tests
+
+#### How to run automated tests:
+
+    $ cd friendly-eureka/tests/friendlyeureka
+    $ mvn test 
