@@ -38,6 +38,12 @@
                 <input type="text" class="form-control" [(ngModel)]="link" id="inlineFormInputGroup" placeholder="Link">
             </div>
 
+            <div> 
+                <select class="custom-select" [(ngModel)]="selectedMotivation">
+                    <option *ngFor="let mot of motivation" [ngValue]="mot">
+                        {{mot.name}}
+                </select>
+            </div>
             
         <button (click)="onSubmit()" type="submit" class="create btn btn-primary">
                 Create

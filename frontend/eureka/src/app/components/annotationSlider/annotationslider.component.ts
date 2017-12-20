@@ -9,6 +9,7 @@ import { AnnotationService } from '../../services/annotation.service';
 import { Annotation } from '../../services/Annotation';
 import { AnnotationSelector } from '../../services/AnnotationSelector';
 import { TextAnnotationPosition } from '../selectabletext/TextAnnotationPosition';
+import { AnnoMotivation } from '../../services/AnnoMotivation';
 
 import {
   trigger,
@@ -52,6 +53,16 @@ export class AnnotationSliderComponent implements OnInit {
 
   @Output() onChange:EventEmitter<TextAnnotationPosition> = new EventEmitter();
   
+
+  private motivation: AnnoMotivation[] = [
+    {id: "1", name: "Question"},
+    {id: "1", name: "Inform"}
+  ];
+
+  private selectedMotivation: AnnoMotivation;
+
+
+
   constructor(
     private annotationService : AnnotationService
   ){}
@@ -90,6 +101,7 @@ export class AnnotationSliderComponent implements OnInit {
     annotationSelector.selection = this.textSelection.selection;
     annotationSelector.listoryId = ""+this.listory.listoryId;
     annotationSelector.mediaType = this.mediaType;
+    annotationSelector.motivation = this.selectedMotivation.name;
 
     if (
       (this.mediaType === "text" && this.description === "") ||

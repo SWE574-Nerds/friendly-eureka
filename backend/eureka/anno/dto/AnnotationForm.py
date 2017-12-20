@@ -32,6 +32,7 @@ class AnnotationForm(object):
         self.listory = post.get('listory') or None
         self.body = AnnotationBodyForm(post.get('body')) or None
         self.selector = None
+        self.motivation = post.get('motivation') or None
 
         providedSelector = post.get('selector') or { 'text': None }
 

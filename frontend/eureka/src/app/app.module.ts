@@ -12,7 +12,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RouterOutlet } from '@angular/router';
 import { WelcomeScreenComponent } from './components/welcome-screen/welcome-screen.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component'
+import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component';
+import { AboutComponent } from './components/about-screen/about-screen.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { CardViewComponent } from './components/cardview/cardview.component';
 
@@ -53,6 +54,7 @@ import { AgoBoxComponent } from './components/detail/agobox/agobox.component';
     WelcomeScreenComponent, 
     RegisterFormComponent, 
     TermsofserviceComponent, 
+    AboutComponent, 
     LoginFormComponent,
     CardViewComponent,
     BackgroundDirective,

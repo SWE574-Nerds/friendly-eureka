@@ -2,7 +2,8 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
  
 import { WelcomeScreenComponent } from './components/welcome-screen/welcome-screen.component';
-import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component'
+import { TermsofserviceComponent } from './components/termsofservice-screen/termsofservice-screen.component';
+import { AboutComponent } from './components/about-screen/about-screen.component'
 import { CardViewComponent } from './components/cardview/cardview.component';
 import { CreateFormComponent } from './components/create/create.component';
 import { DetailComponent } from './components/detail/detail.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'all',  component: CardViewComponent },
   { path: 'create', component: CreateFormComponent },
   { path: 'detail/:id', component: DetailComponent },  
-  { path: 'test', component: TestComponent }
+  { path: 'test', component: TestComponent },
+  { path: 'about',  component: AboutComponent },
 
 ];
  

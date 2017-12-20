@@ -25,7 +25,8 @@ export class AnnotationListComponent implements OnInit {
     id: "0",
     target: "",
     creator: "",
-    selector: []
+    selector: [],
+    motivation: ""
   };
 
   @Output() onHighlight: EventEmitter<Annotation> = new EventEmitter();

@@ -12,4 +12,6 @@ export class AnnotationSelector {
     public endsWith: string;
     public selection: string;
 
+    public motivation: string;
+
 }

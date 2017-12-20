@@ -10,5 +10,6 @@ export class Annotation
     public body: object;
     public target: string;
     public creator: string;
-    public selector: Selector[]
+    public selector: Selector[];
+    public motivation: string
 }
