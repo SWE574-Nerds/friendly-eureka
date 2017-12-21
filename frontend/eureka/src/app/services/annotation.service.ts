@@ -68,6 +68,7 @@ export class AnnotationService {
         } else if (selector.mediaType === "text") {
           var body_text = {
             listory: selector.listoryId,
+            motivation: null,
             body: {
               message: selector.description
             },
@@ -83,6 +84,11 @@ export class AnnotationService {
                 selection: selector.selection
               }
             };
+          }
+
+          if (selector.motivation != "")
+          {
+            body_text.motivation = selector.motivation;
           }
 
           this.http.post(this.textAnnotationURL.replace(":listoryId", selector.listoryId), body_text, {

@@ -10,6 +10,7 @@ class AnnotationBodyForm(object):
         if body is not None:
             self.message = body.get('message') or ""
             self.link = body.get('link') or ""
+            self.motivation = body.get('motivation') or ""
 
     def __str__(self):
         return "{message:" + self.message + ", link:" + self.link + "}"
@@ -32,7 +33,7 @@ class AnnotationForm(object):
         self.listory = post.get('listory') or None
         self.body = AnnotationBodyForm(post.get('body')) or None
         self.selector = None
-        self.motivation = post.get('motivation') or None
+        self.motivation = self.body.motivation or None
 
         providedSelector = post.get('selector') or { 'text': None }
 

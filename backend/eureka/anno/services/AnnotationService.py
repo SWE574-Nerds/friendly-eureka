@@ -92,7 +92,7 @@ class AnnotationService(object):
             },
             "selector" : [],
             "target": VIEW_PATH.replace("{id}", str(listoryId)),
-            "motivation": form.motivation
+            "motivation": form.body.motivation
         }
 
         selector = form.selector
@@ -118,7 +118,7 @@ class AnnotationService(object):
             "creator": "", # Will be set later
             "type": "Annotation",
             "target": VIEW_PATH.replace("{id}", listoryId),
-            "motivation": self.motivation
+            "motivation": body.motivation
         }
 
         return anno, hash
@@ -136,7 +136,7 @@ class AnnotationService(object):
         listory = ListoryService.get_listory_by_id(
         form.listory),
         author = user,
-        motivation = form.motivation);
+        motivation = form.body.motivation);
 
         return anno, hash
 
@@ -154,7 +154,7 @@ class AnnotationService(object):
         listory = ListoryService.get_listory_by_id(
         form.listory),
         author = user,
-        motivation = form.motivation);
+        motivation = form.body.motivation);
 
         return anno, hash
 
@@ -171,7 +171,7 @@ class AnnotationService(object):
         listory = ListoryService.get_listory_by_id(
         form.listory),
         author = user,
-        motivation = form.motivation);
+        motivation = form.body.motivation);
 
         return anno, hash
 
