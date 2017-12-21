@@ -6,6 +6,10 @@ class Annotation(models.Model):
     storeKey = models.TextField(verbose_name="annotation_store_key")
     listory = models.ForeignKey(Post)
     author = models.ForeignKey('auth.User', verbose_name='Writer', related_name='annos')
+    x = models.FloatField()
+    y = models.FloatField()
+    width = models.FloatField()
+    height = models.FloatField()
 
     def __str__(self):
         return self.author.username + " annot(" + self.storeKey + "): " + self.message
