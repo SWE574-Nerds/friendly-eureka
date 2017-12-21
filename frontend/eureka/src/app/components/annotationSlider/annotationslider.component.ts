@@ -55,8 +55,19 @@ export class AnnotationSliderComponent implements OnInit {
   
 
   private motivation: AnnoMotivation[] = [
-    {id: "1", name: "Question"},
-    {id: "1", name: "Inform"}
+    {id: "1", name: "Assessing"},
+    {id: "1", name: "Bookmarking"},
+    {id: "1", name: "Classifying"},
+    {id: "1", name: "Commenting"},
+    {id: "1", name: "Describing"},
+    {id: "1", name: "Editing"},
+    {id: "1", name: "Highlighting"},
+    {id: "1", name: "Identifying"},
+    {id: "1", name: "Linking"},
+    {id: "1", name: "Moderating"},
+    {id: "1", name: "Questioning"},
+    {id: "1", name: "Replying"},
+    {id: "1", name: "Tagging"}
   ];
 
   private selectedMotivation: AnnoMotivation;

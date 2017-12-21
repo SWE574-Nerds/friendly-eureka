@@ -37,6 +37,8 @@ export class AnnotationListComponent implements OnInit {
 
   @Input() bodies: object[] = null;
 
+  @Input() selectedMotivation: string;
+
   ngOnChanges(e) {
     if (this.currentlyHighlightedAnnotation)
     if (this.annotation)
@@ -73,6 +75,10 @@ export class AnnotationListComponent implements OnInit {
           this.bodies = this.annotation.body;
         } else if (this.annotation.body) {
           this.bodies = [this.annotation.body];
+        }
+
+        if (this.annotation.motivation) {
+          this.selectedMotivation = this.annotation.motivation;
         }
       });
     }
