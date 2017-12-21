@@ -3,12 +3,17 @@ export class Selector{
     public prefix: string;
     public suffix: string;
 }
+export class Creator{
+    public nickname: string;
+    public id: string;
+    public type: string;
+}
 
 export class Annotation 
 {
     public id : string;
     public body: object;
     public target: string;
-    public creator: string;
+    public creator: Creator;
     public selector: Selector[]
 }

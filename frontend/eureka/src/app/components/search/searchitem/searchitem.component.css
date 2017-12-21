@@ -5,11 +5,11 @@
 }
 
 .category{
-    float:right;     
-}
-
-.tag{
+    float:right;
     margin-left: 8px;
+    z-index: 9999;
+    position: relative;
+    top: -14px;
 }
 
 

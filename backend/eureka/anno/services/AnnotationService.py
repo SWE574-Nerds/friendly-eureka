@@ -42,7 +42,7 @@ class AnnotationService(object):
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "id": hash,
             "type": "Annotation",
-            "creator": "",  # Will be set later
+            "creator" : None,  # Will be set later
             "body": [],
             "selector" : [],
             "target": VIEW_PATH.replace("{id}", listoryId)
@@ -83,7 +83,7 @@ class AnnotationService(object):
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "id": hash,
             "type": "Annotation",
-            "creator": "", # Will be set later
+            "creator": None, # Will be set later
             "body": {
                 "type": "TextualBody",
                 "value": form.body.message,
@@ -113,7 +113,7 @@ class AnnotationService(object):
         anno = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "id": hash,
-            "creator": "", # Will be set later
+            "creator": None, # Will be set later
             "type": "Annotation",
             "target": VIEW_PATH.replace("{id}", listoryId)
         }
@@ -124,7 +124,11 @@ class AnnotationService(object):
     def createImageAnnotation(self, form, user):
         anno, hash = self.createImageAnnotationJSONLD(form, form.listory)
 
-        anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
+        anno['creator'] = {
+            'nickname': user.username,
+            'id': user.id,
+            'type' : 'Person'
+        }
 
         self.redis.set(hash, json.dumps(anno))
 
@@ -141,7 +145,11 @@ class AnnotationService(object):
     def createTextAnnotation(self, form:AnnotationForm, user):
         anno, hash = self.createPlainTextAnnotationJSONLD(form, form.listory)
 
-        anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
+        anno['creator'] = {
+            'nickname': user.username,
+            'id': user.id,
+            'type': 'Person'
+        }
 
         self.redis.set(hash, json.dumps(anno))
 
@@ -157,7 +165,11 @@ class AnnotationService(object):
     def createHighlightAnnotation(self, form, user):
         anno, hash = self.createHighlightAnnotationJSONLD(form.body, form.listory)
 
-        anno['creator'] = "http://localhost:8000/api/user/" + str(user.id) + "/";
+        anno['creator'] = {
+            'nickname': user.username,
+            'id': user.id,
+            'type': 'Person'
+        }
 
         self.redis.set(hash, json.dumps(anno))
 

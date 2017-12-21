@@ -24,7 +24,11 @@ export class AnnotationListComponent implements OnInit {
     body: null,
     id: "0",
     target: "",
-    creator: "",
+    creator: {
+      nickname: "testser",
+      id: "0",
+      type: "Person"
+    },
     selector: []
   };
 
@@ -64,16 +68,11 @@ export class AnnotationListComponent implements OnInit {
     }, 1000);*/
 
 
-
-    if (this.annotation.creator !== "") {
-      this.annotationService.getAnnotationOwner(this.annotation.creator).then((author) => {
-        this.author = author;
+    
         if (Array.isArray(this.annotation.body)) {
           this.bodies = this.annotation.body;
         } else if (this.annotation.body) {
           this.bodies = [this.annotation.body];
         }
-      });
-    }
-  }
+      }
 }
