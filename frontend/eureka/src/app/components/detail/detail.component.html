@@ -2,7 +2,7 @@
     <div class="card-block">
 
         <p class="category">
-            <span *ngFor="let tag of listory.tags" 
+            <span *ngFor="let tag of listory.tags"
             class="badge badge-primary tag">
             {{tag.name}}</span>
         </p>
@@ -10,7 +10,7 @@
         <h4 class="card-title">{{listory.name}}</h4>
 
         <div class="left info-block">
-            <img *ngIf="listory.image" src="{{listory.image}}" />
+            <img *ngIf="listory.image" src="{{listory.image}}" id="img_{{listory.listoryId}}"/>
             <hr *ngIf="listory.image">
 
             <p class="year-component">
@@ -21,16 +21,16 @@
             <p class="year-component">
                 <span class="badge badge-info">Author</span> {{listory.owner.name}}</p>
             <p class="year-component">
-                <span class="badge badge-default">Created</span> <agobox [seconds]="listory.createdAt"></agobox></p>                
+                <span class="badge badge-default">Created</span> <agobox [seconds]="listory.createdAt"></agobox></p>
         </div>
-        
+
 
         <selectabletext class="card-text" [selections]="selections" [listory]="listory"></selectabletext>
 
     </div>
 
     <div *ngIf="user && user.token && user.name == listory.owner.name">
-            <button type="button" class="btn btn-danger" (click)="deleteListory(listory.listoryId)" >Delete</button>            
+            <button type="button" class="btn btn-danger" (click)="deleteListory(listory.listoryId)" >Delete</button>
     </div>
 </div>
 
@@ -42,6 +42,5 @@
         <p class="category">
             <span class="badge badge-primary">History item not found</span>
         </p>
-    </div>    
+    </div>
 </div>
-

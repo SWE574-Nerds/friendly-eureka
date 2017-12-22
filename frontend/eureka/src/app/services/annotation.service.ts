@@ -69,7 +69,8 @@ export class AnnotationService {
           var body_text = {
             listory: selector.listoryId,
             body: {
-              message: selector.description
+              message: selector.description,
+              shape: selector.shape
             },
             selector: null
           };

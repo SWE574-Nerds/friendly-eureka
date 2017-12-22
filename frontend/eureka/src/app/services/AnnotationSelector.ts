@@ -1,3 +1,4 @@
+import { Shape } from './Shape';
 export class AnnotationSelector {
     public fullPage: boolean;
     public mediaType: string;
@@ -11,5 +12,7 @@ export class AnnotationSelector {
     public startsWith: string;
     public endsWith: string;
     public selection: string;
+
+    public shape: Shape;
 
 }

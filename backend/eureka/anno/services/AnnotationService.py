@@ -8,11 +8,11 @@ ANNO_GET_PATH = "http://localhost:8000/api/annotation/{id}/body"
 
 from anno.RedisFactory import RedisFactory
 
+
 class AnnotationService(object):
     def __init__(self):
         redisFactory = RedisFactory();
         self.redis = redisFactory.getRedisConnection();
-
 
     def getAnnotationJSONLD(self, storeKey):
         try:
@@ -20,12 +20,9 @@ class AnnotationService(object):
         except:
             return None
 
-
     def getAnnotationBody(self, storeKey):
         annotation = self.getAnnotation(storeKey)
         return annotation.message
-
-
 
     def getAnnotation(self, storeKey):
         try:
@@ -33,8 +30,7 @@ class AnnotationService(object):
         except:
             return None
 
-
-    def createImageAnnotationJSONLD(self, form:AnnotationForm, listoryId):
+    def createImageAnnotationJSONLD(self, form: AnnotationForm, listoryId):
 
         hash = form.body.hash()
 
@@ -44,7 +40,7 @@ class AnnotationService(object):
             "type": "Annotation",
             "creator" : None,  # Will be set later
             "body": [],
-            "selector" : [],
+            "selector": [],
             "target": VIEW_PATH.replace("{id}", listoryId)
         }
 
@@ -61,7 +57,6 @@ class AnnotationService(object):
                 "format": "image/png",
             })
 
-
         selector = form.selector
         if (selector is not None):
             textSelector = selector["text"]
@@ -74,8 +69,7 @@ class AnnotationService(object):
             });
         return anno, hash
 
-
-    def createPlainTextAnnotationJSONLD(self, form:AnnotationForm, listoryId):
+    def createPlainTextAnnotationJSONLD(self, form: AnnotationForm, listoryId):
 
         hash = form.body.hash()
 
@@ -88,8 +82,9 @@ class AnnotationService(object):
                 "type": "TextualBody",
                 "value": form.body.message,
                 "format": "text/plain",
+                "shape": form.body.shape
             },
-            "selector" : [],
+            "selector": [],
             "target": VIEW_PATH.replace("{id}", str(listoryId))
         }
 
@@ -120,7 +115,6 @@ class AnnotationService(object):
 
         return anno, hash
 
-
     def createImageAnnotation(self, form, user):
         anno, hash = self.createImageAnnotationJSONLD(form, form.listory)
 
@@ -133,16 +127,14 @@ class AnnotationService(object):
         self.redis.set(hash, json.dumps(anno))
 
         Annotation.objects.create(message=form.body.message,
-        storeKey = hash,
-        listory = ListoryService.get_listory_by_id(
-        form.listory),
-        author = user);
+                                  storeKey=hash,
+                                  listory=ListoryService.get_listory_by_id(
+                                      form.listory),
+                                  author=user);
 
         return anno, hash
 
-
-
-    def createTextAnnotation(self, form:AnnotationForm, user):
+    def createTextAnnotation(self, form: AnnotationForm, user):
         anno, hash = self.createPlainTextAnnotationJSONLD(form, form.listory)
 
         anno['creator'] = {
@@ -154,13 +146,17 @@ class AnnotationService(object):
         self.redis.set(hash, json.dumps(anno))
 
         Annotation.objects.create(message=form.body.message,
-        storeKey = hash,
-        listory = ListoryService.get_listory_by_id(
-        form.listory),
-        author = user);
+                                  storeKey=hash,
+                                  listory=ListoryService.get_listory_by_id(
+                                      form.listory),
+                                  author=user,
+                                  x=form.body.x,
+                                  y=form.body.y,
+                                  width=form.body.width,
+                                  height=form.body.height
+                                  );
 
         return anno, hash
-
 
     def createHighlightAnnotation(self, form, user):
         anno, hash = self.createHighlightAnnotationJSONLD(form.body, form.listory)
@@ -174,13 +170,12 @@ class AnnotationService(object):
         self.redis.set(hash, json.dumps(anno))
 
         Annotation.objects.create(message=form.body.message,
-        storeKey = hash,
-        listory = ListoryService.get_listory_by_id(
-        form.listory),
-        author = user);
+                                  storeKey=hash,
+                                  listory=ListoryService.get_listory_by_id(
+                                      form.listory),
+                                  author=user);
 
         return anno, hash
-
 
     def getAnnotationsOfListory(self, listoryId):
 

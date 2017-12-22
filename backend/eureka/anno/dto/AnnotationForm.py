@@ -10,6 +10,11 @@ class AnnotationBodyForm(object):
         if body is not None:
             self.message = body.get('message') or ""
             self.link = body.get('link') or ""
+            self.shape = body['shape']
+            self.x = self.shape['x']
+            self.y = self.shape['y']
+            self.width = self.shape['width']
+            self.height = self.shape['height']
 
     def __str__(self):
         return "{message:" + self.message + ", link:" + self.link + "}"
