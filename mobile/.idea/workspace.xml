@@ -7,22 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef667258-e7ff-47f2-a52f-597ad35bdff0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/build.gradle" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/EurekaApplication.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/EurekaApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/MainActivity.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/MainRecyclerAdapter.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/MainRecyclerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/CellData.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/CellData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/Detail.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/Detail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainCreate.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainCreate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainList.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/interfaces/NetComponent.java" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/interfaces/NetComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/eureka_cell.xml" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/eureka_cell.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_detail.xml" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_main_create.xml" afterPath="$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_main_create.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EurekaSWE 4/build.gradle" afterPath="$PROJECT_DIR$/EurekaSWE 4/build.gradle" />
     </list>
     <ignored path="mobile.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,31 +53,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AltRecyclerAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AltRecyclerAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/AltRecyclerAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="33" column="4" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1308#1309#0" expanded="false" />
-                <element signature="e#1339#1340#0" expanded="false" />
-                <element signature="e#1384#1385#0" expanded="false" />
-                <element signature="e#1424#1425#0" expanded="false" />
-                <element signature="e#2022#2023#0" expanded="false" />
-                <element signature="e#2054#2055#0" expanded="false" />
-                <element signature="e#4044#4045#0" expanded="false" />
-                <element signature="e#4083#4084#0" expanded="false" />
-              </folding>
+              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainRecyclerAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainRecyclerAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/MainRecyclerAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
-              <caret line="281" column="5" selection-start-line="265" selection-start-column="6" selection-end-line="281" selection-end-column="5" />
+              <caret line="300" column="0" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -101,13 +76,9 @@
       <file leaf-file-name="ListoryCreateMapFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/ListoryCreateMapFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="123" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#8991#8992#0" expanded="false" />
-                <element signature="e#9046#9047#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="1065">
+              <caret line="124" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="728" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -115,11 +86,9 @@
       <file leaf-file-name="MainCreate.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainCreate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="230" column="24" selection-start-line="230" selection-start-column="24" selection-end-line="230" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state relative-caret-position="3450">
+              <caret line="247" column="0" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -128,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_listory_create_map_fragment.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
-              <caret line="25" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+              <caret line="30" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,10 +108,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding>
-                <element signature="e#573#574#0" expanded="false" />
-                <element signature="e#600#601#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -162,10 +128,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="390">
               <caret line="28" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="e#446#447#0" expanded="false" />
-                <element signature="e#473#474#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -188,7 +151,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="433" />
+    <option name="x" value="19" />
     <option name="y" value="23" />
     <option name="width" value="1661" />
     <option name="height" value="989" />
@@ -218,9 +181,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane />
       </pane>
@@ -736,6 +696,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1015,7 +978,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="433" y="23" width="1661" height="989" extended-state="0" />
+    <frame x="19" y="23" width="1661" height="989" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1060,11 +1023,96 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/ResponseLogin.java">
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/CellData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/components/NewImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#241#242#0" expanded="false" />
+            <element signature="e#271#272#0" expanded="false" />
+            <element signature="e#335#336#0" expanded="false" />
+            <element signature="e#372#373#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/AltRecyclerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/MainRecyclerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/ListoryCreateMapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="123" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainCreate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2685">
+          <caret line="230" column="24" selection-start-line="230" selection-start-column="24" selection-end-line="230" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_listory_create_map_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/Markers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/Points.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/Polylines.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="28" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/data/ResponseLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1090,9 +1138,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1100,7 +1146,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1118,7 +1163,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1136,7 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1176,20 +1219,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/ListoryCreateMapFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="123" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#8991#8992#0" expanded="false" />
-            <element signature="e#9046#9047#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="1065">
+          <caret line="124" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="728" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/res/layout/fragment_listory_create_map_fragment.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="25" column="43" selection-start-line="0" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <caret line="30" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1198,10 +1237,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="e#573#574#0" expanded="false" />
-            <element signature="e#600#601#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1217,20 +1253,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="28" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#446#447#0" expanded="false" />
-            <element signature="e#473#474#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/fragments/MainCreate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="230" column="24" selection-start-line="230" selection-start-column="24" selection-end-line="230" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state relative-caret-position="3450">
+          <caret line="247" column="0" selection-start-line="247" selection-start-column="0" selection-end-line="247" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1256,28 +1287,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/AltRecyclerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="33" column="4" selection-start-line="33" selection-start-column="3" selection-end-line="33" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1308#1309#0" expanded="false" />
-            <element signature="e#1339#1340#0" expanded="false" />
-            <element signature="e#1384#1385#0" expanded="false" />
-            <element signature="e#1424#1425#0" expanded="false" />
-            <element signature="e#2022#2023#0" expanded="false" />
-            <element signature="e#2054#2055#0" expanded="false" />
-            <element signature="e#4044#4045#0" expanded="false" />
-            <element signature="e#4083#4084#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/MainRecyclerAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
-          <caret line="281" column="5" selection-start-line="265" selection-start-column="6" selection-end-line="281" selection-end-column="5" />
+          <caret line="300" column="0" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EurekaSWE 4/app/src/main/java/com/example/canma/eurekaswe/adapters/AltRecyclerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
           <folding />
         </state>
       </provider>

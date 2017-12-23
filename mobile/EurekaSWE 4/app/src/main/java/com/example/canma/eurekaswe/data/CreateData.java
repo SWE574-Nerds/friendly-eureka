@@ -8,6 +8,6 @@ public class CreateData {
     public String name;
     public String description;
     public String image;
-    public int category;
+    public String[] tags;
     public TimeInfo timeInfo;
 }

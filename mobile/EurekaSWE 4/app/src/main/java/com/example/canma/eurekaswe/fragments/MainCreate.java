@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -266,7 +267,26 @@ public class MainCreate extends Fragment {
         wills.description=detailEditText.getText().toString().trim();
         wills.image=linkEditText.getText().toString().trim();
         wills.name=titleEditText.getText().toString().trim();
-        //wills.category=((CategoryFormat)categorySpinner.getItemAtPosition(categorySpinner.getSelectedItemPosition())).id;
+
+        List<ContactChip> contactsSelected = (List<ContactChip>) chipsInput.getSelectedChipList();
+       // CategoryFormat[] catArray = new CategoryFormat[contactsSelected.size()];
+        String[] strArray = new String[contactsSelected.size()];
+
+        int i=0;
+        for(ContactChip contact: contactsSelected ){
+        String category = new String();
+        //CategoryFormat category = new CategoryFormat();
+            category = contact.name;
+          //  category.id = Integer.parseInt(contact.id);
+            Log.d("sendContent: ", category);
+            strArray[i]= category;
+            i++;
+        }
+
+
+
+
+        wills.tags=strArray;
 
 
         TimeFormat timeFormat = (TimeFormat)dateSpinner.getItemAtPosition(dateSpinner.getSelectedItemPosition());
