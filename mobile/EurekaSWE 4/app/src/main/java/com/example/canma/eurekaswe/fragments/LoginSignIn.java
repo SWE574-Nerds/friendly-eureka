@@ -79,8 +79,8 @@ public class LoginSignIn extends  Fragment {
 
     @OnClick(R.id.button_sign_up)
     public void signUp() {
-        tryLogin("ece","12345678");
-/*
+     //   tryLogin("ece","12345678");
+
 
         if(
                 username.getText().length()>0&&
@@ -98,8 +98,8 @@ tryLogin(username.getText().toString(),password.getText().toString());
 
 
             AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-            alertDialog.setTitle("Uyarı");
-            alertDialog.setMessage("Uyarı");
+            alertDialog.setTitle("Warning");
+            alertDialog.setMessage("Error signing in");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -108,7 +108,7 @@ tryLogin(username.getText().toString(),password.getText().toString());
                     });
             alertDialog.show();
         }
-*/
+
     }
 
 
@@ -211,7 +211,7 @@ tryLogin(username.getText().toString(),password.getText().toString());
 
 
 
-                    Toast.makeText(getActivity(), r.token, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), r.token, Toast.LENGTH_SHORT).show();
 
 
                     Remember.putString("uid",""+ r.userId);
@@ -220,8 +220,8 @@ tryLogin(username.getText().toString(),password.getText().toString());
 
 
                     AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-                    alertDialog.setTitle("LOGIN BASARILI");
-                    alertDialog.setMessage("Token: "+r.token);
+                    alertDialog.setTitle("WELCOME");
+                    alertDialog.setMessage("TO EUREKA");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -237,8 +237,8 @@ tryLogin(username.getText().toString(),password.getText().toString());
 
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-                    alertDialog.setTitle("Uyarı");
-                    alertDialog.setMessage("Uyarı");
+                    alertDialog.setTitle("WARNING");
+                    alertDialog.setMessage("WARNING");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {

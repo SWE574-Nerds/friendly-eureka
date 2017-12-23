@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:lines="3"
-        android:text="Map locations will be added here once CREATE button on map is clicked"
+        android:text=""
         android:layout_below="@+id/mapButton" />
 
     <com.pchmn.materialchips.ChipsInput

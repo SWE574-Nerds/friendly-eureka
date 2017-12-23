@@ -1,27 +1,23 @@
 package com.example.canma.eurekaswe.fragments;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,41 +26,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.widget.ToggleButton;
 
 import com.example.canma.eurekaswe.EurekaApplication;
 import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.R;
-import com.example.canma.eurekaswe.data.CategoryFormat;
-import com.example.canma.eurekaswe.data.CellData;
-import com.example.canma.eurekaswe.data.CreateData;
 import com.example.canma.eurekaswe.data.LatLong;
 import com.example.canma.eurekaswe.data.Markers;
-import com.example.canma.eurekaswe.data.PassedPolySmth;
 import com.example.canma.eurekaswe.data.Points;
 import com.example.canma.eurekaswe.data.Polylines;
-import com.example.canma.eurekaswe.data.TimeFormat;
-import com.example.canma.eurekaswe.data.TimeInfo;
-import com.example.canma.eurekaswe.interfaces.calls.CreateApi;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -76,27 +56,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.*;
-
-import com.google.gson.Gson;
-import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -105,13 +70,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCallback {
+public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     View view = null;
 
@@ -158,136 +120,8 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     @Named("regular")
     Retrofit retrofit;
 
-    @BindView(R.id.input_search)
-    EditText mSearchText;
-
-    @BindView(R.id.ic_gps)
-    ImageButton gpsCurrentLocation;
-
-    @BindView(R.id.delete_button)
-    ImageButton deleteMarkersutton;
-
-    @BindView(R.id.create_button)
-    Button createButton;
-
-    @BindView(R.id.toggleButton)
-    ToggleButton toggleButton;
-
-    @OnClick(R.id.create_button)
-    public void createLatLong(){
 
 
-
-
-
-        boolean checked = toggleButton.isChecked();
-        if(checked){
-            if(circle!=null){
-                Marker marker= markers.get(0);
-
-                Markers marker1= new Markers(circle.getCenter().latitude,circle.getCenter().longitude,circle.getRadius()*2.05,mSearchText.getText().toString(),"#0000ff");
-
-                EventBus.getDefault().post((new LatLong(marker1,null)));
-
-                getFragmentManager().popBackStack();
-
-            }
-
-
-        }else{
-
-
-
-            if(markers.size()>1){
-                ArrayList<Points> points = new ArrayList<Points>();
-
-                for(Marker marker: markers){
-
-                    Points point = new Points(marker.getPosition().latitude,marker.getPosition().longitude);
-                    points.add(point);
-
-
-                }
-                Polylines polylines= new Polylines(points,"#0000ff",mSearchText.getText().toString());
-                EventBus.getDefault().post(new LatLong(null,polylines));
-
-                getFragmentManager().popBackStack();
-            }
-
-        }
-
-    }
-    @OnClick(R.id.ic_gps)
-    public void gpsImagePressed(){
-
-        geoLocate();
-    }
-
-    @OnClick(R.id.delete_button)
-    public void deleteButtonPressed(){
-        mMap.clear();
-        if(circle!=null){
-            circle.remove();
-            circle = null;
-        }
-        if(line!=null){
-            line.remove();
-        }
-        markers.clear();
-        for(Marker marker:markers){
-
-            marker.remove();
-
-
-        }
-
-    }
-
-
-
-    @OnClick(R.id.circle_button)
-    public void markerButtonPressed(){
-        boolean checked = toggleButton.isChecked();
-        if(checked){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-            builder.setTitle("Magnitude for the marker in meters.");
-
-// Set up the input
-            final EditText input = new EditText(getActivity());
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_NUMBER);
-            builder.setView(input);
-
-// Set up the buttons
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    m_Text = Integer.parseInt(input.getText().toString());
-                    if(circle != null){
-                        circle = null;
-                    }
-                    circle = drawCircle(m_Text/2,new LatLng(lastAddress.getLatitude(),lastAddress.getLongitude()));
-
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-
-            builder.show();
-
-
-        }else{
-
-            Toast.makeText(this.getActivity(), "Please select Marker to select a diameter.", Toast.LENGTH_SHORT).show();
-
-
-        }
-
-    }
     private Circle drawCircle(int radius, LatLng latLng){
 
 
@@ -348,7 +182,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_listory_create_map_fragment, container, false);
+        view = inflater.inflate(R.layout.fragment_detail_map_fragment, container, false);
 
 
         unbinder = ButterKnife.bind(this, view);
@@ -472,7 +306,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     }
 
     private void init(){
-        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+      /*  mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH
@@ -490,7 +324,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
 
         hideSoftKeyboard();
-
+*/
     }
 
 
@@ -592,7 +426,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
  */
 
     private void geoLocate(){
-        Log.d(TAG, "geoLocate: geolocating");
+       /* Log.d(TAG, "geoLocate: geolocating");
 
         String searchString = mSearchText.getText().toString();
         Log.d(TAG, "geoLocate: geolocating now kdsjlkdjkaljds "+ searchString);
@@ -612,7 +446,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
             moveCamera(new LatLng(lastAddress.getLatitude(), lastAddress.getLongitude()), DEFAULT_ZOOM,
                     lastAddress.getAddressLine(0));
-        }
+        }*/
     }
 
 
@@ -633,7 +467,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher))
                 .position(latLng)
                 .title(title);
-        boolean checked = toggleButton.isChecked();
+       /* boolean checked = toggleButton.isChecked();
         if(checked) {
             mMap.clear();
             markers.add(mMap.addMarker(options));
@@ -642,7 +476,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
             if(markers.size()>1){
                 drawLine();
             }
-        }
+        }*/
 
     }
 
@@ -690,18 +524,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
-    private int convertZoneRadiusToPixels(double lat, double lng, double radiusInMeters) {
-        double EARTH_RADIUS = 6378100.0;
-        double lat1 = radiusInMeters / EARTH_RADIUS;
-        double lng1 = radiusInMeters / (EARTH_RADIUS * Math.cos((Math.PI * lat / 180)));
 
-        double lat2 = lat + lat1 * 180 / Math.PI;
-        double lng2 = lng + lng1 * 180 / Math.PI;
-
-        Point p1 = mMap.getProjection().toScreenLocation(new LatLng(lat, lng));
-        Point p2 = mMap.getProjection().toScreenLocation(new LatLng(lat2, lng2));
-        return Math.abs(p1.x - p2.x);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
