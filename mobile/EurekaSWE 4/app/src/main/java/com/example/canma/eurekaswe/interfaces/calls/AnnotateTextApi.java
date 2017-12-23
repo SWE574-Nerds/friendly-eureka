@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 public interface AnnotateTextApi {
 
 
-@POST("/annotation/{id}/text")
+@POST("annotation/{id}/text/")
 Call<ResponseBody> annotate(@Header("Content-Type") String contentType, @Header("Authorization") String contentType2, @Path("id") String postId, @Body AnnotateData content);
 
 

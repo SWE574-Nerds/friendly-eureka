@@ -44,68 +44,78 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/input_search"
-            android:layout_centerVertical="true"
             android:textSize="15sp"
             android:textColor="#000"
             android:background="@color/white"
             android:hint="Enter Address, City or Zip Code"
             android:imeOptions="actionSearch"
+            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/ic_magnify"
-            android:layout_toEndOf="@+id/ic_magnify" />
+            android:layout_toEndOf="@+id/ic_magnify"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp" />
 
     </RelativeLayout>
 
     <ImageButton
         android:id="@+id/ic_gps"
+        style="@android:style/Widget.ImageButton"
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:layout_alignEnd="@+id/relLayout1"
         android:layout_alignRight="@+id/relLayout1"
         android:layout_below="@+id/relLayout1"
+        android:backgroundTint="@color/white"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_magnify" />
 
     <Button
         android:id="@+id/create_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create"
+        android:layout_above="@+id/mapNew"
         android:layout_below="@+id/relLayout1"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         android:layout_toLeftOf="@+id/delete_button"
         android:layout_toStartOf="@+id/delete_button"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_above="@+id/mapNew" />
+        android:text="create"
+        android:textStyle="bold" />
 
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ToggleButton"
-        android:textOff="Path"
-        android:textOn ="Marker"
-        android:layout_below="@+id/relLayout1"
+        android:layout_above="@+id/mapNew"
         android:layout_alignLeft="@+id/relLayout1"
         android:layout_alignStart="@+id/relLayout1"
-        android:layout_above="@+id/mapNew" />
+        android:layout_below="@+id/relLayout1"
+        android:text="ToggleButton"
+        android:textOff="Path"
+        android:textOn="Marker"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/delete_button"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_delete"
-        android:layout_toLeftOf="@+id/ic_gps"
+        android:layout_above="@+id/mapNew"
         android:layout_below="@+id/relLayout1"
-        android:layout_above="@+id/mapNew" />
+        android:layout_toLeftOf="@+id/ic_gps"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@android:drawable/ic_delete" />
 
     <ImageButton
         android:id="@+id/circle_button"
-        android:layout_width="40dp"
+        style="@android:style/Widget.DeviceDefault.Light.ImageButton"
+        android:layout_width="44dp"
         android:layout_height="40dp"
-        app:srcCompat="@drawable/category_background"
         android:layout_below="@+id/relLayout1"
         android:layout_toRightOf="@+id/toggleButton"
-        android:layout_toEndOf="@+id/toggleButton" />
+        android:backgroundTint="@color/white"
+        app:srcCompat="@drawable/category_background" />
 
 
 </RelativeLayout>

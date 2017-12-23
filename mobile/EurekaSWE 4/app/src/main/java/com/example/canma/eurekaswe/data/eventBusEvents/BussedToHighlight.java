@@ -6,7 +6,7 @@ import com.example.canma.eurekaswe.data.Selector;
 import java.util.List;
 
 /**
- * Created by suzanece on 12/12/2017.
+ * Created by canma on 12/12/2017.
  */
 
 public class BussedToHighlight {

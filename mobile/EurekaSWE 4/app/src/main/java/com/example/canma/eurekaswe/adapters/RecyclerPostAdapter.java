@@ -80,7 +80,7 @@ public class RecyclerPostAdapter extends RecyclerView.Adapter<RecyclerPostAdapte
 
 
         GradientDrawable draws = (GradientDrawable) holder.mTextView.getBackground();
-        draws.setStroke(2, Color.parseColor("#cdcdcd"));
+        draws.setStroke(2, Color.parseColor("#FFFFFF"));
 
 
 

@@ -1,7 +1,11 @@
 package com.example.canma.eurekaswe.fragments;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,21 +37,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.canma.eurekaswe.EurekaApplication;
 import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.R;
 import com.example.canma.eurekaswe.adapters.AltRecyclerAdapter;
+import com.example.canma.eurekaswe.adapters.MainRecyclerAdapter;
 import com.example.canma.eurekaswe.adapters.RecyclerPostAdapter;
 import com.example.canma.eurekaswe.components.NewImageView;
 import com.example.canma.eurekaswe.data.AltCellData;
 import com.example.canma.eurekaswe.data.AnnotateData;
 import com.example.canma.eurekaswe.data.Body2;
 import com.example.canma.eurekaswe.data.CellData;
-import com.example.canma.eurekaswe.data.LatLong;
+import com.example.canma.eurekaswe.data.ImageRect;
 import com.example.canma.eurekaswe.data.Selector;
 import com.example.canma.eurekaswe.data.Selector2;
 import com.example.canma.eurekaswe.data.SelectorTextLayer;
-import com.example.canma.eurekaswe.data.eventBusEvents.BussedToDetail;
 import com.example.canma.eurekaswe.data.eventBusEvents.BussedToHighlight;
 import com.example.canma.eurekaswe.interfaces.calls.AltListApi;
 import com.example.canma.eurekaswe.interfaces.calls.AnnotateTextApi;
@@ -56,8 +64,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -110,6 +120,8 @@ public class Detail extends Fragment {
     Button deleteButton;
     @BindView(R.id.item_image)
     NewImageView itemImage;
+    @BindView(R.id.item_image2)
+    NewImageView itemImage2;
     @BindView(R.id.item_expl)
     TextView itemExpl;
     @BindView(R.id.category_recycler)
@@ -122,6 +134,8 @@ public class Detail extends Fragment {
     CellData cellData;
 
     String myId;
+
+
 
 
 
@@ -210,8 +224,8 @@ public class Detail extends Fragment {
 
 
     }
-
-
+public ImageRect imageRect;
+    Canvas canvas;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -224,6 +238,9 @@ public class Detail extends Fragment {
             cellData = (CellData) bundle.getSerializable("post");
         }
 highlighteds= new SimpleArrayMap<>();
+
+        imageRect= new ImageRect();
+
 
     }
 
@@ -259,6 +276,7 @@ highlighteds= new SimpleArrayMap<>();
 
 
         adapter.notifyDataSetChanged();
+
 
 
         return view;
@@ -311,6 +329,8 @@ highlighteds= new SimpleArrayMap<>();
 
                 List<AltCellData> altCellDataList=response.body();
 
+
+
 for (AltCellData altCellData:altCellDataList){
 
         highlighteds.put(
@@ -343,16 +363,32 @@ for (AltCellData altCellData:altCellDataList){
     }
 
 
+    Bitmap bmp;
+
+    public void fillMainCell(final CellData cellData){
+        long l = Long.parseLong(cellData.createdAt)* 1000;
+        //current android time in epoch
+//Converts epoch to "dd/MM/yyyy HH:mm:ss" dateformat
+        String NormalDate = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(l));
+        long time = Long.parseLong(cellData.createdAt);
+        //current android time in epoch
+//Converts epoch to "dd/MM/yyyy HH:mm:ss" dateformat
+        SimpleDateFormat f = new java.text.SimpleDateFormat("hh:mm");
+        f.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
+        String timeDate =f.format(new java.util.Date(time));
 
 
-    public void fillMainCell(CellData cellData){
+
+
+
+        dateTv.setText(cellData.createdAt==null?"10 m":timeDate+" "+NormalDate);
 
 
 
 
 
-   userTv.setText(cellData.owner.name);
-   dateTv.setText(cellData.createdAt==null?"10 m":cellData.createdAt);
+        userTv.setText(cellData.owner.name);
+
    itemExpl.setText(cellData.description);
    itemLocation.setText("");
    itemName.setText(cellData.name);
@@ -390,17 +426,130 @@ categoryRecycler.setLayoutManager(mLayoutManager);
   itemTimeInfo.setText(cellData.time.name+" "+temp);
 
 
-  if(cellData.image.length()>0) {
+  if(cellData.image!=null||cellData.image.length()>0||!cellData.image.contentEquals("null")) {
+
+      if(!cellData.image.startsWith("http")){
+          cellData.image="http://"+cellData.image;
+      }
+
+
+
       Glide
               .with(mainActivity)
               .load(cellData.image)
+              .listener(new RequestListener<String, GlideDrawable>() {
+          @Override
+          public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+              return false;
+          }
+
+          @Override
+          public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+              int w = itemImage.getWidth();
+              int h = itemImage.getHeight();
+              Bitmap.Config conf = Bitmap.Config.ARGB_8888; // see other conf types
+              bmp = Bitmap.createBitmap(w, h, conf); // this creates a MUTABLE bitmap
+              canvas = new Canvas(bmp);
+              itemImage2.setImageBitmap(bmp);
+              return false;
+          }
+      }).dontAnimate()
               .into(itemImage);
+
+
+
+
+      itemImage.setOnTouchListener(new View.OnTouchListener() {
+
+          @Override
+          public boolean onTouch(View v, MotionEvent event) {
+
+if(imageRect.y1==-1&&imageRect.x1==-1){
+
+    int x = (int)event.getX();
+    int y = (int)event.getY();
+
+    Paint paint = new Paint();
+
+    paint.setAntiAlias(true);
+    paint.setColor(Color.RED);
+
+
+    canvas.drawCircle(x, y, 25, paint);
+
+    v.invalidate();
+    imageRect.x1 = x;
+    imageRect.y1 = y;
+
+}else{
+
+    if(imageRect.x2==-1&&imageRect.y2==-1) {
+
+
+    Paint paint = new Paint();
+    paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+    paint.setColor(Color.BLUE);
+
+    int x = (int) event.getX();
+    int y = (int) event.getY();
+
+
+
+
+        imageRect.x2=x;
+        imageRect.y2=y;
+
+
+        canvas.drawRect(imageRect.x1, imageRect.y1, imageRect.x2, imageRect.y2, paint );
+        v.invalidate();
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
+        alertDialog.setTitle("Annotate");
+        alertDialog.setMessage("x1: "+imageRect.x1 + " x2: "+imageRect.x2 + " y1: "+ imageRect.y1 +" y2: "+imageRect.y2);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+}else {
+
+
+                  imageRect= new ImageRect();
+        int w = itemImage.getWidth();
+        int h = itemImage.getHeight();
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        bmp = Bitmap.createBitmap(w, h, conf); // this creates a MUTABLE bitmap
+        canvas = new Canvas(bmp);
+        itemImage2.setImageBitmap(bmp);
+
+              }
+}
+
+
+
+
+
+              return false;
+          }
+      });
+
+
+
+
 
   }else {
       itemImage.setVisibility(View.GONE);
-
+itemImage2.setVisibility(View.GONE);
 
   }
+
+
 
 
 
@@ -594,7 +743,7 @@ if(input.getText().toString().trim().length()>0) {
 
 
       Body2 body= new Body2();
-      body.link="";
+
       body.message=detailedText;
 
 
@@ -607,6 +756,8 @@ if(input.getText().toString().trim().length()>0) {
 
       text.startsWith=start;
       text.endsWith=end;
+
+
       selector.text=text;
 
 
@@ -629,13 +780,15 @@ if(input.getText().toString().trim().length()>0) {
 
 
                   Toast.makeText(mainActivity, "Annotation başarılı", Toast.LENGTH_SHORT).show();
+
+                  listItems();
               }
 
           }
 
           @Override
           public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+Log.d("Annotate",t.getMessage());
           }
       });
 

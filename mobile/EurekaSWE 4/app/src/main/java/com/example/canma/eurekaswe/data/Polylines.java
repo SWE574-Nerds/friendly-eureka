@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Polylines {
 
 
-   public String name;
-   public String color;
+    public String name;
+    public String color;
     public ArrayList<Points> points;
 
     public Polylines(ArrayList<Points> points, String color, String name) {

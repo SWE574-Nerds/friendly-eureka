@@ -53,6 +53,7 @@ import com.example.canma.eurekaswe.data.CellData;
 import com.example.canma.eurekaswe.data.CreateData;
 import com.example.canma.eurekaswe.data.LatLong;
 import com.example.canma.eurekaswe.data.Markers;
+import com.example.canma.eurekaswe.data.PassedPolySmth;
 import com.example.canma.eurekaswe.data.Points;
 import com.example.canma.eurekaswe.data.Polylines;
 import com.example.canma.eurekaswe.data.TimeFormat;
@@ -182,31 +183,34 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
             if(circle!=null){
                 Marker marker= markers.get(0);
 
-                Markers marker1= new Markers(circle.getCenter().latitude,circle.getCenter().longitude,circle.getRadius(),"bomonti","#0000ff");
+                Markers marker1= new Markers(circle.getCenter().latitude,circle.getCenter().longitude,circle.getRadius(),mSearchText.getText().toString(),"#0000ff");
 
-                EventBus.getDefault().post(new LatLong(marker1,null));
+                EventBus.getDefault().post((new LatLong(marker1,null)));
 
                 getFragmentManager().popBackStack();
+
             }
 
 
         }else{
 
-        if(markers.size()>1){
-            ArrayList<Points> points = new ArrayList<Points>();
-
-        for(Marker marker: markers){
-
-            Points point = new Points(marker.getPosition().latitude,marker.getPosition().longitude);
-            points.add(point);
 
 
-            }
-            Polylines polylines= new Polylines(points,"path","#0000ff");
-            EventBus.getDefault().post(new LatLong(null,polylines));
+            if(markers.size()>1){
+                ArrayList<Points> points = new ArrayList<Points>();
 
-            getFragmentManager().popBackStack();
+                for(Marker marker: markers){
+
+                    Points point = new Points(marker.getPosition().latitude,marker.getPosition().longitude);
+                    points.add(point);
+
+
                 }
+                Polylines polylines= new Polylines(points,mSearchText.getText().toString(),"#0000ff");
+                EventBus.getDefault().post(new LatLong(null,polylines));
+
+                getFragmentManager().popBackStack();
+            }
 
         }
 

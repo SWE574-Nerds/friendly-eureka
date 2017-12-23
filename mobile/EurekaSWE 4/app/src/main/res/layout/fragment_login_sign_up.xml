@@ -63,24 +63,25 @@
         android:id="@+id/reenter" />
 
 
-
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reenter"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="CheckBox" />
+        android:layout_marginTop="19dp"
+        android:text="I agree to the terms and conditions. " />
 
     <Button
         android:id="@+id/button_sign_up"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
         android:layout_below="@+id/checkBox"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-      android:layout_centerHorizontal="true" />
+        android:text="Sign up"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/bottom_linear"

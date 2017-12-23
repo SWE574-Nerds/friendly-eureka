@@ -17,6 +17,7 @@ import com.example.canma.eurekaswe.R;
 import com.example.canma.eurekaswe.data.AltCellData;
 import com.example.canma.eurekaswe.data.Body;
 import com.example.canma.eurekaswe.data.CellData;
+import com.example.canma.eurekaswe.data.Creator;
 import com.example.canma.eurekaswe.data.Selector;
 import com.example.canma.eurekaswe.data.eventBusEvents.BussedToHighlight;
 import com.tumblr.remember.Remember;
@@ -31,7 +32,7 @@ import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
 /**
- * Created by suzanece on 10/31/2017.
+ * Created by suzaneceada on 10/31/2017.
  */
 
 public class AltRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -77,6 +78,8 @@ public class AltRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     public void addAltCellData(List<AltCellData> adds) {
+
+        cellDatas= new ArrayList<>();
         cellDatas.addAll(adds);
         notifyDataSetChanged();
     }
@@ -144,8 +147,11 @@ AltCellData altCllD;
         final AltCellData altCellData = cellDatas.get(position);
 recyclerAdapterViewHolder.altCllD=altCellData;
 
-        for (Body b:altCellData.body
-             ) {
+    Body b=altCellData.body;
+        Creator c= altCellData.creator;
+
+        recyclerAdapterViewHolder.altUserTv.setText(c.nickname);
+
             if(b.type.contentEquals("Image")){
 
 recyclerAdapterViewHolder.altImage.setVisibility(View.VISIBLE);
@@ -160,6 +166,7 @@ recyclerAdapterViewHolder.altImage.setVisibility(View.VISIBLE);
                 recyclerAdapterViewHolder.altTextView.setVisibility(View.VISIBLE);
 
                 recyclerAdapterViewHolder.altTextView.setText(b.value);
+                recyclerAdapterViewHolder.altUserTv.setText(c.nickname);
 
 
             }
@@ -168,7 +175,7 @@ recyclerAdapterViewHolder.altImage.setVisibility(View.VISIBLE);
 
 
 
-        }
+
 
 
 

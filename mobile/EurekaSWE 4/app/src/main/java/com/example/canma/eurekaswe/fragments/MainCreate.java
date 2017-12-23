@@ -4,30 +4,45 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.canma.eurekaswe.EurekaApplication;
 import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.R;
 import com.example.canma.eurekaswe.adapters.MainRecyclerAdapter;
+import com.example.canma.eurekaswe.components.ContactChip;
 import com.example.canma.eurekaswe.data.CategoryFormat;
 import com.example.canma.eurekaswe.data.CellData;
 import com.example.canma.eurekaswe.data.CreateData;
+import com.example.canma.eurekaswe.data.LatLong;
+import com.example.canma.eurekaswe.data.PassedPolySmth;
 import com.example.canma.eurekaswe.data.ResponseLogin;
 import com.example.canma.eurekaswe.data.TimeFormat;
 import com.example.canma.eurekaswe.data.TimeInfo;
 import com.example.canma.eurekaswe.interfaces.calls.CreateApi;
 import com.example.canma.eurekaswe.interfaces.calls.ListApi;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.gson.Gson;
+import com.pchmn.materialchips.ChipsInput;
+import com.pchmn.materialchips.model.ChipInterface;
 import com.tumblr.remember.Remember;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,19 +81,27 @@ public class MainCreate extends Fragment {
     EditText detailEditText;
     @BindView(R.id.link_edit_text)
     EditText linkEditText;
-    @BindView(R.id.location_edit_text)
-    EditText locationEditText;
+  //  @BindView(R.id.location_edit_text)
+   // EditText locationEditText;
 
     @BindView(R.id.date1)
     EditText date1;
     @BindView(R.id.date2)
     EditText date2;
-    @BindView(R.id.categoryspinner)
-    Spinner categorySpinner;
+    //@BindView(R.id.categoryspinner)
+    //Spinner categorySpinner;
     @BindView(R.id.datespinner)
     Spinner dateSpinner;
+    @BindView(R.id.chips_input)
+    ChipsInput chipsInput;
 
+    @BindView(R.id.mapButton)
+    Button mapButton;
+    @BindView(R.id.textView2)
+    TextView locationsFromMapTextView;
 
+    // build the ContactChip list
+    List<ContactChip> contactList = new ArrayList<>();
 
     @OnClick(R.id.create_b)
     public void createPressed(){
@@ -87,12 +110,26 @@ public class MainCreate extends Fragment {
         sendContent();
     }
 
+    @OnClick(R.id.mapButton)
+    public void mapButtonPressed(){
 
+        ListoryCreateMapFragment mapFragment = new ListoryCreateMapFragment();
+
+        FragmentManager manager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(R.id.fragment_container, mapFragment);
+        transaction.addToBackStack("create");
+        transaction.commit();
+
+
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
         ((EurekaApplication) getActivity().getApplication()).getNetComponent().inject(this);
+
     }
 
 
@@ -122,41 +159,46 @@ public class MainCreate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_main_create, container, false);
-
-
-
-
-
         unbinder = ButterKnife.bind(this, view);
 
 
 
+        //ArrayAdapter<CategoryFormat> adapter = new ArrayAdapter<CategoryFormat>(mainActivity, android.R.layout.simple_spinner_item,mainActivity.catf);
+        // Specify the layout to use when the list of choices appears
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        // categorySpinner.setAdapter(adapter);
+        for(int i = 0;i< mainActivity.catf.size();i++){
+            CategoryFormat category = mainActivity.catf.get(i);
 
+            contactList.add(new ContactChip(String.valueOf(category.id),null,category.name,null));
 
+        }
+        chipsInput.setFilterableList(contactList);
+        // chips listener
+        chipsInput.addChipsListener(new ChipsInput.ChipsListener() {
+            @Override
+            public void onChipAdded(ChipInterface chip, int newSize) {
+                Log.d("MainActiviy", "dkaşlskdşlskdşs");
+            }
+            @Override
+            public void onChipRemoved(ChipInterface chip, int newSize) {
 
-        ArrayAdapter<CategoryFormat> adapter = new ArrayAdapter<CategoryFormat>(mainActivity, android.R.layout.simple_spinner_item,mainActivity.catf);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            }
 
-categorySpinner.setAdapter(adapter);
-
-
-
-
-
+            @Override
+            public void onTextChanged(CharSequence text) {
+                contactList.add(new ContactChip(null,null,text.toString(),null));
+                Log.d("on textchanged ",text.toString());
+                //chipsInput.setFilterableList(contactList);
+            }
+        });
 
         final ArrayAdapter<TimeFormat> adapter1 = new ArrayAdapter<TimeFormat>(mainActivity, android.R.layout.simple_spinner_item,mainActivity.timef);
 // Specify the layout to use when the list of choices appears
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         dateSpinner.setAdapter(adapter1);
-
-
-
-
-
-
 
 
 
@@ -181,8 +223,6 @@ categorySpinner.setAdapter(adapter);
 
                 }
 
-
-
             }
 
             @Override
@@ -191,8 +231,6 @@ categorySpinner.setAdapter(adapter);
             }
 
         });
-
-
 
         return view;
     }
@@ -210,85 +248,91 @@ categorySpinner.setAdapter(adapter);
 
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPolylinePressed(LatLong obj) {
+       locationsFromMapTextView.setText(obj.toString());
 
-
-public  void sendContent(){
-    CreateApi createApi=retrofit.create(CreateApi.class);
-
-    CreateData wills= new CreateData();
-
-    TimeInfo t = new TimeInfo();
-
-    wills.description=detailEditText.getText().toString().trim();
-    wills.image=linkEditText.getText().toString().trim();
-    wills.name=titleEditText.getText().toString().trim();
-    wills.category=((CategoryFormat)categorySpinner.getItemAtPosition(categorySpinner.getSelectedItemPosition())).id;
-
-
-    TimeFormat timeFormat = (TimeFormat)dateSpinner.getItemAtPosition(dateSpinner.getSelectedItemPosition());
-
-
-
-    if(timeFormat.value_count>1){
-        t.value_1=date1.getText().toString().trim();
-        t.value_2=date2.getText().toString().trim();
-    }else if(timeFormat.value_count==1) {
-        t.value_1=date1.getText().toString().trim();
-    }else {
-
+        Toast.makeText(mainActivity, "Oh shit too many!" + obj.toString(), Toast.LENGTH_SHORT).show();
 
     }
 
-t.id=((TimeFormat)dateSpinner.getItemAtPosition(dateSpinner.getSelectedItemPosition())).id;
+    public  void sendContent(){
+        CreateApi createApi=retrofit.create(CreateApi.class);
 
-wills.timeInfo=t;
+        CreateData wills= new CreateData();
 
+        TimeInfo t = new TimeInfo();
 
-    Gson gson=new Gson();
-
-
-
-    String request= gson.toJson(wills);
-
-    String auth= Remember.getString("token","oops");
-
-
-    Call<CellData> call=createApi.list("application/json", auth,wills);
+        wills.description=detailEditText.getText().toString().trim();
+        wills.image=linkEditText.getText().toString().trim();
+        wills.name=titleEditText.getText().toString().trim();
+        //wills.category=((CategoryFormat)categorySpinner.getItemAtPosition(categorySpinner.getSelectedItemPosition())).id;
 
 
-    call.enqueue(new Callback<CellData>() {
-        @Override
-        public void onResponse(Call<CellData> call, Response<CellData> response) {
+        TimeFormat timeFormat = (TimeFormat)dateSpinner.getItemAtPosition(dateSpinner.getSelectedItemPosition());
 
 
 
-            if(response.isSuccessful()){
+        if(timeFormat.value_count>1){
+            t.value_1=date1.getText().toString().trim();
+            t.value_2=date2.getText().toString().trim();
+        }else if(timeFormat.value_count==1) {
+            t.value_1=date1.getText().toString().trim();
+        }else {
 
-                //ana ekrana don
 
-                android.support.v4.app.FragmentManager manager= mainActivity.getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
-manager.popBackStack();
+        }
+
+        t.id=((TimeFormat)dateSpinner.getItemAtPosition(dateSpinner.getSelectedItemPosition())).id;
+
+        wills.timeInfo=t;
+
+
+        Gson gson=new Gson();
+
+
+
+        String request= gson.toJson(wills);
+
+        String auth= Remember.getString("token","oops");
+
+
+        Call<CellData> call=createApi.list("application/json", auth,wills);
+
+
+        call.enqueue(new Callback<CellData>() {
+            @Override
+            public void onResponse(Call<CellData> call, Response<CellData> response) {
+
+
+
+                if(response.isSuccessful()){
+
+                    //ana ekrana don
+
+                    android.support.v4.app.FragmentManager manager= mainActivity.getSupportFragmentManager();
+                    android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
+                    manager.popBackStack();
+
+
+
+                }
 
 
 
             }
 
+            @Override
+            public void onFailure(Call<CellData> call, Throwable t) {
 
-
-        }
-
-        @Override
-        public void onFailure(Call<CellData> call, Throwable t) {
-
-        }
-    });
+            }
+        });
 
 
 
 
 
-}
+    }
 
 
 
