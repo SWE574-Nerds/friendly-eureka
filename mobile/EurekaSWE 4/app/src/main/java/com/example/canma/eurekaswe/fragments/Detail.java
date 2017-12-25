@@ -10,6 +10,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,6 +76,7 @@ import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -137,8 +140,22 @@ public class Detail extends Fragment {
 
 
 
+   /* @OnClick(R.id.openDMapButton)
+    public void mapButtonPressed(){
 
+        DetailMapFragment mapFragment = new DetailMapFragment();
 
+        FragmentManager manager = mainActivity.getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.add(R.id.fragment_container, mapFragment);
+        transaction.addToBackStack("detail");
+        transaction.commit();
+   @BindView(R.id.openDMapButton)
+    Button openMButton;
+
+    }
+*/
 
 
 

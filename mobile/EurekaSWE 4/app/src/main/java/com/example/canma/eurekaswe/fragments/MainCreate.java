@@ -193,7 +193,7 @@ public class MainCreate extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence text) {
-                contactList.add(new ContactChip(null,null,text.toString(),null));
+                contactList.add(new ContactChip("89",null,text.toString(),null));
                 Log.d("on textchanged ",text.toString());
                 //chipsInput.setFilterableList(contactList);
             }

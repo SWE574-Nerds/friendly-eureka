@@ -150,7 +150,9 @@ android:textIsSelectable="true"
                 android:layout_height="wrap_content"
 
                 android:layout_alignParentBottom="true"
-                android:layout_below="@+id/item_expl">
+                android:layout_below="@+id/item_expl"
+                android:layout_alignRight="@+id/item_expl"
+                android:layout_alignEnd="@+id/item_expl">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -161,6 +163,7 @@ android:textIsSelectable="true"
                 android:layout_height="1px"
                 android:layout_alignParentBottom="true"
                 android:background="@color/gray_asparagus" />
+
 
 
         </RelativeLayout>
