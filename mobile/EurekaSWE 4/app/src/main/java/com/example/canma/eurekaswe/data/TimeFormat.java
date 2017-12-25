@@ -7,7 +7,7 @@ package com.example.canma.eurekaswe.data;
 public class TimeFormat {
 
     public   int  id;
-    public  String      name;
+    public    String name;
      public      int  value_count;
      public      String value_type;
 

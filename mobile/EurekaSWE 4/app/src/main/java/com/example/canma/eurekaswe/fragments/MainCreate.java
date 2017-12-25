@@ -30,7 +30,9 @@ import com.example.canma.eurekaswe.data.CategoryFormat;
 import com.example.canma.eurekaswe.data.CellData;
 import com.example.canma.eurekaswe.data.CreateData;
 import com.example.canma.eurekaswe.data.LatLong;
+import com.example.canma.eurekaswe.data.Markers;
 import com.example.canma.eurekaswe.data.PassedPolySmth;
+import com.example.canma.eurekaswe.data.Polylines;
 import com.example.canma.eurekaswe.data.ResponseLogin;
 import com.example.canma.eurekaswe.data.TimeFormat;
 import com.example.canma.eurekaswe.data.TimeInfo;
@@ -42,6 +44,7 @@ import com.pchmn.materialchips.ChipsInput;
 import com.pchmn.materialchips.model.ChipInterface;
 import com.tumblr.remember.Remember;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -69,6 +72,7 @@ public class MainCreate extends Fragment {
 
 
     MainActivity mainActivity;
+
 
     Unbinder unbinder;
 
@@ -103,6 +107,8 @@ public class MainCreate extends Fragment {
 
     // build the ContactChip list
     List<ContactChip> contactList = new ArrayList<>();
+    List<Polylines> polylinesList = new ArrayList<>();
+    List<Markers> markersList = new ArrayList<>();
 
     @OnClick(R.id.create_b)
     public void createPressed(){
@@ -119,7 +125,7 @@ public class MainCreate extends Fragment {
         FragmentManager manager = mainActivity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        transaction.replace(R.id.fragment_container, mapFragment);
+        transaction.add(R.id.fragment_container, mapFragment);
         transaction.addToBackStack("create");
         transaction.commit();
 
@@ -144,13 +150,11 @@ public class MainCreate extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        EventBus.getDefault().register(this);
     }
-
-
     @Override
     public void onStop() {
-
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -251,9 +255,26 @@ public class MainCreate extends Fragment {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPolylinePressed(LatLong obj) {
-       locationsFromMapTextView.setText(obj.toString());
+        if(locationsFromMapTextView.getText().toString().trim().contentEquals("")){
 
-        Toast.makeText(mainActivity, "Oh shit too many!" + obj.toString(), Toast.LENGTH_SHORT).show();
+            locationsFromMapTextView.setText(obj.toString());
+
+        }else{
+
+
+            locationsFromMapTextView.setText(locationsFromMapTextView.getText()+","+obj.toString());
+        }
+
+
+
+        if(obj.marker==null){
+            polylinesList.add(obj.polylines);
+        }else{
+            markersList.add(obj.marker);
+        }
+
+
+        Log.d("tionsFromMapTextView ",obj.toString());
 
     }
 
@@ -284,9 +305,13 @@ public class MainCreate extends Fragment {
         }
 
 
-
-
         wills.tags=strArray;
+
+
+
+
+        wills.polylines =  polylinesList.toArray(new Polylines[polylinesList.size()]);
+        wills.markers = markersList.toArray(new Markers[markersList.size()]);
 
 
         TimeFormat timeFormat = (TimeFormat)dateSpinner.getItemAtPosition(dateSpinner.getSelectedItemPosition());

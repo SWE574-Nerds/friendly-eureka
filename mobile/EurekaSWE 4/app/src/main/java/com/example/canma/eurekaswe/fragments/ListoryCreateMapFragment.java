@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -63,6 +64,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -183,7 +185,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
             if(circle!=null){
                 Marker marker= markers.get(0);
 
-                Markers marker1= new Markers(circle.getCenter().latitude,circle.getCenter().longitude,circle.getRadius(),mSearchText.getText().toString(),"#0000ff");
+                Markers marker1= new Markers(circle.getCenter().latitude,circle.getCenter().longitude,circle.getRadius()*2.05,mSearchText.getText().toString(),"#0000ff");
 
                 EventBus.getDefault().post((new LatLong(marker1,null)));
 
@@ -206,7 +208,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
 
                 }
-                Polylines polylines= new Polylines(points,mSearchText.getText().toString(),"#0000ff");
+                Polylines polylines= new Polylines(points,"#0000ff",mSearchText.getText().toString());
                 EventBus.getDefault().post(new LatLong(null,polylines));
 
                 getFragmentManager().popBackStack();
@@ -264,7 +266,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
                     if(circle != null){
                         circle = null;
                     }
-                    circle = drawCircle(m_Text,new LatLng(lastAddress.getLatitude(),lastAddress.getLongitude()));
+                    circle = drawCircle(m_Text/2,new LatLng(lastAddress.getLatitude(),lastAddress.getLongitude()));
 
                 }
             });
@@ -688,7 +690,18 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
+    private int convertZoneRadiusToPixels(double lat, double lng, double radiusInMeters) {
+        double EARTH_RADIUS = 6378100.0;
+        double lat1 = radiusInMeters / EARTH_RADIUS;
+        double lng1 = radiusInMeters / (EARTH_RADIUS * Math.cos((Math.PI * lat / 180)));
 
+        double lat2 = lat + lat1 * 180 / Math.PI;
+        double lng2 = lng + lng1 * 180 / Math.PI;
+
+        Point p1 = mMap.getProjection().toScreenLocation(new LatLng(lat, lng));
+        Point p2 = mMap.getProjection().toScreenLocation(new LatLng(lat2, lng2));
+        return Math.abs(p1.x - p2.x);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

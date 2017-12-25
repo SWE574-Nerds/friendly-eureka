@@ -10,4 +10,6 @@ public class CreateData {
     public String image;
     public String[] tags;
     public TimeInfo timeInfo;
+    public Polylines[] polylines;
+    public Markers[] markers;
 }

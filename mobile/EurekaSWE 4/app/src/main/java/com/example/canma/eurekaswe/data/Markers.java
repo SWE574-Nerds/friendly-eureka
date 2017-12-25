@@ -1,6 +1,7 @@
 package com.example.canma.eurekaswe.data;
 
 import com.google.android.gms.maps.model.Marker;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by suzaneceada on 21.11.2017.
@@ -18,6 +19,8 @@ public class Markers {
     }
 
     public Double lat;
+
+    @SerializedName("long")
     public Double longitude;
     public Double mag;
     public String name;

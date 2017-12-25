@@ -17,5 +17,21 @@ public class LatLong {
 
     public Polylines polylines;
 
+    public String toString() {
+       if(this.marker==null){
 
+return this.polylines.toString();
+
+
+
+       }else {
+
+return this.marker.toString();
+
+
+
+       }
+
+
+    }
 }
