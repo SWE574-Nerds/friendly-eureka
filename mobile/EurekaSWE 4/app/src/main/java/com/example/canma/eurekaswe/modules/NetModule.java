@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * Created by canma on 10/17/2017.
+ * Created by suzaneceada on 10/17/2017.
  */
 
 @Module

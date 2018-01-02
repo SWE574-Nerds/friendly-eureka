@@ -89,7 +89,7 @@ startApp();
         LoginWelcome loginWelcome= new LoginWelcome();
 
         transaction.replace(R.id.fragment_container_login,loginWelcome);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack("start");
         transaction.commit();
 
 

@@ -1,10 +1,13 @@
 package com.example.canma.eurekaswe.data;
 
-public class CellData {
+import java.io.Serializable;
+
+public class CellData implements Serializable {
    public String name;
    public String description;
    public String image;
-   public Integer listoryId;
+   public CategoryFormat[] tags;
+   public int listoryId;
    public Owner owner;
    public Time time;
    public String category;

@@ -34,8 +34,8 @@
     <color name="username11">#d300e7</color>
     <color name="air_force_blue">#5D8AA8</color>
     <color name="algae_green">#64E986</color>
-    <color name="alice_blue">#F0F8FF</color>
-    <color name="alien_green">#6CC417</color>
+    <color name="alice_blue">#ffffff</color>
+    <color name="alien_green">#6cc417</color>
     <color name="almond">#EFDECD</color>
     <color name="amber">#FFBF00</color>
     <color name="american_rose">#ff033e</color>
@@ -45,7 +45,7 @@
     <color name="antique_brass">#CD9575</color>
     <color name="antique_fuchsia">#915C83</color>
     <color name="antique_white">#FAEBD7</color>
-    <color name="apple_green">#8DB600</color>
+    <color name="apple_green">#8db600</color>
     <color name="apricot">#FBCEB1</color>
     <color name="aqua">#00FFFF</color>
     <color name="aqua_marine">#7FFFD4</color>
@@ -55,11 +55,11 @@
     <color name="asparagus">#87A96B</color>
     <color name="atomic_tangerine">#FF9966</color>
     <color name="aureolin">#FDEE00</color>
-    <color name="aurometalsaurus">#6E7F80</color>
+    <color name="aurometalsaurus">#6e7f80</color>
     <color name="avocado_green">#B2C248</color>
     <color name="awesome">#FF2052</color>
     <color name="aztech_purple">#893BFF</color>
-    <color name="azure">#6aa5e1</color>
+    <color name="azure">#61adf9</color>
     <color name="azure_mist_web">#F0FFFF</color>
 
     <color name="baby_blue">#89CFF0</color>
@@ -72,7 +72,7 @@
     <color name="basket_ball_orange">#F88158</color>
     <color name="battleship_grey">#848482</color>
     <color name="bazaar">#98777B</color>
-    <color name="bean_red">#F75D59</color>
+    <color name="bean_red">#f75d59</color>
     <color name="beaver">#9F8170</color>
     <color name="bee_yellow">#E9AB17</color>
     <color name="beer">#FBB117</color>

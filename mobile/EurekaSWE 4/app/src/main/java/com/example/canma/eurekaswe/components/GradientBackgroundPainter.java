@@ -10,9 +10,6 @@ import android.view.View;
 
 import java.util.Random;
 
-/**
-
- */
 public class GradientBackgroundPainter {
 
     private static final int MIN = 4000;

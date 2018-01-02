@@ -78,7 +78,7 @@ public class LoginSignUp extends  android.support.v4.app.Fragment {
 
 
         LoginSignIn loginWelcome = new LoginSignIn();
-
+        transaction.addToBackStack("signIn");
 
         transaction.replace(R.id.fragment_container_login, loginWelcome);
         transaction.commit();
@@ -216,7 +216,7 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
                     // BURAYA SIGN IN (LOGIN) EKRANINI KOYACAKSIN vvvvvv
                     LoginSignIn loginWelcome = new LoginSignIn();
 
-
+transaction.addToBackStack("signIn2");
                     transaction.replace(R.id.fragment_container_login, loginWelcome);
                     transaction.commit();
 
