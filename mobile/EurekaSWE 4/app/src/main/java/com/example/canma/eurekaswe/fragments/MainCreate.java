@@ -9,10 +9,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,6 +46,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.gson.Gson;
 import com.pchmn.materialchips.ChipsInput;
 import com.pchmn.materialchips.model.ChipInterface;
+import com.pchmn.materialchips.views.ChipsInputEditText;
 import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
@@ -102,6 +107,8 @@ public class MainCreate extends Fragment {
 
     @BindView(R.id.mapButton)
     Button mapButton;
+    @BindView(R.id.addChip)
+    Button addChip;
     @BindView(R.id.textView2)
     TextView locationsFromMapTextView;
 
@@ -115,6 +122,38 @@ public class MainCreate extends Fragment {
 
 
         sendContent();
+    }
+
+
+    int counter=100;
+
+
+    @OnClick(R.id.addChip)
+    public void createChip(View view)
+    {
+
+
+
+
+
+
+counter++;
+
+            // chipsInput.addChip(new ContactChip("890",null,s,null));
+
+            ContactChip contactChip=new ContactChip(""+counter, null, temp, null);
+          //  chipsInput.getChipView().inflate(contactChip);
+            contactList.add(contactChip);
+            chipsInput.setFilterableList(contactList);
+        chipsInput.addChip(contactChip);
+
+
+            //chipsInput.addChip(s,"");
+
+
+        view.setVisibility(View.GONE);
+        mapButton.setVisibility(View.VISIBLE);
+
     }
 
     @OnClick(R.id.mapButton)
@@ -136,6 +175,7 @@ public class MainCreate extends Fragment {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
         ((EurekaApplication) getActivity().getApplication()).getNetComponent().inject(this);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
     }
 
@@ -158,6 +198,8 @@ public class MainCreate extends Fragment {
         super.onStop();
     }
 
+String temp;
+    ChipsInputEditText chipsInputEditText;
 
     @Nullable
     @Override
@@ -165,6 +207,8 @@ public class MainCreate extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_main_create, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+
 
 
 
@@ -193,11 +237,82 @@ public class MainCreate extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence text) {
-                contactList.add(new ContactChip("89",null,text.toString(),null));
-                Log.d("on textchanged ",text.toString());
-                //chipsInput.setFilterableList(contactList);
+
+           temp=text.toString();
+
+                    mapButton.setVisibility(View.GONE);
+
+addChip.setVisibility(View.VISIBLE);
+
+
+
+
             }
         });
+
+
+/*
+
+        chipsInput.getEditText().setImeOptions(EditorInfo.IME_ACTION_SEND);
+
+        chipsInput.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    EditText e=(EditText)v;
+
+                    String s=e.getText().toString();
+
+
+                    Log.d("key","basildi");
+
+                    if(s.trim().length()>0)
+                        chipsInput.addChip(s,"");
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+*/
+
+
+
+
+       chipsInput.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+
+                if (event.getAction() == KeyEvent.ACTION_DOWN){
+                    if(keyCode==KeyEvent.KEYCODE_ENTER){
+
+                        EditText e=(EditText)v;
+
+                        String s=e.getText().toString();
+
+
+                        Log.d("key","basildi");
+
+                        if(s.trim().length()>0)
+                            chipsInput.addChip(s,"");
+
+
+                        return true;
+
+                    }
+
+
+
+                }
+                return false;
+            }
+        });
+
+
+
+
 
         final ArrayAdapter<TimeFormat> adapter1 = new ArrayAdapter<TimeFormat>(mainActivity, android.R.layout.simple_spinner_item,mainActivity.timef);
 // Specify the layout to use when the list of choices appears

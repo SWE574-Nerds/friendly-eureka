@@ -14,8 +14,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.canma.eurekaswe.EurekaApplication;
@@ -143,6 +145,28 @@ mainActivity.finish();
 
 
 
+
+        searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if ( (actionId== EditorInfo.IME_ACTION_DONE)||
+                        (actionId== EditorInfo.IME_NULL)) {
+                    // Perform action on key press
+
+                    searchItem(((EditText)v).getText().toString());
+
+                    closeButton.setVisibility(View.VISIBLE);
+
+
+                    return true;
+                }
+
+
+
+                return false;
+            }
+        });
 
         searchBox.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {

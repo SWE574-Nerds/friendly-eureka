@@ -37,10 +37,12 @@ import android.widget.ToggleButton;
 import com.example.canma.eurekaswe.EurekaApplication;
 import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.R;
+import com.example.canma.eurekaswe.data.CreateData;
 import com.example.canma.eurekaswe.data.LatLong;
 import com.example.canma.eurekaswe.data.Markers;
 import com.example.canma.eurekaswe.data.Points;
 import com.example.canma.eurekaswe.data.Polylines;
+import com.example.canma.eurekaswe.interfaces.calls.ListoryDetailApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -56,6 +58,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -70,34 +73,44 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
 public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
-    View view = null;
-
     private static final String TAG = "MapActivity";
-    MainActivity mainActivity;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 16f;
+    private static final int PLACE_PICKER_REQUEST = 1;
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+            new LatLng(-40, -168), new LatLng(71, 136));
+    public LocationManager locationManager;
+    public Criteria criteria;
+    public String bestProvider;
+    public String cellId;
+    View view = null;
+    MainActivity mainActivity;
     Circle circle;
     Marker marker1;
     Marker marker2;
     Polyline line;
-
-
-    private Integer m_Text = 0;
-    private static final int PLACE_PICKER_REQUEST = 1;
-    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
-            new LatLng(-40, -168), new LatLng(71, 136));
     Unbinder unbinder;
+    Address lastAddress;
+    ArrayList<Marker> markers = new ArrayList<Marker>();
+    @Inject
+    @Named("regular")
+    Retrofit retrofit;
+    Polylines[] p;
+    Markers[] m;
+    private Integer m_Text = 0;
     //widgets
     //private AutoCompleteTextView mSearchText;
     private ImageView mGps, mInfo, mPlacePicker;
-    Address lastAddress;
     private Location mLastKnownLocation;
     //vars
     private Boolean mLocationPermissionsGranted = false;
@@ -108,21 +121,8 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
     private Markers mPlace;
     private Marker mMarker;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    public LocationManager locationManager;
-    public Criteria criteria;
-    public String bestProvider;
 
-    ArrayList<Marker> markers = new ArrayList<Marker>();
-
-
-
-    @Inject
-    @Named("regular")
-    Retrofit retrofit;
-
-
-
-    private Circle drawCircle(int radius, LatLng latLng){
+    private Circle drawCircle(int radius, LatLng latLng) {
 
 
         CircleOptions options = new CircleOptions()
@@ -140,6 +140,9 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         mainActivity = (MainActivity) getActivity();
         ((EurekaApplication) getActivity().getApplication()).getNetComponent().inject(this);
 
+
+        cellId = getArguments().getString("id");
+
     }
 
     @Override
@@ -147,15 +150,18 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
         getLocationPermission();
         init();
+
+        getmapData(cellId);
+
+
     }
 
-    private void getDeviceLocation(){
+    private void getDeviceLocation() {
         moveCamera(new LatLng(41.0848, 29.0510),
                 DEFAULT_ZOOM,
                 "My Location");
 
     }
-
 
     @Override
     public void onDestroyView() {
@@ -170,13 +176,11 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-
     @Override
     public void onStop() {
 
         super.onStop();
     }
-
 
     @Nullable
     @Override
@@ -190,19 +194,19 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
         return view;
     }
-    private void initMap(){
+
+    private void initMap() {
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment;
         if (Build.VERSION.SDK_INT < 21) {
-            mapFragment = (SupportMapFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.mapNew);
+            mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.mapNew);
 
         } else {
 
-            mapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.mapNew);
+            mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapNew);
         }
         mapFragment.getMapAsync(this);
     }
-
 
     @Override
     public void onPause() {
@@ -214,117 +218,6 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
 
-    }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-/*
-            map=googleMap;
-            LatLng pp = new LatLng(11.55,104.892);
-            MarkerOptions option = new MarkerOptions();
-            option.position(pp).title("jdshj");
-            map.addMarker(option);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(pp,15));
-        */
-        Toast.makeText(this.getActivity(), "Map is Ready", Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "onMapReady: map is ready");
-        mMap = googleMap;
-
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-
-            if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
-
-            /*
-            LatLng pp = new LatLng(11.55,104.892);
-            MarkerOptions option = new MarkerOptions();
-            option.position(pp).title("jdshj");
-            mMap.addMarker(option);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pp,15));
-
-
-            */
-            //init();
-
-            if(mMap != null){
-                mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-                    @Override
-                    public void onMarkerDragStart(Marker marker) {
-
-                    }
-
-                    @Override
-                    public void onMarkerDrag(Marker marker) {
-
-                    }
-
-                    @Override
-                    public void onMarkerDragEnd(Marker marker) {
-                        Geocoder gc = new Geocoder(getActivity());
-                        LatLng ll = marker.getPosition();
-                        double lat = ll.latitude;
-                        double lng = ll.longitude;
-
-                        List<Address> list = null;
-                        try {
-                            list = gc.getFromLocation(ll.latitude, ll.longitude, 1);
-                        }catch(IOException e){
-
-                            e.printStackTrace();
-                        }
-                        if(list.size() > 0) {
-                            lastAddress = list.get(0);
-
-                            setMarker(ll, lastAddress.getAddressLine(0));
-                            if(circle != null){
-                                double radius=circle.getRadius();
-                                circle = drawCircle((int)radius,new LatLng(lastAddress.getLatitude(),lastAddress.getLongitude()));
-                            }
-
-
-                        }
-
-                    }
-                });
-
-
-
-            }
-
-
-
-
-        }
-    }
-
-    private void init(){
-      /*  mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-
-                    //execute our method for searching
-                    geoLocate();
-                }
-
-                return false;
-            }
-        });
-
-
-        hideSoftKeyboard();
-*/
     }
 
 
@@ -425,7 +318,114 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
     }
  */
 
-    private void geoLocate(){
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+/*
+            map=googleMap;
+            LatLng pp = new LatLng(11.55,104.892);
+            MarkerOptions option = new MarkerOptions();
+            option.position(pp).title("jdshj");
+            map.addMarker(option);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(pp,15));
+        */
+        Toast.makeText(this.getActivity(), "Map is Ready", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onMapReady: map is ready");
+        mMap = googleMap;
+
+        if (mLocationPermissionsGranted) {
+            getDeviceLocation();
+
+            if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+
+            /*
+            LatLng pp = new LatLng(11.55,104.892);
+            MarkerOptions option = new MarkerOptions();
+            option.position(pp).title("jdshj");
+            mMap.addMarker(option);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pp,15));
+
+
+            */
+            //init();
+
+            if (mMap != null) {
+                mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                    @Override
+                    public void onMarkerDragStart(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDrag(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDragEnd(Marker marker) {
+                        Geocoder gc = new Geocoder(getActivity());
+                        LatLng ll = marker.getPosition();
+                        double lat = ll.latitude;
+                        double lng = ll.longitude;
+
+                        List<Address> list = null;
+                        try {
+                            list = gc.getFromLocation(ll.latitude, ll.longitude, 1);
+                        } catch (IOException e) {
+
+                            e.printStackTrace();
+                        }
+                        if (list.size() > 0) {
+                            lastAddress = list.get(0);
+
+                            setMarker(ll, lastAddress.getAddressLine(0));
+                            if (circle != null) {
+                                double radius = circle.getRadius();
+                                circle = drawCircle((int) radius, new LatLng(lastAddress.getLatitude(), lastAddress.getLongitude()));
+                            }
+
+
+                        }
+
+                    }
+                });
+
+
+            }
+
+
+        }
+    }
+
+    private void init() {
+      /*  mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+
+                    //execute our method for searching
+                    geoLocate();
+                }
+
+                return false;
+            }
+        });
+
+
+        hideSoftKeyboard();
+*/
+    }
+
+    private void geoLocate() {
        /* Log.d(TAG, "geoLocate: geolocating");
 
         String searchString = mSearchText.getText().toString();
@@ -449,12 +449,11 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         }*/
     }
 
-
-    private void moveCamera(LatLng latLng, float zoom, String title){
-        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
+    private void moveCamera(LatLng latLng, float zoom, String title) {
+        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        if(!title.equals("My Location")){
+        if (!title.equals("My Location")) {
             setMarker(latLng, title);
         }
 
@@ -480,14 +479,14 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private void drawLine(){
+    private void drawLine() {
 
         PolylineOptions options = new PolylineOptions()
                 .color(Color.BLUE)
                 .width(20);
 
 
-        for(int i=markers.size()-2;i<markers.size();i++){
+        for (int i = markers.size() - 2; i < markers.size(); i++) {
 
             options.add(markers.get(i).getPosition());
 
@@ -497,45 +496,43 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-
-    private void hideSoftKeyboard(){
+    private void hideSoftKeyboard() {
         this.getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    private void getLocationPermission(){
+    private void getLocationPermission() {
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if(ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 initMap();
-            }else{
+            } else {
                 ActivityCompat.requestPermissions(this.getActivity(),
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        }else{
+        } else {
             ActivityCompat.requestPermissions(this.getActivity(),
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.d(TAG, "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
 
-        switch(requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE:{
-                if(grantResults.length > 0){
-                    for(int i = 0; i < grantResults.length; i++){
-                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < grantResults.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             mLocationPermissionsGranted = false;
                             Log.d(TAG, "onRequestPermissionsResult: permission failed");
                             return;
@@ -550,7 +547,39 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    public void getmapData(String id) {
 
+
+        ListoryDetailApi listoryDetailApi = retrofit.create(ListoryDetailApi.class);
+        String auth = Remember.getString("token", "oops");
+
+        Call<CreateData> call = listoryDetailApi.getDetail(auth, id);
+
+
+        call.enqueue(new Callback<CreateData>() {
+            @Override
+            public void onResponse(Call<CreateData> call, Response<CreateData> response) {
+
+
+                p = ((CreateData) response.body()).polylines;
+
+
+                m = ((CreateData) response.body()).markers;
+
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<CreateData> call, Throwable t) {
+
+            }
+        });
+
+
+    }
 
 
 }

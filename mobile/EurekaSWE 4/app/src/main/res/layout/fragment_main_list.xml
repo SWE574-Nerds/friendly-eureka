@@ -58,10 +58,13 @@
                         android:background="@drawable/login_edittext"
                         android:drawableLeft="@drawable/ic_search"
                         android:ems="10"
-                     android:layout_toRightOf="@id/closeButton"
+                        android:layout_toRightOf="@id/closeButton"
                         android:layout_toLeftOf="@id/outButton"
                         android:gravity="center"
-
+                        android:singleLine="true"
+                        android:lines="1"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
                         android:hint="search"></EditText>
 
 

@@ -79,8 +79,8 @@ public class LoginSignIn extends  Fragment {
 
     @OnClick(R.id.button_sign_up)
     public void signUp() {
-     //   tryLogin("ece","12345678");
-
+       tryLogin("ece","12345678");
+/*
 
         if(
                 username.getText().length()>0&&
@@ -108,7 +108,7 @@ tryLogin(username.getText().toString(),password.getText().toString());
                     });
             alertDialog.show();
         }
-
+*/
     }
 
 

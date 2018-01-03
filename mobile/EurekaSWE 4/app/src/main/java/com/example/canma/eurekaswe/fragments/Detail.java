@@ -102,6 +102,11 @@ public class Detail extends Fragment {
 
     SimpleArrayMap<Integer, Boolean> highlighteds;
 
+
+
+
+
+
     @Inject
     @Named("regular")
     Retrofit retrofit;
@@ -139,11 +144,21 @@ public class Detail extends Fragment {
     String myId;
 
 
+    @BindView(R.id.openDMapButton)
+    Button openMButton;
 
-   /* @OnClick(R.id.openDMapButton)
+
+   @OnClick(R.id.openDMapButton)
     public void mapButtonPressed(){
 
         DetailMapFragment mapFragment = new DetailMapFragment();
+
+       Bundle bundle= new
+               Bundle();
+
+       bundle.putString("id",""+cellData.listoryId);
+
+       mapFragment.setArguments(bundle);
 
         FragmentManager manager = mainActivity.getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -151,16 +166,9 @@ public class Detail extends Fragment {
         transaction.add(R.id.fragment_container, mapFragment);
         transaction.addToBackStack("detail");
         transaction.commit();
-   @BindView(R.id.openDMapButton)
-    Button openMButton;
+
 
     }
-*/
-
-
-
-
-
 
 
 
@@ -195,7 +203,7 @@ public class Detail extends Fragment {
             ) {
 
 
-        int start = s.prefix.length();
+        int start = s.prefix.length()+1;
 
         int end = start + s.exact.length();
 
@@ -303,12 +311,13 @@ highlighteds= new SimpleArrayMap<>();
     @Override
     public void onPause() {
         super.onPause();
-
+        (  (MainActivity)getActivity()).fab.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        (  (MainActivity)getActivity()).fab.setVisibility(View.GONE);
 
 
     }
