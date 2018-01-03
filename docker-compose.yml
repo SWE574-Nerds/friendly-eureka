@@ -17,7 +17,7 @@ services:
     - "postgres"
 
   isd:
-    build: .
+    build: ./sample-data
     command: ./create-data.sh
     environment:
       PGPASSWORD: postgres
