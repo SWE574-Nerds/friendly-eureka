@@ -36,9 +36,6 @@ import retrofit2.Retrofit;
  */
 
 public class AltRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-
-
     private int position;
 
     private Context context;
@@ -170,14 +167,6 @@ recyclerAdapterViewHolder.altImage.setVisibility(View.VISIBLE);
 
 
             }
-
-
-
-
-
-
-
-
 
 
     }

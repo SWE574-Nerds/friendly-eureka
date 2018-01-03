@@ -143,19 +143,38 @@ android:textIsSelectable="true"
                 android:breakStrategy="simple"
                 android:text="Explanation of Listory"
                 android:textSize="16dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/category_recycler"
+            <Button
+                android:id="@+id/openDMapButton"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/item_expl"
+                android:layout_alignParentStart="false"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="11dp"
+                android:backgroundTint="@color/alien_green"
+                android:text="Open Map"
+                android:textColor="@color/alice_blue" />
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/openDMapButton">
 
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/item_expl"
-                android:layout_alignRight="@+id/item_expl"
-                android:layout_alignEnd="@+id/item_expl">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/category_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-            </android.support.v7.widget.RecyclerView>
 
+                    android:layout_alignParentBottom="false">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+
+            </RelativeLayout>
 
             <View
                 android:id="@+id/view"
@@ -181,7 +200,10 @@ android:textIsSelectable="true"
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/altrecycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
