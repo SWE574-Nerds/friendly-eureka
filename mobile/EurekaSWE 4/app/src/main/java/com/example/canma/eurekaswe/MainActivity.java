@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.fab)
-    FloatingActionButton fab;
+
+   public FloatingActionButton fab;
     @OnClick(R.id.fab)
     public void fabClick(){
         android.support.v4.app.FragmentManager manager= getSupportFragmentManager();
