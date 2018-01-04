@@ -186,12 +186,6 @@ closeButton.setVisibility(View.VISIBLE);
             }
         });
 
-
-
-
-
-
-
         mainRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List temp =new ArrayList<CellData>();
@@ -244,16 +238,13 @@ adapter.notifyDataSetChanged();
 adapter.addCellData(response.body());
 
 
-
-
-
             }
 
             @Override
             public void onFailure(Call<List<CellData>> call, Throwable t) {
                 AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
-                alertDialog.setTitle("Uyarı");
-                alertDialog.setMessage("Bir sorun oluştu birazdan tekrar deneyin!");
+                alertDialog.setTitle("Warning");
+                alertDialog.setMessage("Please try again later!");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -276,8 +267,6 @@ adapter.addCellData(response.body());
 
         SearchListApi listApi = retrofit.create(SearchListApi.class);
 
-
-
         String auth= Remember.getString("token","oops");
 
         Call<List<CellData>> call = listApi.search(auth,s);
@@ -293,8 +282,8 @@ if(tempList.size()>0) {
 }else {
 
     AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
-    alertDialog.setTitle("Uyarı");
-    alertDialog.setMessage("Bu query sonucu yok");
+    alertDialog.setTitle("Warning");
+    alertDialog.setMessage("Search not found!");
     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
             new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -315,8 +304,8 @@ if(tempList.size()>0) {
             @Override
             public void onFailure(Call<List<CellData>> call, Throwable t) {
                 AlertDialog alertDialog = new AlertDialog.Builder(mainActivity).create();
-                alertDialog.setTitle("Uyarı");
-                alertDialog.setMessage("Bir sorun oluştu birazdan tekrar deneyin!");
+                alertDialog.setTitle("Warning");
+                alertDialog.setMessage("Network connection problem!");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

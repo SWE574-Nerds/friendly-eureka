@@ -84,6 +84,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.content.ContentValues.TAG;
+
 
 public class Detail extends Fragment {
 
@@ -118,8 +120,6 @@ public class Detail extends Fragment {
     LinearLayout linearLayout;
     @BindView(R.id.item_name)
     TextView itemName;
-    @BindView(R.id.item_location)
-    TextView itemLocation;
     @BindView(R.id.item_time_info)
     TextView itemTimeInfo;
     @BindView(R.id.follow_button)
@@ -203,11 +203,12 @@ public class Detail extends Fragment {
             ) {
 
 
-        int start = s.prefix.length()+1;
+        int start = s.prefix.length();
 
         int end = start + s.exact.length();
 
         Spannable wordtoSpan = new SpannableString(itemExpl.getText());
+
 
 
         wordtoSpan.setSpan(new ForegroundColorSpan(Color.BLACK), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -237,7 +238,7 @@ public class Detail extends Fragment {
             Spannable wordtoSpan = new SpannableString(itemExpl.getText());
 
 
-            wordtoSpan.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            wordtoSpan.setSpan(new ForegroundColorSpan(Color.parseColor("#009900")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             itemExpl.setText(wordtoSpan);
 
 
@@ -416,7 +417,6 @@ for (AltCellData altCellData:altCellDataList){
         userTv.setText(cellData.owner.name);
 
    itemExpl.setText(cellData.description);
-   itemLocation.setText("");
    itemName.setText(cellData.name);
    followButton.setTag(cellData.listoryId);
    deleteButton.setTag(cellData.listoryId);
@@ -498,7 +498,7 @@ if(imageRect.y1==-1&&imageRect.x1==-1){
     Paint paint = new Paint();
 
     paint.setAntiAlias(true);
-    paint.setColor(Color.RED);
+    paint.setColor(Color.parseColor("#009900"));
 
 
     canvas.drawCircle(x, y, 25, paint);
@@ -709,8 +709,7 @@ itemImage2.setVisibility(View.GONE);
                     cs = new StyleSpan(Typeface.ITALIC);
                     ssb.setSpan(cs, start, end, 1);
                     itemExpl.setText(ssb);
-
-                    openPopupWithEdittext(ssb.toString().substring(start,end),ssb.toString().substring(0,start-1),ssb.toString().substring(end,ssb.toString().length()),""+cellData.listoryId);
+                    openPopupWithEdittext(ssb.toString().substring(start,end),ssb.toString().substring(0,start),ssb.toString().substring(end,ssb.toString().length()),""+cellData.listoryId);
 
                     return true;
 
@@ -785,7 +784,8 @@ if(input.getText().toString().trim().length()>0) {
 
 
       selector.text=text;
-
+     Log.d(TAG,"starts with" + text.startsWith);
+      Log.d(TAG,"ends with" + text.endsWith);
 
       AnnotateData annotateData= new AnnotateData(lid,body,selector);
 
@@ -805,7 +805,7 @@ if(input.getText().toString().trim().length()>0) {
               if(response.isSuccessful()){
 
 
-                  Toast.makeText(mainActivity, "Annotation başarılı", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(mainActivity, "Annotation sent successfully", Toast.LENGTH_SHORT).show();
 
                   listItems();
               }

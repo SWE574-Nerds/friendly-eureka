@@ -48,6 +48,8 @@
             android:textColor="#000"
             android:background="@color/white"
             android:hint="Enter Address, City or Zip Code"
+            android:singleLine="true"
+            android:lines="1"
             android:imeOptions="actionSearch"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/ic_magnify"

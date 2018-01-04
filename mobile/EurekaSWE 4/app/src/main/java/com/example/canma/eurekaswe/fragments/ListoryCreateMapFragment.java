@@ -173,12 +173,10 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     @BindView(R.id.toggleButton)
     ToggleButton toggleButton;
 
+    ArrayList<Points> points = new ArrayList<Points>();
+
     @OnClick(R.id.create_button)
     public void createLatLong(){
-
-
-
-
 
         boolean checked = toggleButton.isChecked();
         if(checked){
@@ -195,23 +193,15 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
 
         }else{
-
-
-
             if(markers.size()>1){
-                ArrayList<Points> points = new ArrayList<Points>();
+                points.remove(0);
+                Log.d(TAG,"lat lng array for me "+points.toString());
 
-                for(Marker marker: markers){
-
-                    Points point = new Points(marker.getPosition().latitude,marker.getPosition().longitude);
-                    points.add(point);
-
-
-                }
                 Polylines polylines= new Polylines(points,"#0000ff",mSearchText.getText().toString());
                 EventBus.getDefault().post(new LatLong(null,polylines));
 
                 getFragmentManager().popBackStack();
+
             }
 
         }
@@ -638,9 +628,13 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
             mMap.clear();
             markers.add(mMap.addMarker(options));
         }else{
-            markers.add(mMap.addMarker(options));
+            Marker marker = mMap.addMarker(options);
+            markers.add(marker);
+            Points point = new Points(marker.getPosition().latitude,marker.getPosition().longitude);
+            points.add(point);
             if(markers.size()>1){
                 drawLine();
+
             }
         }
 

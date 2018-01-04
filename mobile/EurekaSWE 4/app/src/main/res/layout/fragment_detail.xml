@@ -60,30 +60,22 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:breakStrategy="simple"
-                android:text="Kamil bugün bi yerdeydi" />
-
-            <TextView
-                android:id="@+id/item_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_name"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="2dp"
-                android:breakStrategy="simple"
-                android:text="Kamil bugün bi yerdeydi"
-                android:textColor="#1E90FF" />
+                android:text="title " />
 
 
             <TextView
                 android:id="@+id/item_time_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/item_location"
+                android:layout_alignEnd="@+id/item_name"
+                android:layout_alignLeft="@+id/item_name"
+                android:layout_alignRight="@+id/item_name"
+                android:layout_alignStart="@+id/item_name"
+                android:layout_below="@+id/item_name"
                 android:layout_marginTop="8dp"
                 android:breakStrategy="simple"
-                android:text="Kamil bugün bi yerdeydi"
-                android:textColor="#1E90FF" />
+                android:text="time"
+                android:textColor="@color/candy_pink" />
 
 
             <Button
@@ -93,71 +85,72 @@
                 android:layout_height="wrap_content"
                 android:text="Follow"
                 android:textColor="@color/azure"
-                android:layout_below="@+id/item_name"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_above="@+id/relativeLayout2"
+                android:layout_centerHorizontal="true" />
 
             <Button
                 android:id="@+id/delete_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="11dp"
-                android:layout_marginRight="11dp"
+                android:layout_above="@+id/relativeLayout2"
+                android:layout_alignEnd="@+id/item_expl"
+                android:layout_alignRight="@+id/item_expl"
                 android:text="DELETE"
-                android:textColor="@color/bean_red"
-                android:layout_below="@+id/item_name"
-                android:layout_toLeftOf="@+id/follow_button"
-                android:layout_toStartOf="@+id/follow_button" />
+                android:textColor="@color/bean_red" />
 
 
-<FrameLayout
-    android:id="@+id/item_image_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_below="@+id/follow_button"
-    android:layout_marginTop="8dp">
-            <com.example.canma.eurekaswe.components.NewImageView
-                android:id="@+id/item_image"
+            <FrameLayout
+                android:id="@+id/item_image_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
-    <com.example.canma.eurekaswe.components.NewImageView
-        android:id="@+id/item_image2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true" />
-        </FrameLayout>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/item_time_info"
+                android:layout_marginTop="8dp">
+
+                <com.example.canma.eurekaswe.components.NewImageView
+                    android:id="@+id/item_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <com.example.canma.eurekaswe.components.NewImageView
+                    android:id="@+id/item_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/item_expl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/item_image_frame"
                 android:layout_marginLeft="10dp"
-android:textIsSelectable="true"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:breakStrategy="simple"
                 android:text="Explanation of Listory"
+                android:textIsSelectable="true"
                 android:textSize="16dp" />
+
             <Button
                 android:id="@+id/openDMapButton"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentRight="true"
+                android:layout_alignLeft="@+id/item_expl"
+                android:layout_alignStart="@+id/item_expl"
                 android:layout_below="@+id/item_expl"
-                android:layout_alignParentStart="false"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="12dp"
                 android:backgroundTint="@color/alien_green"
                 android:text="Open Map"
                 android:textColor="@color/alice_blue" />
+
             <RelativeLayout
+                android:id="@+id/relativeLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/openDMapButton">
@@ -173,7 +166,6 @@ android:textIsSelectable="true"
                 </android.support.v7.widget.RecyclerView>
 
 
-
             </RelativeLayout>
 
             <View
@@ -182,7 +174,6 @@ android:textIsSelectable="true"
                 android:layout_height="1px"
                 android:layout_alignParentBottom="true"
                 android:background="@color/gray_asparagus" />
-
 
 
         </RelativeLayout>
