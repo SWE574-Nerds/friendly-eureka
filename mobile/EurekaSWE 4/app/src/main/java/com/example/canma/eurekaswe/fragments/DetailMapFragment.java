@@ -137,7 +137,7 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
         CircleOptions options = new CircleOptions()
                 .center(latLng)
-                .radius(radius/2)
+                .radius(radius)
                 .fillColor(0x33FF0000)
                 .strokeColor(Color.RED);
 

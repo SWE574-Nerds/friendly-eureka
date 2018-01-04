@@ -75,29 +75,34 @@
                 android:layout_marginTop="8dp"
                 android:breakStrategy="simple"
                 android:text="time"
-                android:textColor="@color/candy_pink" />
+                android:textColor="@color/metallic_silver" />
 
 
             <Button
                 android:id="@+id/follow_button"
-                style="@style/Widget.AppCompat.Button.Borderless"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
+                android:background="@color/bright_cerulean"
+                android:backgroundTint="@color/bright_cerulean"
                 android:text="Follow"
                 android:textColor="@color/azure"
-                android:layout_above="@+id/relativeLayout2"
+                android:layout_alignBaseline="@+id/openDMapButton"
+                android:layout_alignBottom="@+id/openDMapButton"
                 android:layout_centerHorizontal="true" />
 
             <Button
                 android:id="@+id/delete_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/relativeLayout2"
-                android:layout_alignEnd="@+id/item_expl"
-                android:layout_alignRight="@+id/item_expl"
+                android:layout_height="32dp"
+                android:background="@color/orange_peel"
                 android:text="DELETE"
-                android:textColor="@color/bean_red" />
+                android:textColor="@color/white"
+                android:layout_alignBaseline="@+id/follow_button"
+                android:layout_alignBottom="@+id/follow_button"
+                android:layout_alignRight="@+id/item_expl"
+                android:layout_alignEnd="@+id/item_expl" />
 
 
             <FrameLayout
@@ -140,14 +145,13 @@
                 android:id="@+id/openDMapButton"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/item_expl"
-                android:layout_alignStart="@+id/item_expl"
-                android:layout_below="@+id/item_expl"
-                android:layout_marginTop="12dp"
+                android:layout_height="42dp"
                 android:backgroundTint="@color/alien_green"
-                android:text="Open Map"
-                android:textColor="@color/alice_blue" />
+                android:text="View Location"
+                android:textColor="@color/alice_blue"
+                android:layout_below="@+id/item_expl"
+                android:layout_alignLeft="@+id/item_expl"
+                android:layout_alignStart="@+id/item_expl" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout2"
@@ -181,7 +185,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black"></View>
+            android:background="@color/gray_cloud"></View>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -216,6 +216,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     @OnClick(R.id.delete_button)
     public void deleteButtonPressed(){
         mMap.clear();
+        points.clear();
         if(circle!=null){
             circle.remove();
             circle = null;
