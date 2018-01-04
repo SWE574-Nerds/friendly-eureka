@@ -359,15 +359,18 @@ addChip.setVisibility(View.VISIBLE);
     @Override
     public void onPause() {
         super.onPause();
-
+        (  (MainActivity)getActivity()).fab.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        (  (MainActivity)getActivity()).fab.setVisibility(View.GONE);
 
 
     }
+
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPolylinePressed(LatLong obj) {
         if(locationsFromMapTextView.getText().toString().trim().contentEquals("")){

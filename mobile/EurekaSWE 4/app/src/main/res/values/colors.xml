@@ -59,7 +59,7 @@
     <color name="avocado_green">#B2C248</color>
     <color name="awesome">#FF2052</color>
     <color name="aztech_purple">#893BFF</color>
-    <color name="azure">#61adf9</color>
+    <color name="azure">#ffffff</color>
     <color name="azure_mist_web">#F0FFFF</color>
 
     <color name="baby_blue">#89CFF0</color>
@@ -123,7 +123,7 @@
     <color name="brandeis_blue">#0070FF</color>
     <color name="brass">#B5A642</color>
     <color name="brick_red">#CB4154</color>
-    <color name="bright_cerulean">#1DACD6</color>
+    <color name="bright_cerulean">#0fbdf1</color>
     <color name="bright_gold">#FDD017</color>
     <color name="bright_green">#66FF00</color>
     <color name="bright_lavender">#BF94E4</color>
@@ -552,7 +552,7 @@
     <color name="medium_turquoise">#48D1CC</color>
     <color name="medium_violet_red">#CA226B</color>
     <color name="melon">#FDBCB4</color>
-    <color name="metallic_silver">#BCC6CC</color>
+    <color name="metallic_silver">#676d70</color>
     <color name="midnight">#2B1B17</color>
     <color name="midnight_blue">#191970</color>
     <color name="midnight_green">#004953</color>
