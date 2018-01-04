@@ -38,6 +38,7 @@ import com.example.canma.eurekaswe.EurekaApplication;
 import com.example.canma.eurekaswe.MainActivity;
 import com.example.canma.eurekaswe.R;
 import com.example.canma.eurekaswe.data.CreateData;
+import com.example.canma.eurekaswe.data.DetailResponse;
 import com.example.canma.eurekaswe.data.LatLong;
 import com.example.canma.eurekaswe.data.Markers;
 import com.example.canma.eurekaswe.data.Points;
@@ -101,12 +102,12 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
     Polyline line;
     Unbinder unbinder;
     Address lastAddress;
-    ArrayList<Marker> markers = new ArrayList<Marker>();
+   // ArrayList<Marker> markers = new ArrayList<Marker>();
     @Inject
     @Named("regular")
     Retrofit retrofit;
-    Polylines[] p;
-    Markers[] m;
+   List <Polylines> p;
+   List <Markers> m;
     private Integer m_Text = 0;
     //widgets
     //private AutoCompleteTextView mSearchText;
@@ -122,16 +123,25 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
     private Marker mMarker;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+
+
+
+
+
+
+
+
+
     private Circle drawCircle(int radius, LatLng latLng) {
 
 
         CircleOptions options = new CircleOptions()
                 .center(latLng)
-                .radius(radius)
+                .radius(radius/2)
                 .fillColor(0x33FF0000)
                 .strokeColor(Color.RED);
 
-        return mMap.addCircle(options);
+         return  mMap.addCircle(options);
     }
 
     @Override
@@ -142,6 +152,10 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
 
         cellId = getArguments().getString("id");
+
+        m= new ArrayList<>();
+
+        p= new ArrayList<>();
 
     }
 
@@ -199,11 +213,11 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment;
         if (Build.VERSION.SDK_INT < 21) {
-            mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.mapNew);
+            mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.mapDetailNew);
 
         } else {
 
-            mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapNew);
+            mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapDetailNew);
         }
         mapFragment.getMapAsync(this);
     }
@@ -479,7 +493,7 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private void drawLine() {
+    private void drawLine(ArrayList<LatLng> markers) {
 
         PolylineOptions options = new PolylineOptions()
                 .color(Color.BLUE)
@@ -488,11 +502,12 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
         for (int i = markers.size() - 2; i < markers.size(); i++) {
 
-            options.add(markers.get(i).getPosition());
+            options.add(markers.get(i));
 
         }
-        line = mMap.addPolyline(options);
-
+        mMap.addPolyline(options);
+        LatLng forcamtomove = markers.get(0);
+        moveCamera(forcamtomove,DEFAULT_ZOOM,"");
 
     }
 
@@ -553,18 +568,49 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         ListoryDetailApi listoryDetailApi = retrofit.create(ListoryDetailApi.class);
         String auth = Remember.getString("token", "oops");
 
-        Call<CreateData> call = listoryDetailApi.getDetail(auth, id);
+        Call<DetailResponse> call = listoryDetailApi.getDetail(auth, id);
 
 
-        call.enqueue(new Callback<CreateData>() {
+        call.enqueue(new Callback<DetailResponse>() {
             @Override
-            public void onResponse(Call<CreateData> call, Response<CreateData> response) {
+            public void onResponse(Call<DetailResponse> call, Response<DetailResponse> response) {
+
+                if((response.body()).polylines!=null&&(response.body()).polylines.size()>0){
+
+                    p.addAll( ((DetailResponse) response.body()).polylines);
+
+                    for (Polylines polyline : p){
+
+                        ArrayList<LatLng> latlngArray = new ArrayList<LatLng>();
+
+                    for (Points l : polyline.points){
+                            latlngArray.add(new LatLng(l.lat,l.longitude));
+                            if(latlngArray.size()>1){
+                                drawLine(latlngArray);
+                            }
+                        }
+                        Log.d(TAG,"lat lng array for me "+latlngArray.toString());
+
+                    }
+
+                }
 
 
-                p = ((CreateData) response.body()).polylines;
 
 
-                m = ((CreateData) response.body()).markers;
+                if((response.body()).markers!=null&&( response.body()).markers.size()>0){
+
+                    m.addAll( ((DetailResponse) response.body()).markers);
+
+                    for (Markers marker : m){
+                        circle = drawCircle((int)marker.mag.doubleValue(),new LatLng(marker.lat,marker.longitude));
+                        moveCamera(new LatLng(marker.lat,marker.longitude),DEFAULT_ZOOM,"");
+                        Log.d(TAG,marker.toString());
+
+
+                    }
+                }
+
 
 
 
@@ -573,7 +619,7 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
             }
 
             @Override
-            public void onFailure(Call<CreateData> call, Throwable t) {
+            public void onFailure(Call<DetailResponse> call, Throwable t) {
 
             }
         });

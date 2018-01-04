@@ -117,6 +117,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void removeCellDatas(int index) {
         cellDatas.remove(index);
         notifyItemRemoved(index);
+       //notifyDataSetChanged();
     }
 
     public ArrayList<CellData> getCellDatas() {
@@ -210,6 +211,7 @@ RecyclerPostAdapter categoryAdapter;
                     for (CellData c:cellDatas){
                         if(c.listoryId==(int)view.getTag()){
                             removeCellDatas(cellDatas.indexOf(c));
+
                             break;
                         }
 
@@ -222,6 +224,18 @@ RecyclerPostAdapter categoryAdapter;
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+                    //http 204
+                    view.setVisibility(View.GONE);
+                    Toast.makeText(context, "Delete successful", Toast.LENGTH_SHORT).show();
+
+                    for (CellData c:cellDatas){
+                        if(c.listoryId==(int)view.getTag()){
+                            removeCellDatas(cellDatas.indexOf(c));
+
+                            break;
+                        }
+
+                    }
                 }
             });
 
@@ -319,10 +333,18 @@ recyclerAdapterViewHolder.cdata=cellData;
 
         String temp="";
 
+if(cellData.time.count==2){
 
-        for(int x=0;x<cellData.time.count;x++){
-            temp+=cellData.time.values.get(x)+" - ";
+    temp=cellData.time.values.get(0)+" - "+cellData.time.values.get(1);
+
+
+}else if (cellData.time.count==1){
+    temp=cellData.time.values.get(0);
+
         }
+ //       for(int x=0;x<cellData.time.count;x++){
+
+   //     }
 
         temp.substring(0,temp.length()-3);
 

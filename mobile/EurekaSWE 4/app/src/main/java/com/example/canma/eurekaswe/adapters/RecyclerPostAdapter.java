@@ -84,62 +84,6 @@ public class RecyclerPostAdapter extends RecyclerView.Adapter<RecyclerPostAdapte
 
 
 
-        /*holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-
-                TextView t = (TextView) view.findViewById(R.id.category_text);
-
-
-                int positionInner = (Integer) view.getTag();
-
-                GradientDrawable drawable = (GradientDrawable) t.getBackground();
-
-
-                if (t.getTag().equals(false)) {
-                    drawable.setColor(Color.parseColor("#" + mDataSet[positionInner].color));
-                    t.setTextColor(Color.WHITE);
-                    secilen.add(mDataSet[positionInner].id);
-
-
-                    drawable.setStroke(2, Color.WHITE);
-
-                    t.setTag(true);
-
-
-                } else {
-
-                    drawable.setStroke(2, Color.parseColor("#cdcdcd"));
-                    drawable.setColor(c);
-                    t.setTextColor(Color.parseColor("#cdcdcd"));
-                    secilen.remove(mDataSet[positionInner].id);
-
-                    t.setTag(false);
-
-
-                }
-
-
-
-
-
-
-
-                StringBuilder sb = new StringBuilder();
-                for (String s : secilen)
-                {
-                    sb.append(s);
-                    sb.append(",");
-                }
-                //Log.d("Secilen",sb.toString());
-
-            }
-        });*/
-
-
     }
 
     @Override

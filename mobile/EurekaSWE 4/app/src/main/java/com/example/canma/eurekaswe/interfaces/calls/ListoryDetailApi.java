@@ -2,6 +2,7 @@ package com.example.canma.eurekaswe.interfaces.calls;
 
 
 import com.example.canma.eurekaswe.data.CreateData;
+import com.example.canma.eurekaswe.data.DetailResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -14,7 +15,7 @@ public interface ListoryDetailApi {
 
 
 @GET("listory/{id}")
-Call<CreateData> getDetail(@Header("Authorization") String auth, @Path("id") String id);
+Call<DetailResponse> getDetail(@Header("Authorization") String auth, @Path("id") String id);
 
 
 

@@ -66,33 +66,10 @@
         android:layout_below="@+id/item_name"
         android:layout_alignLeft="@+id/item_name"
         android:layout_alignStart="@+id/item_name"
-        android:layout_toLeftOf="@+id/delete_button"
-        android:layout_toStartOf="@+id/delete_button" />
+    />
 
 
-     <Button
-        android:id="@+id/follow_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         android:text="Follow"
-        android:textColor="@color/azure"
-         android:layout_below="@+id/item_name"
-         android:layout_alignParentRight="true"
-         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:id="@+id/delete_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
-        android:text="DELETE"
-        android:textColor="@color/bean_red"
-        android:layout_below="@+id/item_name"
-        android:layout_toLeftOf="@+id/follow_button"
-        android:layout_toStartOf="@+id/follow_button" />
 
     <com.example.canma.eurekaswe.components.NewImageView
         android:id="@+id/item_image"
@@ -101,7 +78,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/temp_image"
-        android:layout_below="@+id/follow_button"
+        android:layout_below="@+id/item_time_info"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="13dp" />
@@ -140,6 +117,38 @@
         android:layout_alignParentBottom="true"
         android:background="@color/gray_asparagus"
         android:id="@+id/view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_recycler"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/follow_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:text="Follow"
+            android:textColor="@color/azure"
+
+            />
+
+        <Button
+            android:id="@+id/delete_button"
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:text="DELETE"
+            android:textColor="@color/bean_red" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
