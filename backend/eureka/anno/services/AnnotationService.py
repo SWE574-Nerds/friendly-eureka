@@ -34,47 +34,6 @@ class AnnotationService(object):
             return None
 
 
-    def createImageAnnotationJSONLD(self, form:AnnotationForm, listoryId):
-
-        hash = form.body.hash()
-
-        anno = {
-            "@context": "http://www.w3.org/ns/anno.jsonld",
-            "id": hash,
-            "type": "Annotation",
-            "creator" : None,  # Will be set later
-            "body": [],
-            "selector" : [],
-            "target": VIEW_PATH.replace("{id}", listoryId)
-        }
-
-        if form.body.message:
-            anno["body"].append({
-                "type": "TextualBody",
-                "value": form.body.message,
-                "format": "text/plain",
-            })
-        if form.body.link:
-            anno["body"].append({
-                "type": "Image",
-                "value": form.body.link,
-                "format": "image/png",
-            })
-
-
-        selector = form.selector
-        if (selector is not None):
-            textSelector = selector["text"]
-            anno["selector"].append({
-                "exact": textSelector.selection,
-                "prefix": textSelector.startsWith,
-                "suffix": textSelector.endsWith,
-                "type": "TextQuote"
-
-            });
-        return anno, hash
-
-
     def createPlainTextAnnotationJSONLD(self, form:AnnotationForm, listoryId):
 
         hash = form.body.hash()
@@ -120,6 +79,45 @@ class AnnotationService(object):
 
         return anno, hash
 
+
+
+    def createImageAnnotationJSONLD(self, form:AnnotationForm, listoryId):
+
+        hash = form.body.hash()
+
+        anno = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "id": hash,
+            "type": "Annotation",
+            "creator" : None,  # Will be set later
+            "body": [],
+            "target": []
+        }
+
+        if form.body.message:
+            anno["body"].append({
+                "type": "TextualBody",
+                "value": form.body.message,
+                "format": "text/plain",
+            })
+        if form.body.link:
+            anno["body"].append({
+                "type": "Image",
+                "value": form.body.link,
+                "format": "image/png",
+            })
+
+
+        selector = form.selector
+        if (selector is not None):
+            imageSelector = selector["image"]
+            anno["target"].append({
+                "id": imageSelector.imageLink,
+                "type": "Image",
+                "format": "image/jpeg"
+
+            });
+        return anno, hash
 
     def createImageAnnotation(self, form, user):
         anno, hash = self.createImageAnnotationJSONLD(form, form.listory)
