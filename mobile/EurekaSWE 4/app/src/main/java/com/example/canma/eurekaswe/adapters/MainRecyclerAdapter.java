@@ -160,7 +160,7 @@ RecyclerPostAdapter categoryAdapter;
         RecyclerView categoriesRecycler;
 
         CellData cdata;
-
+/* Method not implemented on the backend-side
         @OnClick(R.id.follow_button)
         public void followRequest(final View view){
 
@@ -191,6 +191,8 @@ RecyclerPostAdapter categoryAdapter;
             });
 
         }
+
+        */
 
         @OnClick(R.id.delete_button)
         public void DeleteRequest(final View view){

@@ -303,7 +303,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getLocationPermission();
-        init();
+
     }
 
     private void getDeviceLocation(){
@@ -321,18 +321,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-    }
-
-
-    @Override
-    public void onStop() {
-
-        super.onStop();
-    }
 
 
     @Nullable
@@ -361,17 +350,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
     }
 
 
-    @Override
-    public void onPause() {
-        super.onPause();
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
 
 
     @Override
@@ -394,22 +373,13 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
             if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(),
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
+               // return;
             }
             mMap.setMyLocationEnabled(true);
-            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
 
-            /*
-            LatLng pp = new LatLng(11.55,104.892);
-            MarkerOptions option = new MarkerOptions();
-            option.position(pp).title("jdshj");
-            mMap.addMarker(option);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pp,15));
 
 
-            */
-            //init();
 
             if(mMap != null){
                 mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
@@ -460,6 +430,8 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
 
         }
+
+        init();
     }
 
     private void init(){
@@ -609,13 +581,17 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
 
     private void moveCamera(LatLng latLng, float zoom, String title){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        if(mMap != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(!title.equals("My Location")){
             setMarker(latLng, title);
+        }else{
+
         }
 
         hideSoftKeyboard();
+        }
     }
 
     private void setMarker(LatLng latLng, String title) {
@@ -683,6 +659,7 @@ public class ListoryCreateMapFragment extends Fragment implements OnMapReadyCall
             ActivityCompat.requestPermissions(this.getActivity(),
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
+            getFragmentManager().popBackStack();
         }
     }
     private int convertZoneRadiusToPixels(double lat, double lng, double radiusInMeters) {
