@@ -382,6 +382,7 @@ for (AltCellData altCellData:altCellDataList){
                             }
                         });
                 alertDialog.show();
+
             }
         });
 
