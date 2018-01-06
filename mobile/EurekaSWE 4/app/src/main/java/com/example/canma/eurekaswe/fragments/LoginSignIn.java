@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.canma.eurekaswe.EurekaApplication;
@@ -72,6 +73,12 @@ public class LoginSignIn extends  Fragment {
 
     Unbinder unbinder;
 
+
+
+
+    @BindView(R.id.textView3)
+    TextView atleastText;
+
     @Inject
     @Named("regular")
     Retrofit retrofit;
@@ -82,17 +89,12 @@ public class LoginSignIn extends  Fragment {
     //   tryLogin("ece","12345678");
 
 
-        if(
-                username.getText().length()>0&&
+        if(username.getText().length()>0&&
                 password.getText().length()>0
                ) {
 
 
-tryLogin(username.getText().toString(),password.getText().toString());
-
-
-
-
+                tryLogin(username.getText().toString(),password.getText().toString());
 
         }else {
 
@@ -157,6 +159,8 @@ tryLogin(username.getText().toString(),password.getText().toString());
 
         checkBox.setVisibility(View.GONE);
 
+        atleastText.setVisibility(View.GONE);
+
         bottomLinear.setVisibility(View.GONE);
 
 
@@ -218,7 +222,7 @@ tryLogin(username.getText().toString(),password.getText().toString());
                     Remember.putString("token", r.token);
 
 
-
+/*
                     AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
                     alertDialog.setTitle("WELCOME");
                     alertDialog.setMessage("TO EUREKA");
@@ -226,14 +230,14 @@ tryLogin(username.getText().toString(),password.getText().toString());
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-
+*/
                                     Intent intent = new Intent(getActivity(), MainActivity.class);
                                     startActivity(intent);
-
+/*
                                 }
                             });
                     alertDialog.show();
-
+*/
 
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
@@ -255,8 +259,8 @@ tryLogin(username.getText().toString(),password.getText().toString());
             @Override
             public void onFailure(retrofit2.Call<ResponseLogin> call, Throwable t) {
                 AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-                alertDialog.setTitle("Uyarı");
-                alertDialog.setMessage("Uyarı");
+                alertDialog.setTitle("Warning");
+                alertDialog.setMessage("Error signing in.");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

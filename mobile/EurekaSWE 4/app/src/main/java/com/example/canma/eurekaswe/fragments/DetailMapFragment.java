@@ -465,6 +465,8 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     private void moveCamera(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
+
+        if(mMap !=null){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if (!title.equals("My Location")) {
@@ -472,6 +474,7 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         hideSoftKeyboard();
+        }
     }
 
     private void setMarker(LatLng latLng, String title) {
@@ -535,6 +538,7 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(this.getActivity(),
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
+            getFragmentManager().popBackStack();
         }
     }
 
@@ -575,44 +579,44 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onResponse(Call<DetailResponse> call, Response<DetailResponse> response) {
 
-                if((response.body()).polylines!=null&&(response.body()).polylines.size()>0){
 
-                    p.addAll( ((DetailResponse) response.body()).polylines);
+                if(mMap != null) {
 
-                    for (Polylines polyline : p){
+                    if ((response.body()).polylines != null && (response.body()).polylines.size() > 0) {
 
-                        ArrayList<LatLng> latlngArray = new ArrayList<LatLng>();
+                        p.addAll(((DetailResponse) response.body()).polylines);
 
-                    for (Points l : polyline.points){
-                            latlngArray.add(new LatLng(l.lat,l.longitude));
-                            if(latlngArray.size()>1){
-                                drawLine(latlngArray);
+                        for (Polylines polyline : p) {
+
+                            ArrayList<LatLng> latlngArray = new ArrayList<LatLng>();
+
+                            for (Points l : polyline.points) {
+                                latlngArray.add(new LatLng(l.lat, l.longitude));
+                                if (latlngArray.size() > 1) {
+                                    drawLine(latlngArray);
+                                }
                             }
+                            Log.d(TAG, "lat lng array for me " + latlngArray.toString());
+
                         }
-                        Log.d(TAG,"lat lng array for me "+latlngArray.toString());
 
                     }
 
-                }
+                    if ((response.body()).markers != null && (response.body()).markers.size() > 0) {
+
+                        m.addAll(((DetailResponse) response.body()).markers);
+
+                        for (Markers marker : m) {
+                            circle = drawCircle((int) marker.mag.doubleValue(), new LatLng(marker.lat, marker.longitude));
+                            moveCamera(new LatLng(marker.lat, marker.longitude), DEFAULT_ZOOM, "");
+                            Log.d(TAG, marker.toString());
 
 
-
-
-                if((response.body()).markers!=null&&( response.body()).markers.size()>0){
-
-                    m.addAll( ((DetailResponse) response.body()).markers);
-
-                    for (Markers marker : m){
-                        circle = drawCircle((int)marker.mag.doubleValue(),new LatLng(marker.lat,marker.longitude));
-                        moveCamera(new LatLng(marker.lat,marker.longitude),DEFAULT_ZOOM,"");
-                        Log.d(TAG,marker.toString());
-
-
+                        }
                     }
+
+
                 }
-
-
-
 
 
 

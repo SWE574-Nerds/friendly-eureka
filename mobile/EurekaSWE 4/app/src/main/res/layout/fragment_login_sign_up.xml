@@ -34,43 +34,43 @@
         android:textColorHint="@color/white" />
 
     <EditText
-        android:minWidth="200dp"
         android:id="@+id/password"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/username"
-        android:inputType="textPassword"
+
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
-        android:hint="password"
+        android:hint="password "
+        android:inputType="textPassword"
+        android:minWidth="200dp"
+        android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
     <EditText
         android:minWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:inputType="textPassword"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:hint="re enter password"
         android:textColorHint="@color/white"
-        android:id="@+id/reenter" />
+        android:id="@+id/reenter"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_marginTop="15dp" />
 
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:text="I agree to the terms and conditions. "
         android:layout_below="@+id/reenter"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text="I agree to the terms and conditions. " />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/button_sign_up"
@@ -105,4 +105,13 @@
             android:textColor="@color/baby_blue" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:text="At least 8 characters"
+        android:textColor="@color/white" />
 </RelativeLayout>

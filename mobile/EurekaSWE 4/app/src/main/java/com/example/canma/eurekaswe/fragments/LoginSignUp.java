@@ -109,8 +109,8 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
 
 
             AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-            alertDialog.setTitle("Uyarı");
-            alertDialog.setMessage("Uyarı");
+            alertDialog.setTitle("Warning");
+            alertDialog.setMessage("Error signing up!");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -207,23 +207,20 @@ tryLogin(username.getText().toString(),password.getText().toString(),email.getTe
                    Log.d("NAME-RESPONSE: ",r.name);
                     Log.d("UserId-RESPONSE: ",""+r.userId);
 
-                    Toast.makeText(getActivity(), "REGISTER BAŞARILI", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Success, please sign in!", Toast.LENGTH_SHORT).show();
 
 
                     FragmentManager manager = loginActivity.getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
-
-                    // BURAYA SIGN IN (LOGIN) EKRANINI KOYACAKSIN vvvvvv
                     LoginSignIn loginWelcome = new LoginSignIn();
-
-transaction.addToBackStack("signIn2");
+                    transaction.addToBackStack("signIn2");
                     transaction.replace(R.id.fragment_container_login, loginWelcome);
                     transaction.commit();
 
                 }else {
                     AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-                    alertDialog.setTitle("Uyarı");
-                    alertDialog.setMessage("Uyarı");
+                    alertDialog.setTitle("Warning");
+                    alertDialog.setMessage("Error signing up!");
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -235,17 +232,13 @@ transaction.addToBackStack("signIn2");
 
                 }
 
-
-
-
-
             }
 
             @Override
             public void onFailure(retrofit2.Call<ResponseRegister> call, Throwable t) {
                 AlertDialog alertDialog = new AlertDialog.Builder(loginActivity).create();
-                alertDialog.setTitle("Uyarı");
-                alertDialog.setMessage("Uyarı");
+                alertDialog.setTitle("Warning");
+                alertDialog.setMessage("Error signing up!");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

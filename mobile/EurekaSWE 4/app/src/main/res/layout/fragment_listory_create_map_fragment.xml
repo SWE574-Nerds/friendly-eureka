@@ -76,14 +76,14 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/mapNew"
-        android:layout_below="@+id/relLayout1"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/delete_button"
-        android:layout_toStartOf="@+id/delete_button"
         android:text="create"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignBaseline="@+id/toggleButton"
+        android:layout_alignBottom="@+id/toggleButton"
+        android:layout_alignRight="@+id/relLayout1"
+        android:layout_alignEnd="@+id/relLayout1"
+        android:layout_marginRight="39dp"
+        android:layout_marginEnd="39dp" />
 
     <ToggleButton
         android:id="@+id/toggleButton"
@@ -103,11 +103,12 @@
         style="@android:style/Widget.DeviceDefault.Light.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/mapNew"
-        android:layout_below="@+id/relLayout1"
-        android:layout_toLeftOf="@+id/ic_gps"
         android:backgroundTint="@color/white"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@android:drawable/ic_delete"
+        android:layout_alignBottom="@+id/create_button"
+        android:layout_toRightOf="@+id/circle_button"
+        android:layout_toEndOf="@+id/circle_button"
+        android:layout_below="@+id/relLayout1" />
 
     <ImageButton
         android:id="@+id/circle_button"

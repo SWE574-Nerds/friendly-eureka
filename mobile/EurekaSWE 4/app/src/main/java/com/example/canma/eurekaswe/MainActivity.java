@@ -1,4 +1,6 @@
 package com.example.canma.eurekaswe;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import com.example.canma.eurekaswe.data.CategoryFormat;
 import com.example.canma.eurekaswe.data.CellData;
@@ -153,6 +156,17 @@ public class MainActivity extends AppCompatActivity {
             startActivity(a);
         } else {
             getSupportFragmentManager().popBackStack();
+        }
+    }
+
+
+
+    public static void hideKeyboard(Activity activity) {
+        // Check if no view has focus:
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 }

@@ -179,6 +179,8 @@ searchItem(((EditText)v).getText().toString());
 
 closeButton.setVisibility(View.VISIBLE);
 
+                    mainActivity.hideKeyboard(mainActivity);
+
 
                     return true;
                 }
@@ -295,10 +297,6 @@ if(tempList.size()>0) {
 
 
 }
-
-
-
-
             }
 
             @Override

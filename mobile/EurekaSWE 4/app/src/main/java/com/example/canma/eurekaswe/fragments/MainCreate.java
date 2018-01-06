@@ -239,10 +239,21 @@ String temp;
             public void onTextChanged(CharSequence text) {
 
            temp=text.toString();
+if(temp.length()>0){
 
-                    mapButton.setVisibility(View.GONE);
 
-addChip.setVisibility(View.VISIBLE);
+    mapButton.setVisibility(View.GONE);
+
+    addChip.setVisibility(View.VISIBLE);
+
+}else {
+    mapButton.setVisibility(View.VISIBLE);
+
+    addChip.setVisibility(View.GONE);
+
+
+}
+
 
 
 

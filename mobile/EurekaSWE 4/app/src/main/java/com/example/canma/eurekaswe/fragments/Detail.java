@@ -452,7 +452,7 @@ categoryRecycler.setLayoutManager(mLayoutManager);
   itemTimeInfo.setText(cellData.time.name+" "+temp);
 
 
-  if(cellData.image!=null||cellData.image.length()>0||!cellData.image.contentEquals("null")) {
+  if(cellData.image!=null&&cellData.image.length()>0&&!cellData.image.contentEquals("null")) {
 
       if(!cellData.image.startsWith("http")){
           cellData.image="http://"+cellData.image;
