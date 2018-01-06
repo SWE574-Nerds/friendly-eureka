@@ -21,7 +21,9 @@ def searchForKeywords(keywords: []):
         lambda x, y: x | y, [
             Q(annotation__message__contains=word) for word in keywords
         ])
-    )
+
+    ) | Post.objects.filter(Q(word.isdigit())&Q(timeInfoGroup_timeInfo_value_count__gt = word)&Q(timeInfoGroup_timeValue1__lt=word)&Q(timeInfoGroup_timeValue2__gt=word) for word in keywords)
+
 
     temp = list(set(posts))
     return temp
