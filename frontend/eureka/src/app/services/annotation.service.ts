@@ -104,11 +104,13 @@ export class AnnotationService {
           };
 
 
-          if (selector.imageSelector)
+          if (selector.textSelector)
           {
             body_image.selector = {
-              image: {
-                imgLink: selector.startsWith
+              text: {
+                startsWith: selector.startsWith,
+                endsWith: selector.endsWith,
+                selection: selector.selection
               }
             };
           }
