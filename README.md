@@ -43,3 +43,10 @@ Running Automated Tests
 
     $ cd friendly-eureka/tests/friendlyeureka
     $ mvn test 
+    
+## How to run Eureka on Android Device
+
+Please open the file named [EurekaSWEAPK.apk](https://github.com/SWE574-Nerds/friendly-eureka/blob/master/EurekaSWEAPK.apk) on your Android device.
+
+
+
