@@ -44,8 +44,7 @@ class AnnotationService(object):
             "type": "Annotation",
             "creator" : None,  # Will be set later
             "body": [],
-            "selector" : [],
-            "target": VIEW_PATH.replace("{id}", listoryId)
+            "target": []
         }
 
         if form.body.message:
@@ -64,16 +63,14 @@ class AnnotationService(object):
 
         selector = form.selector
         if (selector is not None):
-            textSelector = selector["text"]
-            anno["selector"].append({
-                "exact": textSelector.selection,
-                "prefix": textSelector.startsWith,
-                "suffix": textSelector.endsWith,
-                "type": "TextQuote"
+            imageSelector = selector["image"]
+            anno["target"].append({
+                "id": imageSelector.imageLink,
+                "type": "Image",
+                "format": "image/jpeg"
 
             });
         return anno, hash
-
 
     def createPlainTextAnnotationJSONLD(self, form:AnnotationForm, listoryId):
 
