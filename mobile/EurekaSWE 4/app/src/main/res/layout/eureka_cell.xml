@@ -11,9 +11,11 @@
         android:id="@+id/user_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="14dp"
         android:layout_marginTop="10dp"
-        android:text="Username" />
+        android:fontFamily="sans-serif"
+        android:text="Username"
+        android:textStyle="bold" />
 
 
     <LinearLayout
@@ -22,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:id="@+id/linearLayout">
 
         <TextView
             android:id="@+id/date_tv"
@@ -30,7 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
-            android:text="10dk önce" />
+            android:text="10dk önce"
+            android:textColor="@color/battleship_grey"
+            android:textSize="8sp" />
 
 
     </LinearLayout>
@@ -41,81 +46,108 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_tv"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="14dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:breakStrategy="simple"
-        android:text="Kamil bugün bi yerdeydi" />
-
-    <TextView
-        android:id="@+id/item_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_name"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
-        android:breakStrategy="simple"
         android:text="Kamil bugün bi yerdeydi"
-        android:textColor="#1E90FF" />
+        android:textColor="@color/colorAccent" />
 
 
     <TextView
         android:id="@+id/item_time_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_location"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@+id/item_name"
+        android:layout_alignStart="@+id/item_name"
+        android:layout_below="@+id/item_name"
+        android:layout_marginTop="14dp"
         android:breakStrategy="simple"
         android:text="Kamil bugün bi yerdeydi"
-        android:textColor="#1E90FF" />
+        android:textColor="@color/aurometalsaurus" />
 
 
-    <TextView
-        android:id="@+id/categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_time_info"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
-        android:breakStrategy="simple"
-        android:text="Kamil bugün bi yerdeydi"
-        android:textColor="#995c23"
-        android:textSize="8dp" />
 
 
     <com.example.canma.eurekaswe.components.NewImageView
         android:id="@+id/item_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/categories"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/temp_image" />
+        android:src="@drawable/temp_image"
+        android:layout_below="@+id/item_time_info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp" />
 
     <TextView
         android:id="@+id/item_expl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_image"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:breakStrategy="simple"
-        android:text="Kamil bugün bi yerdeydi"
-        android:textSize="20dp" />
+        android:text="Explanation of Listory"
+        android:textSize="15dp"
+        android:layout_below="@+id/item_image"
+        android:layout_alignLeft="@+id/item_time_info"
+        android:layout_alignStart="@+id/item_time_info" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/category_recycler"
+        android:layout_below="@+id/item_expl"
+        android:layout_alignLeft="@+id/item_expl"
+        android:layout_alignStart="@+id/item_expl"
+        android:layout_marginTop="19dp">
+
+    </android.support.v7.widget.RecyclerView>
+
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_marginTop="16dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray_asparagus" />
+        android:background="@color/gray_asparagus"
+        android:id="@+id/view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_below="@+id/category_recycler"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/follow_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:text="Follow"
+            android:background="@color/bright_cerulean"
+            android:backgroundTint="@color/bright_cerulean"
+            android:textColor="@color/azure"
+
+            />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            android:text="DELETE"
+            android:background="@color/orange_peel"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

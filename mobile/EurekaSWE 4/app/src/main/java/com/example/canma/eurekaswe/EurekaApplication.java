@@ -30,7 +30,7 @@ public class EurekaApplication extends Application {
         mNetComponent = DaggerNetComponent.builder()
                 // list of modules that are part of this component need to be created here too
                 .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
-                .netModule(new NetModule("http://10.0.2.2:8000/api/"))
+                .netModule(new NetModule("http://18.217.133.147:8000/api/"))
                 .build();
 
 

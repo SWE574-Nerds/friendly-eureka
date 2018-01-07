@@ -35,13 +35,15 @@
         android:textSize="16dp" />
 
     <Button
+        android:id="@+id/button_start"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START"
-        android:id="@+id/button_start"
-        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="START"
+        android:textColor="@color/alice_blue" />
 
 
 
