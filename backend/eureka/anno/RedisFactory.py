@@ -1,5 +1,5 @@
 import os
-from redis import Redis
+from redis import StrictRedis
 
 
 class RedisFactory(object):
@@ -11,6 +11,6 @@ class RedisFactory(object):
         else:
             redisPath = "redis"
 
-        redis = Redis(host=redisPath, port=6379)
+        redis = StrictRedis(host=redisPath, port=6379, password='1A2S3D4F5G')
 
         return redis
