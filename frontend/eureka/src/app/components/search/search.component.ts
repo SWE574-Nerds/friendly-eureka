@@ -18,6 +18,11 @@ export class SearchComponent {
       private searchService: SearchService
   ){}
 
+  onClick(){
+    this.searchString = "";
+    this.searchFor("");
+  }
+
   onSearchStringChange(){
       var currString = this.searchString;
 
