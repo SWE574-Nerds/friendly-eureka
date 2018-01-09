@@ -84,14 +84,17 @@ class AnnotationService(object):
             "id": hash,
             "type": "Annotation",
             "creator": None, # Will be set later
-            "body": {
-                "type": "TextualBody",
-                "value": form.body.message,
-                "format": "text/plain",
-            },
+            "body":[],
             "selector" : [],
             "target": VIEW_PATH.replace("{id}", str(listoryId))
         }
+
+        if form.body.message:
+            anno["body"].append({
+            "type": "TextualBody",
+            "value": form.body.message,
+            "format": "text/plain",
+            })
 
         selector = form.selector
         if (selector is not None):
@@ -120,6 +123,79 @@ class AnnotationService(object):
 
         return anno, hash
 
+    def createImageImageAnnotationJSONLD(self, form:AnnotationForm, listoryId):
+
+        hash = form.body.hash()
+
+        anno = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "id": hash,
+            "type": "Annotation",
+            "creator" : None,  # Will be set later
+            "body": [],
+            "selector" : [],
+            "target": VIEW_PATH.replace("{id}", listoryId)
+        }
+
+        if form.body.message:
+            anno["body"].append({
+                "type": "TextualBody",
+                "value": form.body.message,
+                "format": "text/plain",
+            })
+        if form.body.link:
+            anno["body"].append({
+                "type": "Image",
+                "value": form.body.link,
+                "format": "image/png",
+            })
+
+
+        selector = form.selector
+        if (selector is not None):
+            imageSelector = selector["image"]
+            anno["selector"].append({
+                "id": imageSelector.imageLink,
+                "type": "Image",
+                "format": "image/jpeg"
+
+            });
+        return anno, hash
+
+
+    def createImagePlainTextAnnotationJSONLD(self, form:AnnotationForm, listoryId):
+
+        hash = form.body.hash()
+
+        anno = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "id": hash,
+            "type": "Annotation",
+            "creator": None, # Will be set later
+            "body":[],
+            "selector" : [],
+            "target": VIEW_PATH.replace("{id}", str(listoryId))
+        }
+
+        if form.body.message:
+            anno["body"].append({
+            "type": "TextualBody",
+            "value": form.body.message,
+            "format": "text/plain",
+            })
+
+        selector = form.selector
+        if (selector is not None):
+            imageSelector = selector["image"]
+            anno["selector"].append({
+                "id": imageSelector.imageLink,
+                "type": "Image",
+                "format": "image/jpeg"
+
+            });
+
+        return anno, hash
+
 
     def createImageAnnotation(self, form, user):
         anno, hash = self.createImageAnnotationJSONLD(form, form.listory)
@@ -140,6 +216,24 @@ class AnnotationService(object):
 
         return anno, hash
 
+    def createImageImageAnnotation(self, form, user):
+        anno, hash = self.createImageImageAnnotationJSONLD(form, form.listory)
+
+        anno['creator'] = {
+            'nickname': user.username,
+            'id': user.id,
+            'type' : 'Person'
+        }
+
+        self.redis.set(hash, json.dumps(anno))
+
+        Annotation.objects.create(message=form.body.message,
+        storeKey = hash,
+        listory = ListoryService.get_listory_by_id(
+        form.listory),
+        author = user);
+
+        return anno, hash
 
 
     def createTextAnnotation(self, form:AnnotationForm, user):
@@ -158,6 +252,26 @@ class AnnotationService(object):
         listory = ListoryService.get_listory_by_id(
         form.listory),
         author = user);
+
+        return anno, hash
+
+
+    def createImageTextAnnotation(self, form: AnnotationForm, user):
+        anno, hash = self.createImagePlainTextAnnotationJSONLD(form, form.listory)
+
+        anno['creator'] = {
+            'nickname': user.username,
+            'id': user.id,
+            'type': 'Person'
+        }
+
+        self.redis.set(hash, json.dumps(anno))
+
+        Annotation.objects.create(message=form.body.message,
+        storeKey=hash,
+        listory=ListoryService.get_listory_by_id(
+        form.listory),
+        author=user);
 
         return anno, hash
 
@@ -183,5 +297,5 @@ class AnnotationService(object):
 
 
     def getAnnotationsOfListory(self, listoryId):
-
         return Annotation.objects.filter(listory_id__exact=listoryId)
+

@@ -23,6 +23,8 @@ urlpatterns = [
 
     url(r'^annotation/(?P<id>[0-9a-z]{0,256})/$', api_get_annotation, name='api_get_annotation'),
     url(r'^annotation/(?P<id>[0-9a-z]{0,256})/(?P<type>[0-9a-z]{0,256})/$', api_post_annotation, name='api_post_annotation'),
+    url(r'^imageannotation/(?P<id>[0-9a-z]{0,256})/(?P<type>[0-9a-z]{0,256})/$', api_post_image_annotation, name='api_post_image_annotation'),
+
 
     url(r'^time/$', get_time_types, name='get_time_types'),
     url(r'^category/$', get_category_types, name='get_category_types'),
@@ -31,3 +33,4 @@ urlpatterns = [
 
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+

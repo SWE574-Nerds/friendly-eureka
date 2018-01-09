@@ -47,6 +47,7 @@ def api_login(request):
         else:
             return Response("Unauthorized", status=status.HTTP_401_UNAUTHORIZED)
 
+
 @api_view(['POST'])
 def api_register(request):
     form = RegisterForm(request.data)
@@ -59,8 +60,8 @@ def api_register(request):
     else:
         try:
             user = User.objects.create_user(username=form.name,
-                                        email=form.mail,
-                                        password=form.password)
+                                            email=form.mail,
+                                            password=form.password)
             user.save()
             return Response({
                 'name': user.username,
@@ -96,8 +97,7 @@ def search_by_keywords(keywords):
         tags = []
         tag_set = listory.category.all()
         for tag in tag_set:
-            tags.append({"name" : tag.name, "id" : tag.pk})
-
+            tags.append({"name": tag.name, "id": tag.pk})
 
         response.append({
             'name': listory.title,
@@ -119,14 +119,15 @@ def search_by_keywords(keywords):
         })
     return Response(response, status=status.HTTP_200_OK)
 
+
 @api_view(['GET'])
 def api_userinfo(request, id):
     try:
         user = User.objects.get(pk=id)
         return Response({
-                'name': user.username,
-                'userId': user.pk
-            }, status=status.HTTP_200_OK)
+            'name': user.username,
+            'userId': user.pk
+        }, status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response("User not found", status=status.HTTP_404_NOT_FOUND)
 
@@ -136,78 +137,76 @@ def api_userinfo(request, id):
 def test(request):
     api_user = request.api_user
     valid_api_user = request.valid_api_user
-    return Response("Hello World " + api_user.username , status.HTTP_200_OK)
+    return Response("Hello World " + api_user.username, status.HTTP_200_OK)
 
 
 @decorator_from_middleware(AuthMiddleware)
 @api_view(['POST'])
 def api_create_listory(request):
-
     form = ListoryForm(request.data)
     validator = ListoryFormValidator()
-    
+
     errors = validator.validate(form)
 
     if len(errors):
         return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     else:
- #       try:
-            api_user = request.api_user
-            listoryId = ListoryService.create_listory(form, api_user)
-            listory:Post = ListoryService.get_listory_by_id(listoryId)
+        #       try:
+        api_user = request.api_user
+        listoryId = ListoryService.create_listory(form, api_user)
+        listory:Post = ListoryService.get_listory_by_id(listoryId)
 
-            marker_set = listory.marker_set.all()
-            markers = []
-            for marker in marker_set:
-                markers.append({
-                   "lat": marker.lat,
-                    "long" : marker.long,
-                    "mag" : marker.mag,
-                    "name" : marker.name,
-                    "color" : marker.color
-                });
+        marker_set = listory.marker_set.all()
+        markers = []
+        for marker in marker_set:
+            markers.append({
+                "lat": marker.lat,
+                "long": marker.long,
+                "mag": marker.mag,
+                "name": marker.name,
+                "color": marker.color
+            });
 
-            polyline_set = listory.polyline_set.all()
-            polylines = []
-            for polyline in polyline_set:
-                points = []
-                point_set = polyline.point_set.all()
-                for point in point_set:
-                    points.append({"lat": point.lat, "long" : point.long})
-                polylines.append({
-                    "name" : polyline.name,
-                    "color" : polyline.color,
-                    "points" : points
-                })
+        polyline_set = listory.polyline_set.all()
+        polylines = []
+        for polyline in polyline_set:
+            points = []
+            point_set = polyline.point_set.all()
+            for point in point_set:
+                points.append({"lat": point.lat, "long": point.long})
+            polylines.append({
+                "name": polyline.name,
+                "color": polyline.color,
+                "points": points
+            })
 
-            tags = []
-            tag_set = listory.category.all()
-            for tag in tag_set:
-                tags.append({"name" : tag.name, "id" : tag.pk})
+        tags = []
+        tag_set = listory.category.all()
+        for tag in tag_set:
+            tags.append({"name": tag.name, "id": tag.pk})
 
-            return Response({
-                'name' : listory.title,
-                'description' : listory.content,
-               'image': listory.image,
-                'listoryId': listory.pk,
-                'owner': {
-                    'name': api_user.username,
-                    'userId': api_user.pk
-                },
-                "polylines" : polylines,
-                "markers" : markers,
-                "time" : {
-                    "name": listory.timeInfoGroup.timeInfo.name,
-                    "units" : listory.timeInfoGroup.timeInfo.value_type,
-                    "values" : [ listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2 ],
-                    "count" : listory.timeInfoGroup.timeInfo.value_count
-                },
-                "tags" : tags,
-                'createdAt': format(listory.publishing_date, 'U')
-            }, status=status.HTTP_200_OK)
-    #    except:
-    #        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
-
+        return Response({
+            'name': listory.title,
+            'description': listory.content,
+            'image': listory.image,
+            'listoryId': listory.pk,
+            'owner': {
+                'name': api_user.username,
+                'userId': api_user.pk
+            },
+            "polylines": polylines,
+            "markers": markers,
+            "time": {
+                "name": listory.timeInfoGroup.timeInfo.name,
+                "units": listory.timeInfoGroup.timeInfo.value_type,
+                "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
+                "count": listory.timeInfoGroup.timeInfo.value_count
+            },
+            "tags": tags,
+            'createdAt': format(listory.publishing_date, 'U')
+        }, status=status.HTTP_200_OK)
+        #    except:
+        #        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -223,7 +222,6 @@ def api_listory(request, id):
 @decorator_from_middleware(AuthMiddleware)
 @api_view(['POST'])
 def api_update_listory(request, id):
-
     form = ListoryForm(request.data)
     validator = ListoryFormValidator()
 
@@ -246,32 +244,32 @@ def api_update_listory(request, id):
 
             listory.save()
 
-
             tags = []
             tag_set = listory.category.all()
             for tag in tag_set:
-                tags.append({"name" : tag.name, "id" : tag.pk})
+                tags.append({"name": tag.name, "id": tag.pk})
 
             return Response({
-                 'name' : listory.title,
-                'description' : listory.content,
+                'name': listory.title,
+                'description': listory.content,
                 'image': listory.image,
                 'listoryId': listory.pk,
                 'owner': {
                     'name': api_user.username,
                     'userId': api_user.pk
                 },
-                "time" : {
+                "time": {
                     "name": listory.timeInfoGroup.timeInfo.name,
-                    "units" : listory.timeInfoGroup.timeInfo.value_type,
-                    "values" : [ listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2 ],
-                    "count" : listory.timeInfoGroup.timeInfo.value_count
+                    "units": listory.timeInfoGroup.timeInfo.value_type,
+                    "values": [listory.timeInfoGroup.timeValue1, listory.timeInfoGroup.timeValue2],
+                    "count": listory.timeInfoGroup.timeInfo.value_count
                 },
                 "tags": tags,
                 'createdAt': format(listory.publishing_date, 'U')
             }, status=status.HTTP_200_OK)
         except:
             return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+
 
 def api_get_listory(request, id):
     listory = ListoryService.get_listory_by_id(id)
@@ -290,32 +288,31 @@ def api_get_listory(request, id):
                 "color": marker.color
             });
 
-
         polyline_set = listory.polyline_set.all()
         polylines = []
         for polyline in polyline_set:
             points = []
             point_set = polyline.point_set.all()
             for point in point_set:
-                points.append({"lat": point.lat, "long" : point.long})
+                points.append({"lat": point.lat, "long": point.long})
             polylines.append({
-                "name" : polyline.name,
-                "color" : polyline.color,
-                "points" : points
+                "name": polyline.name,
+                "color": polyline.color,
+                "points": points
             })
 
         tags = []
         tag_set = listory.category.all()
         for tag in tag_set:
-            tags.append({"name" : tag.name, "id" : tag.pk})
+            tags.append({"name": tag.name, "id": tag.pk})
 
         return Response({
             'name': listory.title,
             'description': listory.content,
             'image': listory.image,
             'listoryId': listory.pk,
-            "polylines" : polylines,
-            'markers' : markers,
+            "polylines": polylines,
+            'markers': markers,
             'owner': {
                 'name': listory.user.username,
                 'userId': listory.user.pk
@@ -358,8 +355,7 @@ def get_all_listories(request):
         tags = []
         tag_set = listory.category.all()
         for tag in tag_set:
-            tags.append({"name" : tag.name, "id" : tag.pk})
-
+            tags.append({"name": tag.name, "id": tag.pk})
 
         response.append({
             'name': listory.title,
@@ -381,6 +377,7 @@ def get_all_listories(request):
         })
     return Response(response, status=status.HTTP_200_OK)
 
+
 @api_view(['GET'])
 def get_time_types(request):
     times = TimeInfo.objects.all()
@@ -391,8 +388,8 @@ def get_time_types(request):
         response.append({
             "id": time.pk,
             "name": time.name,
-            "value_count" : time.value_count,
-            "value_type" : time.value_type
+            "value_count": time.value_count,
+            "value_type": time.value_type
         })
 
     return Response(response, status=status.HTTP_200_OK)
@@ -408,8 +405,6 @@ def get_category_types(request):
         response.append({'name': category.name, 'id': category.pk})
 
     return Response(response, status=status.HTTP_200_OK)
-
-
 
 
 @api_view(['GET'])
@@ -432,11 +427,9 @@ def api_get_annotation_body(request, id):
         return Response("Annotation not found", status=status.HTTP_404_NOT_FOUND)
 
 
-
 @api_view(['POST'])
 @decorator_from_middleware(AuthMiddleware)
 def api_post_annotation(request, id, type):
-
     form = AnnotationForm(request.data)
     validator = AnnotationFormValidator()
 
@@ -455,13 +448,33 @@ def api_post_annotation(request, id, type):
         elif type == "image":
             anno, hash = annoSevice.createImageAnnotation(form, request.api_user)
 
+    return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@decorator_from_middleware(AuthMiddleware)
+def api_post_image_annotation(request, id, type):
+    form = AnnotationForm(request.data)
+    validator = AnnotationFormValidator()
+
+    errors = validator.validate(form)
+
+    if len(errors) > 0:
+        return Response(errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+    else:
+        anno = None;
+        hash = None;
+        annoSevice = AnnotationService()
+        if type == "text":
+            anno, hash = annoSevice.createImageTextAnnotation(form, request.api_user)
+        elif type == "image":
+            anno, hash = annoSevice.createImageImageAnnotation(form, request.api_user)
 
     return Response(AnnotationResponse(hash).value, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def api_get_annos_listory(request, id):
-
     annoSevice = AnnotationService()
     annotations = annoSevice.getAnnotationsOfListory(id)
 
@@ -471,6 +484,7 @@ def api_get_annos_listory(request, id):
         resp.append(annoSevice.getAnnotationJSONLD(annotation.storeKey))
 
     return Response(resp, status=status.HTTP_200_OK)
+
 
 
 
