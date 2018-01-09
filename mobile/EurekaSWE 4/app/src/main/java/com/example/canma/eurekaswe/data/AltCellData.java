@@ -11,7 +11,7 @@ public class AltCellData {
    public String id;
    public String type;
    public Creator creator;
-   public Body body = null;
+   public List<Body> body = null;
    public List<Selector> selector = null;
    public String target;
 }
