@@ -160,9 +160,7 @@ for (Body onebody: b) {
 
     }
     if (onebody.type.contentEquals("TextualBody")) {
-
         recyclerAdapterViewHolder.altTextView.setVisibility(View.VISIBLE);
-
         recyclerAdapterViewHolder.altTextView.setText(onebody.value);
         recyclerAdapterViewHolder.altUserTv.setText(c.nickname);
 

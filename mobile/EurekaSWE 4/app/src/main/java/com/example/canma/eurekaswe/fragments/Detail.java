@@ -60,6 +60,7 @@ import com.example.canma.eurekaswe.data.SelectorTextLayer;
 import com.example.canma.eurekaswe.data.eventBusEvents.BussedToHighlight;
 import com.example.canma.eurekaswe.interfaces.calls.AltListApi;
 import com.example.canma.eurekaswe.interfaces.calls.AnnotateTextApi;
+import com.example.canma.eurekaswe.interfaces.calls.AnnotateImageApi;
 import com.tumblr.remember.Remember;
 
 import org.greenrobot.eventbus.EventBus;
@@ -820,8 +821,65 @@ Log.d("Annotate",t.getMessage());
       });
 
   }
+/*
+    public void sendImageAnnotation(String detailedText, String imgLink, String lid){
+
+        AnnotateImageApi annotateImageApi = retrofit.create(AnnotateImageApi.class);
 
 
+        Body2 body= new Body2();
+
+        body.message=detailedText;
+
+
+        Selector2 selector= new Selector2();
+
+
+        SelectorTextLayer text = new SelectorTextLayer();
+
+        text.selection=annotatedText;
+
+        text.startsWith=start;
+        text.endsWith=end;
+
+
+        selector.text=text;
+        Log.d(TAG,"starts with" + text.startsWith);
+        Log.d(TAG,"ends with" + text.endsWith);
+
+        AnnotateData annotateData= new AnnotateData(lid,body,selector);
+
+
+
+        String auth= Remember.getString("token","oops");
+
+
+
+
+        Call<ResponseBody> call= annotateTextApi.annotate("application/json", auth,lid,annotateData);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+
+                if(response.isSuccessful()){
+
+
+                    Toast.makeText(mainActivity, "Annotation sent successfully", Toast.LENGTH_SHORT).show();
+
+                    listItems();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("Annotate",t.getMessage());
+            }
+        });
+
+    }
+*/
 
 
 }
