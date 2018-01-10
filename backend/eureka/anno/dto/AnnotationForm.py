@@ -40,10 +40,11 @@ class AnnotationForm(object):
 
         if (providedSelector is not None) and (providedSelector.get('text') is not None):
             self.selector = {'text' : TextSelector(providedSelector.get('text'))}
-        elif (providedSelector is not None) and (providedSelector.get('image') is not None):
+        elif(providedSelector is not None) and (providedSelector.get('image') is not None):
             self.selector = {'image': ImageSelector(providedSelector.get('image'))}
 
 
 
     def __str__(self):
         return "{listory:"+ self.listory + ",body:"+ self.body.__str__() +"}"
+

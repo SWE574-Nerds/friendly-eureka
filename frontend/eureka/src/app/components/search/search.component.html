@@ -4,5 +4,5 @@
   </form>
 
   <div *ngIf="listories" class="list-group" id="search-results">
-      <searchitem *ngFor="let listory of listories" [listory]="listory"></searchitem>
+      <searchitem (onClick)="onClick()" *ngFor="let listory of listories" [listory]="listory"></searchitem>
   </div>

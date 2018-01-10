@@ -144,30 +144,31 @@ AltCellData altCllD;
         final AltCellData altCellData = cellDatas.get(position);
 recyclerAdapterViewHolder.altCllD=altCellData;
 
-    Body b=altCellData.body;
+   List<Body> b=altCellData.body;
+
         Creator c= altCellData.creator;
 
         recyclerAdapterViewHolder.altUserTv.setText(c.nickname);
+for (Body onebody: b) {
+    if (onebody.type.contentEquals("Image")) {
 
-            if(b.type.contentEquals("Image")){
+        recyclerAdapterViewHolder.altImage.setVisibility(View.VISIBLE);
+        Glide
+                .with(context)
+                .load(onebody.value)
+                .into(recyclerAdapterViewHolder.altImage);
 
-recyclerAdapterViewHolder.altImage.setVisibility(View.VISIBLE);
-                Glide
-                        .with(context)
-                        .load(b.value)
-                        .into(recyclerAdapterViewHolder.altImage);
+    }
+    if (onebody.type.contentEquals("TextualBody")) {
 
-            }
-            if(b.type.contentEquals("TextualBody")){
+        recyclerAdapterViewHolder.altTextView.setVisibility(View.VISIBLE);
 
-                recyclerAdapterViewHolder.altTextView.setVisibility(View.VISIBLE);
-
-                recyclerAdapterViewHolder.altTextView.setText(b.value);
-                recyclerAdapterViewHolder.altUserTv.setText(c.nickname);
+        recyclerAdapterViewHolder.altTextView.setText(onebody.value);
+        recyclerAdapterViewHolder.altUserTv.setText(c.nickname);
 
 
-            }
-
+    }
+}
 
     }
 
