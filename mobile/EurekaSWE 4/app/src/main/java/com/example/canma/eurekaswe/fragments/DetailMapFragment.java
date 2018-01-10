@@ -162,6 +162,10 @@ public class DetailMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+        if(Build.VERSION.SDK_INT>24)
         getLocationPermission();
         init();
 
