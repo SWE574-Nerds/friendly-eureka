@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_edit_text"
+        android:layout_marginTop="10dp"
+        android:layout_margin="4dp"
+        android:hint="title here!"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose"
+        android:maxLines="1"
+        android:lines="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/detail_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/title_edit_text"
+        android:hint="detail here!"
+        android:maxLines="4"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose" />
+
+    <EditText
+        android:id="@+id/link_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail_edit_text"
+        android:hint="link here!"
+        android:inputType="textUri"
+        android:lines="1"
+        android:maxLines="1"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/gray_goose" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/link_edit_text"
+        android:id="@+id/linearLayout2">
+
+
+
+        <Spinner
+            android:id="@+id/datespinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp" />
+
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/date1"
+            android:hint="date 1"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="date 2"
+            android:id="@+id/date2"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/create_b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/alice_blue"
+        android:text="CREATE" />
+
+    <Button
+        android:id="@+id/mapButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="18dp"
+        android:backgroundTint="@color/alien_green"
+        android:text="Open Map"
+        android:textColor="@color/alice_blue" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:lines="3"
+        android:text="Map locations will be added here once CREATE button on map is clicked"
+        android:layout_below="@+id/mapButton" />
+
+    <com.pchmn.materialchips.ChipsInput
+        android:id="@+id/chips_input"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_below="@+id/textView2"
+        app:hint="Enter a name"
+        app:deletable="true"
+        app:hintColor="@color/blue_bell"
+        app:textColor="@color/blue_bell"
+        app:maxRows="3"
+        app:chip_labelColor="@color/black"
+        app:chip_hasAvatarIcon="false"
+        app:chip_backgroundColor="@color/blue_bell"
+        app:chip_deletable="false"
+        app:chip_deleteIconColor="@color/black"
+        app:chip_detailed_textColor="@color/gray_asparagus"
+        app:chip_detailed_backgroundColor="@color/blue_green"
+        app:chip_detailed_deleteIconColor="@color/red"
+        app:filterable_list_backgroundColor="@color/blue_bell"
+        app:filterable_list_textColor="@color/black"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
